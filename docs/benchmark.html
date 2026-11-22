@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>On 문서 측정 자료</title>
+<meta name="description" content="On 문서가 한글 문서를 한컴 한글과 얼마나 같게 그리고, 글과 표를 얼마나 빠짐없이 꺼내는지 직접 잰 기록 — 정의·신뢰구간·실패 사례">
+<style>
+:root{--bg:#fff;--bg2:#f4f8f8;--line:#dbe6e6;--ink:#17262a;--ink2:#4b5d61;--ink3:#6e7f83;--teal:#0f766e;--teal2:#0d5f59;--tealbg:#e6f4f2;--warn:#9a5b00;--warnbg:#fff6e5;--r:12px;--w:1040px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--teal2)}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--bg)}
+header.top .wrap{display:flex;align-items:center;gap:12px;min-height:60px;flex-wrap:wrap}
+.mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:var(--teal);color:#fff;font-weight:700;font-size:15px}
+.brand{font-weight:700;font-size:18px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--ink2);font-size:14px;padding:6px 8px;border-radius:8px}
+nav a:hover{background:var(--bg2)}
+.hero{background:linear-gradient(180deg,var(--tealbg),var(--bg));padding:48px 0 36px}
+.chip{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 12px;font-size:13px;color:var(--teal2);margin:0 6px 6px 0}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.3;margin:10px 0 14px;letter-spacing:-.5px}
+h1 b{color:var(--teal)}
+.lead{font-size:clamp(16px,2.4vw,18px);color:var(--ink2);max-width:760px;margin:0 0 22px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;border-radius:10px;padding:11px 18px;font-weight:600;border:1.5px solid var(--teal);color:var(--teal2);background:#fff}
+.btn.main{background:var(--teal);color:#fff}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(22px,4vw,28px);margin:0 0 8px;letter-spacing:-.3px}
+h3{font-size:18px;margin:0 0 6px}
+.sub{color:var(--ink2);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;background:#fff}
+.card .n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-right:6px}
+.card p{margin:6px 0 10px;color:var(--ink2)}
+.tag{display:inline-block;background:var(--tealbg);color:var(--teal2);border-radius:8px;padding:2px 10px;font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;font-size:14px;line-height:1.55;margin:8px 0}
+pre code{background:none;border:0;padding:0}
+.note{background:var(--warnbg);border-left:4px solid var(--warn);border-radius:8px;padding:12px 16px;color:#5a3a00}
+.shots{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+.shots.two{grid-template-columns:1fr 1fr}
+figure{margin:0}
+figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r);display:block;background:var(--bg2)}
+figcaption{font-size:14px;color:var(--ink3);margin-top:6px}
+.phone img{max-width:320px;margin:0 auto}
+ul.plain{padding-left:20px;margin:8px 0}
+ul.plain li{margin:4px 0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--bg2);font-weight:600}
+tr:last-child td{border-bottom:0}
+.small{font-size:14px;color:var(--ink3)}
+details{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:8px 0;background:#fff}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 2px;color:var(--ink2)}
+footer{border-top:1px solid var(--line);background:var(--bg2);padding:28px 0 40px;font-size:13px;color:var(--ink3)}
+footer p{margin:6px 0}
+@media (max-width:720px){
+  .shots,.shots.two{grid-template-columns:1fr}
+  nav{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+  nav a{white-space:nowrap}
+  .hero{padding:32px 0 28px}
+  section{padding:32px 0}
+}
+.hero .banner{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r);display:block;margin:0 0 20px;background:#fff}
+.btn.big{font-size:17px;padding:14px 22px}
+.demo figure img{border-radius:var(--r)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.feat figure{border:1px solid var(--line);border-radius:var(--r);padding:10px;background:#fff}
+.feat figure img{border:0;border-radius:8px}
+.feat figcaption b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
+ul.plain li b{color:var(--ink)}
+</style>
+<style>main.doc{padding:24px 0 48px} main.doc h2{margin-top:36px;padding-top:12px;border-top:1px solid var(--line)} main.doc h3{margin-top:22px} main.doc figure img{margin:8px 0} ol.plain{padding-left:22px}</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><span class="mark">On</span>On 문서</a>
+  <nav aria-label="쪽 차례"><a href="./">소개</a><a href="./#numbers">잰 숫자</a><a href="#10-직접-재-보기">직접 재 보기</a></nav>
+</div></header>
+<main class="doc"><div class="wrap">
+<h1>On 문서 측정 자료</h1>
+<p>On 문서가 한글 문서를 얼마나 한컴 한글과 같게 그리는지, 문서에서 글과 표를 얼마나 빠짐없이 꺼내는지, 얼마나 빠른지를 직접 잰 기록입니다. 공식 순위가 아닙니다. 측정 코드와 문서별 결과 목록은 공개하지 않고 요약 숫자만 싣습니다. 그 대신 같은 방법을 다른 도구로 다시 짤 수 있게 정의를 자세히 적었습니다. 연구·검증 목적으로 문서별 결과 목록이 필요하면 <code>onmunseo.key [at] gmail.com</code> 으로 요청해 주세요.</p>
+<ul class="plain">
+<li>기준 날짜: 2026-11-22(한글 그리기). 다른 축은 2026-11-19 또는 그 축에 적은 날짜입니다.</li>
+<li>우리 엔진 판: On 한글엔진 2.1.9(엔진 지문 <code>094fafba1e11</code>). 다른 판으로 잰 축은 그 판을 따로 적었습니다.</li>
+<li>그리기 측정기: 2026-11-22 에 고친 판(아래 <a href="#측정기-고침2026-11-22">2장 측정기 고침</a>)으로 다시 쟀습니다. 2026-11-19 판 숫자와 바로 견주지 마세요.</li>
+<li>글꼴: 모든 그리기 측정은 <a href="https://github.com/napurrin/onpok-fonts">온폭 글꼴</a>(SIL OFL 1.1)로 그렸습니다. 한컴 글꼴과 상용 글꼴은 쓰지 않았습니다.</li>
+</ul>
+<h2 id="차례">차례</h2>
+<ol class="plain">
+<li><a href="#1-한눈에-보기">한눈에 보기</a></li>
+<li><a href="#2-읽는-법--기준용어통계">읽는 법 — 기준·용어·통계</a></li>
+<li><a href="#3-그리기--한글을-한컴과-같은-자리에">그리기 — 한글을 한컴과 같은 자리에</a></li>
+<li><a href="#4-만들기--한컴-한글-2024-로-연-공문서-30과제">만들기 — 한컴 한글 2024 로 연 공문서 30과제</a></li>
+<li><a href="#5-글-꺼내기파싱--ai검색에-넣을-글과-표">글 꺼내기(파싱) — AI·검색에 넣을 글과 표</a></li>
+<li><a href="#6-안정성--공개-문서-6821개-열기저장">안정성 — 공개 문서 6,821개 열기·저장</a></li>
+<li><a href="#7-가볍고-빠름">가볍고 빠름</a></li>
+<li><a href="#8-실패-사례--숨기지-않고-적음">실패 사례 — 숨기지 않고 적음</a></li>
+<li><a href="#9-시험-문서-규모">시험 문서 규모</a></li>
+<li><a href="#10-직접-재-보기">직접 재 보기</a></li>
+<li><a href="#11-문서별-결과-목록">문서별 결과 목록</a></li>
+<li><a href="#12-나란히-그림">나란히 그림</a></li>
+<li><a href="#13-한계와-주의">한계와 주의</a></li>
+</ol>
+<h2 id="1-한눈에-보기">1. 한눈에 보기</h2>
+<p>괄호 안은 95% 신뢰구간(Wilson)입니다. 「가운데」는 문서별 값의 중앙값입니다.</p>
+<div class="tbl"><table><thead><tr><th>축</th><th>문서</th><th>값</th></tr></thead><tbody>
+<tr><td>그리기 · 복잡한 공공 문서</td><td>1,470개(43,685쪽)</td><td>쪽 수가 한컴과 같음 1,453개 = 98.84%(98.16~99.28) · 글이 하나도 빠지지 않음 1,338개 = 91.02%(89.45~92.38) · 제목 크기 글이 사라진 문서 2개 = 0.14%(0.04~0.49) · 같은 줄 비율 가운데 99.90%</td></tr>
+<tr><td>그리기 · 정책브리핑 보도자료</td><td>1,996개(7,480쪽)</td><td>쪽 수 같음 1,982개 = 99.30%(98.83~99.58) · 글 빠짐 없음 1,966개 = 98.50%(97.86~98.95) · 제목 크기 글 사라짐 0개 = 0.00%(0.00~0.19) · 같은 줄 가운데 100%</td></tr>
+<tr><td>그리기 · 법령 별표</td><td>3,432개(5,778쪽)</td><td>쪽 수 같음 3,375개 = 98.34%(97.85~98.72) · 글 빠짐 없음 3,398개 = 99.01%(98.62~99.29) · 제목 크기 글 사라짐 1개 = 0.03%(0.01~0.16) · 같은 줄 평균 99.05%</td></tr>
+<tr><td>만들기 · 한컴 한글 2024 로 열기</td><td>공문서 30과제</td><td>30개 모두 열림(88.65~100) · 공문서 꼴 40점 만점에 30개 모두 40점 · 100점 29개, 99.7점 1개(평균 99.99점)</td></tr>
+<tr><td>글 꺼내기 · 한글(HWP·HWPX)</td><td>1,726개</td><td>한컴 PDF 한글 글자 재현율 99.87% · 한 글자도 안 빠진 문서 1,705개 = 98.78%(98.15~99.20)</td></tr>
+<tr><td>글 꺼내기 · 워드·엑셀·파워포인트</td><td>457개</td><td>글 재현율 100% · 표 칸·칸 값 재현율 워드 98.88% · 엑셀 99.81% · 파워포인트 99.90% · 읽기 실패 0</td></tr>
+<tr><td>글 꺼내기 · 영어 PDF</td><td>200개</td><td>공식 채점기 종합: 그림 속 글까지 읽는 정밀 읽기 0.968(개발용 75개 0.970 · 시험용 125개 0.966) · 기본(빠른) 읽기 0.945(시험용 0.950)</td></tr>
+<tr><td>글 꺼내기 · 스캔·사진</td><td>877쪽 · 761쪽</td><td>한국어 글자 인식 공개 벤치마크 종합 0.873 · 스캔 표 칸 시험 통과 86.3%(시험용 425쪽)</td></tr>
+<tr><td>안정성</td><td>공개 문서 6,821개(55,180쪽)</td><td>열기→저장→다시 열기 저장 실패 0 · 결과를 내지 못하고 멈춘 문서 0</td></tr>
+<tr><td>속도</td><td>1,474개(43,942쪽)</td><td>쪽당 평균 5.3ms = 1초에 약 190쪽 · 문서 하나 가운데 52.5ms(윈도우 PC, 인텔 i7-14700, 엔진 2.1.4) · 한글 글 꺼내기 2,150개 모두 8.2초(맥북 M5 Pro)</td></tr>
+</tbody></table></div>
+<h2 id="2-읽는-법--기준용어통계">2. 읽는 법 — 기준·용어·통계</h2>
+<h3 id="기준은-한컴-한글">기준은 한컴 한글</h3>
+<ul class="plain">
+<li><b>그리기 축의 기준</b>은 각 기관이 같은 게시글에 함께 올린, 한컴 한글이 「PDF로 저장」으로 만든 PDF입니다. PDF 의 만든 프로그램(Creator·Producer) 표시가 한컴 한글인 것만 썼습니다. 그 PDF 를 만든 한글 판은 기관마다 다릅니다. 판별 개수는 축마다 적었고, 한글 2024 로 만든 PDF 만 따로 떼어 본 값도 함께 적었습니다.</li>
+<li><b>만들기 축의 기준</b>은 우리가 윈도우 PC 에 설치한 한컴오피스 한글 2024(판 9.1.1, 빌드 5656)가 직접 연 결과입니다.</li>
+<li><b>글 꺼내기 축의 기준</b>은 축마다 다릅니다. 한글은 같은 문서의 한컴 PDF 글, 오피스는 문서 형식 표준 라이브러리로 읽은 글, 영어 PDF·글자 인식은 그 공개 벤치마크의 정답과 채점기입니다.</li>
+<li>「한컴과 같다」는 한컴 프로그램이 만든 PDF 와 견준 결과일 뿐입니다. 인증·제휴가 아닙니다.</li>
+</ul>
+<h3 id="용어">용어</h3>
+<div class="tbl"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody>
+<tr><td>쪽 수 일치</td><td>우리 엔진이 그린 쪽 수가 기준 PDF 쪽 수와 같은 문서</td></tr>
+<tr><td>같은 줄 비율</td><td>기준 PDF 의 줄과 우리 줄을 글로 짝지었을 때, <b>같은 쪽 번호</b>에 놓인 짝의 수 ÷ 두 쪽 가운데 더 많은 줄 수 × 100. 문서마다 구함</td></tr>
+<tr><td>글 사라짐</td><td>기준 PDF 의 글 덩어리 가운데 글자의 70% 이상이 우리 화면의 그 자리에 없는 것. 하나라도 있으면 「글 사라짐 문서」</td></tr>
+<tr><td>제목 크기 글 사라짐</td><td>사라진 덩어리의 글자 크기가 그 쪽 본문 가운데 크기의 1.3배 이상이고 4.2mm(약 12pt) 이상인 것. 제목·표지 글. 이 글에서 가장 무겁게 보는 실패</td></tr>
+<tr><td>시험용</td><td>엔진을 고치는 동안 보지 않은 문서. 고칠 때 본 문서는 「개발용」</td></tr>
+</tbody></table></div>
+<p>자세한 계산 순서는 <a href="#10-직접-재-보기">10. 직접 재 보기</a>에 있습니다.</p>
+<h3 id="통계">통계</h3>
+<ul class="plain">
+<li>비율(쪽 수 일치·글 사라짐·제목 크기 글 사라짐 문서 비율)의 95% 신뢰구간은 Wilson 점수 구간입니다. 단위는 문서입니다.</li>
+<li>같은 줄 비율 평균의 95% 구간은 문서별 값의 정규 근사(평균 ± 1.96 × 표준오차)입니다. 줄을 셀 수 없던 문서(글이 거의 없는 쪽 등)는 0%로 넣어 평균을 낮게 잡았습니다. 분포가 한쪽으로 몰려 있어 평균보다 가운데 값·하위 10% 값이 문서 하나의 체감에 가깝습니다.</li>
+<li>글자·표 칸 단위 재현율은 글자끼리 독립이 아니라서 신뢰구간을 내지 않았습니다. 그 대신 문서 단위 비율(「한 글자도 안 빠진 문서」)에 Wilson 구간을 붙였습니다.</li>
+<li>영어 PDF·글자 인식 점수는 벤치마크 채점기가 내는 평균값이며, 신뢰구간은 내지 않았습니다.</li>
+</ul>
+<h3 id="측정기-고침2026-11-22">측정기 고침(2026-11-22)</h3>
+<p>그리기 측정기를 고친 뒤 모든 그리기 축을 다시 쟀습니다.</p>
+<ul class="plain">
+<li>가로 쪽이 섞이거나 소책자 순서로 찍힌 기준 PDF 의 쪽을 풀어 맞추고, 남은 배율 차이를 맞췄습니다.</li>
+<li>쪽 번호 띠(「- n -」)만 있는 쪽은 견주지 않습니다.</li>
+<li>기준 PDF 에 결함이 확인된 짝은 목록으로 적어 뺍니다(복잡한 공공 문서 4짝).</li>
+</ul>
+<p>같은 엔진(2.1.8)을 옛 측정기와 새 측정기로 재 보면, 정책브리핑 1,996짝에서 제목 크기 글 사라짐이 16 → 2개, 글 사라짐이 91 → 33개로 바뀝니다. 복잡한 공공 문서는 4짝이 빠진 것 말고 바뀐 문서가 없고, 778짝은 그대로입니다. 그래서 2026-11-19 판 숫자와의 차이 가운데 정책브리핑 몫은 대부분 측정기 몫이고, 엔진이 좋아진 몫이 아닙니다.</p>
+<h2 id="3-그리기--한글을-한컴과-같은-자리에">3. 그리기 — 한글을 한컴과 같은 자리에</h2>
+<h3 id="31-복잡한-공공-문서-1470짝">3.1 복잡한 공공 문서 1,470짝</h3>
+<div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
+<tr><td>출처</td><td>12개 부처·청 누리집 게시판의 첨부 한글 파일과, 같은 게시글에 붙은 한컴 PDF. 중소벤처기업부 403 · 산업통상부 286 · 식품의약품안전처 206 · 해양수산부 137 · 공정거래위원회 127 · 산림청 96 · 행정안전부 93 · 국가보훈부 78 · 성평등가족부 22 · 재정경제부 21 · 교육부 3 · 기획예산처 2</td></tr>
+<tr><td>문서 갈래</td><td>사업공고·고시·공고·훈령·예규·공지 첨부. 게시일 2011-09 ~ 2026-11</td></tr>
+<tr><td>이용 조건</td><td>각 기관 게시 자료. 게시글에 공공누리 표시를 찾지 못해 원문은 싣지 않았습니다</td></tr>
+<tr><td>모은 날</td><td>2026-11-11 ~ 2026-11-12</td></tr>
+<tr><td>고른 법</td><td>받은 짝 2,327개에서 「깨끗한 짝」 1,474개(아래 10장), 그 가운데 기준 PDF 결함이 확인된 4짝(산림청 공고)을 빼 1,470개. 처음 1,474개에서 뺀 것: 한컴이 만든 PDF 아님 230 · 모아찍기·쪽 순서·축소 인쇄·종이 크기 다름 486 · 글 내용 99% 미만(다른 판) 117 · 그림뿐 8 · 기준 PDF 읽기 실패 2 · 안전 한도로 열지 않음(암호·배포용·크기 한도) 10</td></tr>
+<tr><td>어려운 정도</td><td>엔진을 돌리기 <b>전에</b> 원본 파일로 정한 「복잡 문서」 996개(도형 3개 이상, 또는 표 5개 이상이면서 PDF 5쪽 이상). 표 43,868개(문서당 가운데 17개), 도형이 있는 문서 475개, 글상자가 있는 문서 323개, 쪽 수 가운데 12쪽·가장 긴 문서 2,218쪽</td></tr>
+<tr><td>기준 PDF 를 만든 한글 판</td><td>한글 2018 448 · 한글 2024 394 · 한글 2020 282 · 한글 2022 250 · 판 표시 없음 96</td></tr>
+<tr><td>형식</td><td>HWPX 1,231 · HWP 239</td></tr>
+<tr><td>엔진·컴퓨터·날짜</td><td>On 한글엔진 2.1.9 · 윈도우 PC(인텔 i7-14700) · 2026-11-22</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>지표</th><th>전체 1,470</th><th>시험용 840</th><th>복잡 문서 996</th><th>한글 2024 PDF 394</th></tr></thead><tbody>
+<tr><td>쪽 수 일치</td><td>1,453 = 98.84%(98.16~99.28)</td><td>831 = 98.93%(97.98~99.44)</td><td>98.80%(97.91~99.31)</td><td>98.73%(97.06~99.46)</td></tr>
+<tr><td>글이 하나도 빠지지 않은 문서</td><td>1,338 = 91.02%(89.45~92.38)</td><td>769 = 91.55%(89.47~93.24)</td><td>87.45%(85.25~89.36)</td><td>96.19%(93.81~97.68)</td></tr>
+<tr><td>글 사라짐 문서</td><td>132 = 8.98%(7.62~10.55)</td><td>71 = 8.45%(6.76~10.53)</td><td>125</td><td>15</td></tr>
+<tr><td>제목 크기 글 사라짐 문서</td><td>2 = 0.14%(0.04~0.49)</td><td>1 = 0.12%(0.02~0.67)</td><td>2 = 0.20%(0.06~0.73)</td><td>0</td></tr>
+<tr><td>같은 줄 비율 평균</td><td>98.26%(97.79~98.74)</td><td>98.37%</td><td>98.94%</td><td>95.97%</td></tr>
+<tr><td>같은 줄 비율 가운데 · 하위 25% · 하위 10%</td><td>99.90% · 99.04% · 97.52%</td><td>—</td><td>99.52% · 98.77% · 97.49%</td><td>—</td></tr>
+<tr><td>같은 줄 100%인 문서 · 99% 이상인 문서</td><td>716 · 1,112</td><td>—</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<ul class="plain">
+<li>형식별 쪽 수 일치: HWP 239개 중 99.58%(97.67~99.93), HWPX 1,231개 중 98.70%(97.90~99.20).</li>
+<li>글줄 겹침(한컴에는 없는데 우리 화면에서 글줄이 겹친 문서): 18개.</li>
+<li>시험용 840개의 「글이 하나도 빠지지 않은 문서」 구간은 840 − 71 = 769 로 계산했습니다.</li>
+<li>「한글 2024 PDF 394」는 기준 PDF 의 만든 프로그램이 한글 2024 인 문서만 뗀 것입니다. 같은 줄 비율이 전체보다 낮습니다. 원인은 아직 나누어 보지 않았습니다.</li>
+</ul>
+<h3 id="32-같은-묶음-일부를-다른-컴퓨터에서--778짝">3.2 같은 묶음 일부를 다른 컴퓨터에서 — 778짝</h3>
+<p>위 1,470짝의 첫 묶음(중소벤처기업부·산업통상부·행정안전부 3곳)을 아이맥(M1)에서 같은 엔진으로 다시 쟀습니다. 778개 가운데 774개가 1,470짝에 들어 있습니다. 컴퓨터가 달라도 값이 같은 범위에 드는지 보는 확인용입니다.</p>
+<div class="tbl"><table><thead><tr><th>지표</th><th>778개(16,823쪽)</th><th>시험용 448개</th></tr></thead><tbody>
+<tr><td>쪽 수 일치</td><td>766 = 98.46%(97.32~99.12)</td><td>441 = 98.44%(96.81~99.24)</td></tr>
+<tr><td>글이 하나도 빠지지 않은 문서</td><td>704 = 90.49%(88.22~92.36)</td><td>409 = 91.29%(88.32~93.57)</td></tr>
+<tr><td>제목 크기 글 사라짐 문서</td><td>2 = 0.26%(0.07~0.93)</td><td>1 = 0.22%(0.04~1.25)</td></tr>
+<tr><td>같은 줄 비율 평균 · 가운데 · 하위 10%</td><td>98.84%(98.62~99.06) · 99.66% · 97.14%</td><td>98.92%</td></tr>
+</tbody></table></div>
+<p>엔진·날짜: On 한글엔진 2.1.9 · 2026-11-22. 아이맥에서는 2.1.9 로 내보내기 바로 전 빌드로 쟀습니다. 공개 문서 6,821개를 두 빌드로 그려 견줘 결과가 바뀐 문서가 0개임을 확인했습니다.</p>
+<h3 id="33-정책브리핑-보도자료-1996짝">3.3 정책브리핑 보도자료 1,996짝</h3>
+<div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
+<tr><td>출처</td><td>대한민국 정책브리핑(korea.kr) 보도자료의 한글 첨부와 같은 게시글의 한컴 PDF</td></tr>
+<tr><td>이용 조건</td><td>공공누리 제1유형(출처 표시)</td></tr>
+<tr><td>게시일 · 모은 날</td><td>2025-11-11 ~ 2026-11-11 · 2026-11-11</td></tr>
+<tr><td>고른 법</td><td>받은 짝 2,113개 → 깨끗한 짝 1,996개. 뺀 것: 한컴이 만든 PDF 아님 24 · 다른 판 78 · 그림뿐 13 · 모든 엔진 읽기 실패 2</td></tr>
+<tr><td>기준 PDF 를 만든 한글 판</td><td>한글 2022 790 · 한글 2018 403 · 한글 2024 374 · 한글 2020 356 · 판 표시 없음 73</td></tr>
+<tr><td>형식</td><td>HWPX 1,813 · HWP 183</td></tr>
+<tr><td>엔진·컴퓨터·날짜</td><td>On 한글엔진 2.1.9(3.2 와 같은 빌드) · 아이맥(M1) · 2026-11-22</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>지표</th><th>전체 1,996</th><th>시험용 1,195</th><th>한글 2024 PDF 374</th></tr></thead><tbody>
+<tr><td>쪽 수 일치</td><td>1,982 = 99.30%(98.83~99.58)</td><td>1,187 = 99.33%(98.68~99.66)</td><td>98.40%(96.54~99.26)</td></tr>
+<tr><td>글이 하나도 빠지지 않은 문서</td><td>1,966 = 98.50%(97.86~98.95)</td><td>1,179 = 98.66%(97.84~99.17)</td><td>97.59%(95.49~98.73)</td></tr>
+<tr><td>제목 크기 글 사라짐 문서</td><td>0 = 0.00%(0.00~0.19)</td><td>0 = 0.00%(0.00~0.32)</td><td>0</td></tr>
+<tr><td>같은 줄 비율 평균 · 가운데 · 하위 10%</td><td>98.93%(98.60~99.26) · 100% · 98.55%</td><td>98.85%</td><td>97.67%</td></tr>
+<tr><td>같은 줄 100%인 문서</td><td>1,733</td><td>—</td><td>—</td></tr>
+</tbody></table></div>
+<ul class="plain">
+<li>이 묶음 값이 2026-11-19 판보다 크게 좋아진 것은 대부분 측정기 고침 몫입니다(<a href="#측정기-고침2026-11-22">측정기 고침</a>).</li>
+<li>평균(98.93%)이 가운데(100%)보다 낮은 것은, 쪽이 밀린 문서 14개와 줄을 셀 수 없던 문서 10개(0%로 넣음)가 평균을 끌어내리기 때문입니다.</li>
+</ul>
+<h3 id="34-법령-별표-3432짝">3.4 법령 별표 3,432짝</h3>
+<div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
+<tr><td>출처</td><td>법제처 국가법령정보센터의 법령 별표·서식 한글 파일과 같은 별표의 한컴 PDF</td></tr>
+<tr><td>고른 법</td><td>아래 10.3 과 같은 규칙. 정책브리핑과 함께 잰 5,649짝에서 모아찍기 등 151 · 다른 판 208 을 빼고 남은 5,290짝 가운데 법령 별표 3,432짝(남은 정책브리핑 1,858짝은 1,856짝이 3.3 과 같은 문서라 따로 적지 않음)</td></tr>
+<tr><td>형식</td><td>HWP 3,432</td></tr>
+<tr><td>엔진·컴퓨터·날짜</td><td>On 한글엔진 2.1.9 · 윈도우 PC(인텔 i7-14700) · 2026-11-22</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>지표</th><th>전체 3,432(5,778쪽)</th><th>시험용 2,085</th></tr></thead><tbody>
+<tr><td>쪽 수 일치</td><td>3,375 = 98.34%(97.85~98.72)</td><td>2,056 = 98.61%(98.01~99.03)</td></tr>
+<tr><td>글이 하나도 빠지지 않은 문서</td><td>3,398 = 99.01%(98.62~99.29)</td><td>2,065 = 99.04%(98.52~99.38)</td></tr>
+<tr><td>제목 크기 글 사라짐 문서</td><td>1 = 0.03%(0.01~0.16)</td><td>0 = 0.00%(0.00~0.18)</td></tr>
+<tr><td>같은 줄 비율 평균 · 가운데</td><td>99.05%(98.85~99.24) · 100%</td><td>99.07%</td></tr>
+</tbody></table></div>
+<ul class="plain">
+<li>별표는 대개 1~2쪽 서식·표라서 복잡한 공공 문서보다 쉬운 묶음입니다.</li>
+</ul>
+<h2 id="4-만들기--한컴-한글-2024-로-연-공문서-30과제">4. 만들기 — 한컴 한글 2024 로 연 공문서 30과제</h2>
+<p>On 문서의 공문서 쓰기로 만든 한글 파일을 한컴오피스 한글 2024 로 열어 PDF 로 저장하고, 그 PDF 를 채점했습니다.</p>
+<div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
+<tr><td>과제</td><td>자체로 만든 30개. 보고서(현황·검토·1쪽 보고·회의 자료) 12 · 계획서 6 · 결과보고서 6 · 보도자료 6. 기관·사람·숫자는 모두 지어낸 것(「○○시」 꼴)</td></tr>
+<tr><td>기준</td><td>한컴오피스 한글 2024(판 9.1.1, 빌드 5656)가 연 결과의 PDF</td></tr>
+<tr><td>엔진·컴퓨터·날짜</td><td>On 한글엔진 2.1.6 과 그 판의 공문서 쓰기 · 윈도우 PC(인텔 i7-14700) · 2026-11-19</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>지표</th><th>값</th></tr></thead><tbody>
+<tr><td>한컴에서 열림</td><td>30/30(88.65~100). 열 때 한컴의 보안 확인 창이 뜨면 자동으로 확인을 눌렀습니다(30개에서 모두 80번)</td></tr>
+<tr><td>점수</td><td>100점 29개, 99.7점 1개(줄·쪽 밀림에서 줄 하나 어긋남). 평균 99.99/100</td></tr>
+<tr><td>공문서 꼴(40점)</td><td>30개 모두 40점</td></tr>
+<tr><td>줄·쪽 밀림(20점)</td><td>평균 19.99. 우리 엔진이 그린 쪽 수와 한컴 쪽 수가 다른 문서 0/30, 줄 어긋남 1/931줄(0.11%), 쪽 첫 줄 다름 0</td></tr>
+<tr><td>둘째 줄 시작 맞춤</td><td>205/205(98.16~100) — □·○ 항목이 두 줄로 넘어갈 때 둘째 줄이 첫 줄 글 시작과 0.05em 안에서 맞음</td></tr>
+<tr><td>쪽 끝에 제목만 남은 쪽</td><td>0</td></tr>
+<tr><td>내용 보존(40점)</td><td>980/980 요소</td></tr>
+</tbody></table></div>
+<p>점수 정의(문서마다 100점, 못 열면 0점):</p>
+<ul class="plain">
+<li><b>줄·쪽 밀림 20점:</b> 쪽 수가 같으면 8점 + 한컴 줄과 우리 엔진 줄의 글이 맞는 비율 × 8 + 쪽 첫 줄이 맞는 비율 × 4.</li>
+<li><b>공문서 꼴 40점:</b> 둘째 줄 맞춤 비율 × 15 + 숫자·영문 낱말이 줄 끝에서 끊기지 않음 5(한 번에 2.5 깎음) + 쪽 끝에 제목만 남지 않음 10(한 번에 5 깎음) + □ 글머리의 글꼴이 하나 10.</li>
+<li><b>내용 보존 40점:</b> 과제 원고의 요소(제목·□·○·-·표 칸)마다 한컴 PDF 글에 그대로 있는 비율의 평균 × 40.</li>
+</ul>
+<h2 id="5-글-꺼내기파싱--ai검색에-넣을-글과-표">5. 글 꺼내기(파싱) — AI·검색에 넣을 글과 표</h2>
+<p>그리기(쪽·줄 자리)와 따로, 문서에서 글과 표를 꺼내는 정확도입니다. AI 채팅·검색·요약에 넣을 글이 빠지지 않는지를 봅니다.</p>
+<h3 id="51-형식별-요약">5.1 형식별 요약</h3>
+<div class="tbl"><table><thead><tr><th>형식</th><th>시험 묶음 · 문서 수</th><th>정답</th><th>값</th><th>문서당 시간(컴퓨터)</th><th>엔진·날짜</th></tr></thead><tbody>
+<tr><td>한글 HWP·HWPX</td><td>법령 별표·서식 1,404 + 정책브리핑 보도자료 322 = 1,726짝</td><td>같은 문서의 한컴 PDF 글(pdftotext)</td><td>한글 글자 재현율 99.87%(HWP 1,407개 99.995% · HWPX 319개 99.67%) · 한 글자도 안 빠진 문서 1,705 = 98.78%(98.15~99.20)</td><td>가운데 0.76ms(맥북 M5 Pro, 2,150개)</td><td>2026-11-12 판</td></tr>
+<tr><td>한글 · 표 칸 · 읽는 순서</td><td>—</td><td>—</td><td>측정 예정</td><td>—</td><td>—</td></tr>
+<tr><td>PDF 한국어</td><td>같은 별표의 한글↔PDF 300쌍</td><td>같은 문서의 한글 원본에서 꺼낸 글·표(정답을 두 엔진으로 만들어 평균)</td><td>읽는 순서 0.964 · 표 0.921 · 읽기 실패 0</td><td>—</td><td>2026-11-12 판</td></tr>
+<tr><td>PDF 영어</td><td>opendataloader-bench 200쪽</td><td>벤치마크 정답 · 공식 채점기</td><td>종합 0.945(시험용 125: 0.950) · 읽는 순서 0.949 · 표 0.938 · 제목 0.936</td><td>26ms(아이맥 M1)</td><td>2026-11-19 시범판</td></tr>
+<tr><td>PDF 영어 · 그림 속 글까지(정밀 읽기, 선택 기능)</td><td>같은 200쪽</td><td>같음</td><td>종합 0.968(개발용 75: 0.9695 · 시험용 125: 0.9663) · 읽는 순서 0.970 · 표 0.980 · 제목 0.954</td><td>377ms(아이맥 M1)</td><td>2026-11-19 시범판</td></tr>
+<tr><td>워드(docx)</td><td>공공데이터 160개</td><td>표준 라이브러리로 읽은 글·표</td><td>글 재현율 100.00% · 표 칸 98.88% · 실패 0/160</td><td>가운데 4.7ms(아이맥 M1)</td><td>2026-11-19 시범판</td></tr>
+<tr><td>엑셀(xlsx)</td><td>공공데이터 179개</td><td>같음</td><td>글 100% · 칸 값 99.81% · 시트 837개 중 826개 95% 이상 · 실패 0/179</td><td>가운데 7.7ms</td><td>같음</td></tr>
+<tr><td>파워포인트(pptx)</td><td>공공데이터 118개</td><td>같음</td><td>글 100% · 표 칸 99.90% · 실패 0/118</td><td>가운데 23.0ms</td><td>같음</td></tr>
+<tr><td>스캔·사진</td><td>KoOCR-Bench v2 877쪽</td><td>벤치마크 정답·채점</td><td>종합 0.873(시험용 60%: 0.873) · 표 0.903 · 글 0.838 · 손글씨 0.813 · 읽는 순서 0.915</td><td>쪽당 가운데 3.9초(M3 맥북)</td><td>2026-11-19 시범판</td></tr>
+<tr><td>스캔 표</td><td>공개 PDF 표 쪽을 200DPI 그림으로 만든 761쪽</td><td>PDF 글 층의 표</td><td>칸 시험 통과 시험용 425쪽 86.3%(44,475개 시험) · 개발용 336쪽 91.2%</td><td>쪽당 가운데 4.3초(M3 맥북)</td><td>2026-11-19 시범판</td></tr>
+</tbody></table></div>
+<p>「시범판」은 2026-11-19 에 서비스에 올라 있던 판(한글엔진 2.1.4 와 함께 배포된 글 꺼내기·글자 인식)입니다.</p>
+<ul class="plain">
+<li>영어 PDF 정밀 읽기의 「개발용 75」는 그림 속 글을 읽는 규칙을 만들 때 본 문서(문서 id 의 sha1 % 5 ∈ {1, 2})이고, 「시험용 125」는 그때 보지 않은 문서입니다. 요약에 쓴 0.968 은 200개 전체 값입니다. 기본(빠른) 읽기는 문서당 26ms, 정밀 읽기는 377ms 입니다.</li>
+</ul>
+<h3 id="52-한글-글자-재현율의-정의">5.2 한글 글자 재현율의 정의</h3>
+<ol class="plain">
+<li>같은 별표·보도자료의 한컴 PDF 에서 pdftotext(poppler)로 글을 꺼냅니다.</li>
+<li>그 글에서 한글 음절(가~힣)만 세어 글자별 개수 묶음을 만듭니다.</li>
+<li>우리 엔진이 한글 파일에서 꺼낸 글(마크다운, 그림 자리 표시는 지움)에서 같은 묶음을 만듭니다.</li>
+<li>문서 재현율 = Σ 글자마다 min(PDF 개수, 우리 개수) ÷ PDF 한글 글자 수. 전체 값은 모든 문서의 분자·분모를 합해 나눕니다(1,716,582자 중 1,714,403자).</li>
+<li>채점에서 뺀 짝: 「삭제 &lt;날짜&gt;」 한 줄뿐인 별표 121개, 정답이 비었거나 너무 짧은 짝 3개.</li>
+</ol>
+<p>10자 넘게 덜 꺼낸 문서는 16개입니다(HWP 1 · HWPX 15). 머리말처럼 PDF 에만 찍힌 글이 있는 경우가 섞여 있고, 문서별 원인은 아직 나누어 보지 않았습니다.</p>
+<h3 id="53-오피스-정답과-채점">5.3 오피스 정답과 채점</h3>
+<ul class="plain">
+<li>정답은 python-docx·openpyxl·python-pptx 로 만들었습니다. 견주는 엔진의 출력은 정답에 쓰지 않았습니다.</li>
+<li>엑셀 <code>_xHHHH_</code> 꼴 글자는 엑셀 화면에 보이는 대로 풀어 정답에 넣었습니다.</li>
+<li>슬라이드 번호·노트 표시처럼 엔진이 덧붙이는 구조 표시 글은 채점 전에 지웁니다. 시트 이름은 원문이므로 둡니다.</li>
+<li>값은 파일마다 잰 값의 평균입니다(파일 하나를 같은 무게로).</li>
+<li>정답 라이브러리가 글을 하나도 꺼내지 못한 파일 18개(xlsx 2 · pptx 16)는 채점에서 빼고 읽기 실패 수에는 넣었습니다.</li>
+</ul>
+<h2 id="6-안정성--공개-문서-6821개-열기저장">6. 안정성 — 공개 문서 6,821개 열기·저장</h2>
+<div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
+<tr><td>문서</td><td>공개 문서 6,821개(HWP 2,957 · HWPX 3,864), 55,180쪽. 공공 문서와 공개된 한글 시험 파일 모음(일부러 깨뜨린 파일 포함)</td></tr>
+<tr><td>한 일</td><td>열기 → HWPX 로 저장 → 저장본 다시 열기 → 쪽 수 견주기</td></tr>
+<tr><td>엔진·컴퓨터·날짜</td><td>On 한글엔진 2.1.6 · 맥북 · 2026-11-19</td></tr>
+</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>결과</th><th>문서 수</th></tr></thead><tbody>
+<tr><td>열고 저장하고 다시 열기까지 끝남</td><td>6,763 = 99.15%(98.90~99.34)</td></tr>
+<tr><td>저장 실패</td><td>0</td></tr>
+<tr><td>결과를 내지 못하고 멈춘 문서</td><td>0</td></tr>
+<tr><td>저장 뒤 다시 열었을 때 쪽 수가 바뀜</td><td>3</td></tr>
+<tr><td>열지 못함</td><td>58 = 암호 문서 13 · 옛 HWP 3.0 형식 읽기 오류 42(대부분 일부러 깨뜨린 시험 파일) · 확장자만 한글이고 다른 형식인 파일 3</td></tr>
+</tbody></table></div>
+<p>HWPX → HWP 저장(공개 HWPX 3,864개): 저장 실패 0, 그 밖의 오류 8, 쪽 수 바뀜 11.</p>
+<h2 id="7-가볍고-빠름">7. 가볍고 빠름</h2>
+<h3 id="돌아가는-환경">돌아가는 환경</h3>
+<ul class="plain">
+<li>시범판 서버는 그래픽 카드(GPU)가 없는 4코어 ARM(Neoverse-N1) 서버이고, On 문서 서비스(문서 엔진)는 그 안에서 <b>CPU 2코어·메모리 2.5GB 한도</b>로 돕니다(시스템 설정 CPUQuota 200% · MemoryMax 2.5GiB).</li>
+<li>한글 읽기·그리기, 글 꺼내기, 결재 전 점검, 개인정보 가리기, 그림 글자 인식은 큰 AI 모델 없이 규칙과 작은 모델로 CPU 에서 돕니다. AI 를 연결하지 않아도 씁니다.</li>
+<li>「도우미에게 맡기기」는 AI 를 쓰지 않고 규칙으로 자료를 정리해 몇 초 안에 초안을 만듭니다.</li>
+<li>「바꿔 쓰기 도우미」는 같은 CPU 서버에서 도는 작은 언어 모델(Mi:dm 2.0 Mini, MIT, 4비트 양자화)이 씁니다. 이 모델은 위 2코어·2.5GB 한도 밖에서 따로 돌고 메모리를 약 6.5GB 씁니다. 2026-11-19 저녁 시범판 서버에서 일마다 8번씩 잰 응답 시간(실패 0)은 다음과 같습니다. 요약은 잰 값만 적었고, 서비스에서는 아직 꺼 두었습니다.</li>
+</ul>
+<div class="tbl"><table><thead><tr><th>일</th><th>입력</th><th>가운데(p50)</th><th>상위 5%(p95)</th></tr></thead><tbody>
+<tr><td>공문서 문장 다듬기</td><td>129자</td><td>6.2초</td><td>8.4초</td></tr>
+<tr><td>제목 3개 짓기</td><td>600자</td><td>9.6초</td><td>9.9초</td></tr>
+<tr><td>요약(아직 꺼 둠)</td><td>1,000자</td><td>22.5초</td><td>24.4초</td></tr>
+</tbody></table></div>
+<ul class="plain">
+<li>문서는 서버에 저장하지 않고 메모리에서만 다룹니다. 처리가 끝나면 버립니다.</li>
+</ul>
+<h3 id="시간">시간</h3>
+<div class="tbl"><table><thead><tr><th>무엇</th><th>묶음</th><th>컴퓨터</th><th>값</th><th>엔진·날짜</th></tr></thead><tbody>
+<tr><td>한글 문서 하나 그리기(데운 뒤)</td><td>복잡한 공공 문서 1,474개(43,942쪽)</td><td>윈도우 PC(인텔 i7-14700)</td><td>가운데 52.5ms · 평균 157ms · 상위 10% 195ms · 쪽당 평균 5.3ms</td><td>2.1.4 · 2026-11-19</td></tr>
+<tr><td>같음</td><td>778개(16,830쪽)</td><td>아이맥(M1)</td><td>가운데 89.2ms · 평균 124.5ms · 상위 10% 232ms</td><td>2.1.4 · 2026-11-19</td></tr>
+<tr><td>한글에서 글 꺼내기</td><td>공식 한글 2,150개</td><td>맥북 M5 Pro</td><td>가운데 0.76ms · 모두 8.2초</td><td>2026-11-12 판</td></tr>
+<tr><td>워드·엑셀·파워포인트 글 꺼내기</td><td>457개</td><td>아이맥(M1)</td><td>가운데 4.7 · 7.7 · 23.0ms</td><td>2026-11-19 시범판</td></tr>
+<tr><td>영어 PDF 글 꺼내기</td><td>200쪽</td><td>아이맥(M1)</td><td>문서당 26ms</td><td>2026-11-19 시범판</td></tr>
+<tr><td>정책브리핑 PDF 글 꺼내기</td><td>2,129개</td><td>윈도우 PC</td><td>가운데 174ms · 시간 초과(120초) 0</td><td>2026-11-12 판</td></tr>
+<tr><td>그림 글자 인식</td><td>877쪽</td><td>M3 맥북</td><td>쪽당 가운데 3.9초</td><td>2026-11-19 시범판</td></tr>
+</tbody></table></div>
+<ul class="plain">
+<li>그리기 시간은 노드(Node)에서 엔진(wasm)이 문서를 열고 모든 쪽을 그리는 데 든 시간입니다. 브라우저 화면에 내보내는 시간은 들어 있지 않습니다. 문서를 한 번 열어 데운 뒤 잽니다.</li>
+<li>2.1.9 의 그리기 시간은 아직 같은 방법으로 재지 않았습니다.</li>
+<li>다른 날·다른 컴퓨터에서 잰 시간끼리는 견주지 않습니다.</li>
+</ul>
+<h2 id="8-실패-사례--숨기지-않고-적음">8. 실패 사례 — 숨기지 않고 적음</h2>
+<h3 id="복잡한-공공-문서-1470짝">복잡한 공공 문서 1,470짝</h3>
+<ul class="plain">
+<li><b>제목 크기 글이 사라진 문서 2개</b>(중소벤처기업부 사업공고, 사라진 글 7자·8자). 1개는 쪽 수가 한컴과 다르고, 1개는 쪽 수가 같은데도 사라졌습니다. 둘 다 「복잡 문서」입니다. 원인은 아직 나누어 보지 않았습니다.</li>
+<li><b>글 일부가 사라진 문서 132개.</b> 119개는 쪽 수가 같은 문서이고, 13개는 쪽 수가 다른 문서입니다. 갈래별 원인은 아직 나누어 보지 않았습니다.</li>
+<li><b>글줄 겹침 18개 문서(102쌍).</b></li>
+</ul>
+<h3 id="정책브리핑-1996짝">정책브리핑 1,996짝</h3>
+<ul class="plain">
+<li>제목 크기 글이 사라진 문서는 0개입니다.</li>
+<li>글 사라짐 30개 가운데 23개는 쪽 수가 같은 문서입니다.</li>
+</ul>
+<h3 id="법령-별표-3432짝">법령 별표 3,432짝</h3>
+<ul class="plain">
+<li>제목 크기 글이 사라진 문서 1개(12자, 쪽 수는 같음, 개발용 문서). 글 사라짐 34개.</li>
+</ul>
+<h3 id="글-꺼내기">글 꺼내기</h3>
+<ul class="plain">
+<li>한글 1,726짝: 10자 넘게 덜 꺼낸 문서 16개.</li>
+<li>오피스: 읽기 실패 0. 워드 표 칸 재현율은 파일 평균 98.88%로 셋 가운데 가장 낮습니다.</li>
+<li>스캔 표: 시험용에서 칸 시험 13.7%가 맞지 않습니다. 표를 찾지 못한 쪽이 5쪽 있습니다.</li>
+</ul>
+<h2 id="9-시험-문서-규모">9. 시험 문서 규모</h2>
+<ul class="plain">
+<li>시험에 쓴 <b>공개 공공 문서는 1만 8천여 개(파일 2만 7천여 개)</b> 입니다(2026-11-12 집계).</li>
+<li>정의: 파일 지문(sha256)이 같으면 같은 파일입니다. 같은 게시글의 한글 파일과 한컴 PDF 짝은 문서 하나로 셉니다. 여러 시험에 겹쳐 쓴 문서는 한 번만 셉니다.</li>
+<li>업무 문서와 비공개 문서는 이 수에 넣지 않았고, 이 저장소의 어떤 자료에도 넣지 않았습니다.</li>
+<li>2026-11-12 뒤에 더한 문서(정책브리핑 새 묶음 등)는 이 수에 들어 있지 않습니다. 집계 도구를 다시 돌리면 고칩니다.</li>
+</ul>
+<h2 id="10-직접-재-보기">10. 직접 재 보기</h2>
+<p>측정 코드는 공개하지 않습니다. 아래 정의대로 짜면 같은 지표를 다른 도구로 잴 수 있습니다. 재 본 결과를 이슈에 남겨 주시면, 정의가 같은지 함께 확인하겠습니다.</p>
+<h3 id="101-문서-받기">10.1 문서 받기</h3>
+<ol class="plain">
+<li>한글 파일과 그 기관이 함께 올린 한컴 PDF 가 짝으로 있는 공개 문서를 받습니다(사이트마다 1초에 1번 이하로). 정책브리핑 보도자료(공공누리 제1유형)처럼 다시 쓰기가 허락된 문서를 권합니다.</li>
+<li>받은 파일마다 sha256 을 적어 둡니다. 같은 문서를 다시 받았을 때 지문이 다르면 원문이 바뀐 것이므로 그 짝은 뺍니다.</li>
+</ol>
+<h3 id="102-기준-pdf-확인한컴으로-pdf-만들기">10.2 기준 PDF 확인(한컴으로 PDF 만들기)</h3>
+<ul class="plain">
+<li>게시된 PDF 를 그대로 기준으로 쓸 때: PDF 정보의 만든 프로그램(Creator·Producer)이 한컴 한글(<code>Hwp 2018</code>·<code>Hwp 2024</code>·<code>Hancom PDF</code> 등)인지 봅니다. 아니면 뺍니다.</li>
+<li>한컴 한글로 직접 만들 때: 한컴오피스 한글에서 문서를 열고 「파일 → PDF로 저장하기」로 저장합니다. 인쇄 방식은 「기본 인쇄」, 모아 찍기 없음, 용지는 문서 설정 그대로 둡니다. 판 번호(도움말 → 한글 정보)를 함께 적습니다. 판에 따라 쪽 나눔이 조금 다를 수 있습니다.</li>
+</ul>
+<h3 id="103-깨끗한-짝-고르기">10.3 깨끗한 짝 고르기</h3>
+<p>어느 엔진에도 유리하지 않게 고릅니다. 여러 엔진을 견줄 때는 모든 엔진 결과를 놓고 같은 규칙을 씁니다.</p>
+<ol class="plain">
+<li>한컴이 만든 PDF 만 씁니다.</li>
+<li>기준 PDF 의 한글이 20자 미만이면(그림뿐인 스캔) 뺍니다.</li>
+<li>2쪽 모아찍기, 쪽 순서 다름, 축소·확대 인쇄, 종이 크기 다름을 엔진 둘 이상이 그렇다고 보면 뺍니다.</li>
+<li>엔진이 그린 글과 PDF 글의 글자 묶음이 99% 미만으로 같으면 다른 판으로 보고 뺍니다. 이때 여러 엔진 가운데 <b>가장 높은 값</b>을 씁니다(한 엔진이 글을 잃어 낮게 나온 문서를 빼 버리면 「글 사라짐」이 숨기 때문).</li>
+<li>엔진이 열지 못한 문서는 「읽기 실패」로 따로 셉니다. 암호·배포용·크기 한도처럼 일부러 열지 않은 것도 따로 적습니다.</li>
+</ol>
+<h3 id="104-글자와-줄-꺼내기">10.4 글자와 줄 꺼내기</h3>
+<ul class="plain">
+<li><b>기준 PDF:</b> pdf.js(4.10)의 글 조각에서 글자마다 쪽 번호·가로 위치·세로 위치(글자 바닥선)·글자 크기·글꼴 이름을 mm 단위로 꺼냅니다.</li>
+<li><b>엔진 화면:</b> 엔진이 그린 쪽(SVG 등)에서 같은 정보를 꺼냅니다. 글자 크기는 세로 크기를 씁니다.</li>
+<li><b>글 다듬기(두 쪽 같게):</b> 유니코드 NFKC 로 바꾸고, 빈칸·제어 글자를 지우고, 가운뎃점·따옴표·줄표·물결을 한 가지로 모읍니다. 세 개 이상 이어진 점(목차 점선)과 글머리 기호(□■○●◆◇▪►▶•※✓☞▷▲△▼▽ 등, 상자 그리기 글자, 사용자 정의 영역 글자)를 지웁니다. 글머리 기호는 PDF 에 글자 정보가 빠지기도 하기 때문입니다.</li>
+<li><b>줄:</b> 글자를 세로·가로 위치로 정렬하고, 세로 위치 차이가 max(0.6mm, 두 글자 중 작은 크기 × 0.3) 안이면 같은 줄로 묶습니다.</li>
+<li><b>칸:</b> 한 줄 안에서 앞 글자 끝과 다음 글자 사이가 max(6mm, 글자 크기 × 2.5)보다 멀면 칸을 나눕니다(표의 칸). 같은 글자가 글자 크기 × 0.12(최소 0.4mm) 안에 겹쳐 찍힌 것(가짜 굵게)은 하나로 봅니다.</li>
+<li><b>행:</b> 같은 쪽에서 세로 위치가 1mm 안인 칸들을 왼쪽부터 이어 한 행으로 만듭니다. 같은 줄 비율은 이 행 단위로 셉니다.</li>
+</ul>
+<h3 id="105-같은-줄-비율">10.5 같은 줄 비율</h3>
+<ol class="plain">
+<li>문서 전체의 행을 쪽 순서대로 늘어놓습니다(우리 A, 기준 B).</li>
+<li>다듬은 글이 4자 이상이고 A·B 에서 각각 한 번씩만 나오는 행을 닻으로 삼아, B 위치 기준 가장 긴 증가 수열로 닻을 고릅니다.</li>
+<li>닻 사이 구간은 앞에서부터 글이 똑같은 행끼리 짝짓습니다. 다르면 앞뒤 40행 창 안에서 글이 같은(3자 이상) 가장 가까운 행을 찾아 건너뜁니다. 칸 나눔만 다른 같은 행(칸을 이으면 같음)도 짝으로 봅니다.</li>
+<li>짝 가운데 <b>두 행의 쪽 번호가 같은 짝</b>만 셉니다.</li>
+<li>같은 줄 비율 = 그 수 ÷ max(A 행 수, B 행 수) × 100.</li>
+</ol>
+<h3 id="106-글-사라짐과-제목-크기-글-사라짐">10.6 글 사라짐과 제목 크기 글 사라짐</h3>
+<ol class="plain">
+<li>기준 PDF 의 쪽마다 줄을 글 덩어리로 묶습니다: 글자 크기 차이 15% 안, 줄 사이 2.2 × 글자 크기 안, 가로로 겹치는 폭이 짧은 줄의 30% 넘음.</li>
+<li>줄마다 「그 자리」의 우리 글을 모읍니다: 같은 쪽에서 세로 차이 30mm 안의 줄, 또는 쪽이 밀린 경우 이웃 쪽 끝(기준 줄이 쪽 아래 40%에 있으면 우리 다음 쪽 위 40%, 반대도 같음).</li>
+<li>줄의 다듬은 글(2자 이상)이 그 자리 글에 그대로 들어 있으면 「있음」. 12자 이하 줄은 그대로 없으면 「없음」. 더 긴 줄은 두 글자 조각의 70% 미만만 그 자리에 있으면 「없음」.</li>
+<li>덩어리 글자의 70% 이상이 「없음」 줄이면 그 덩어리는 사라진 것입니다.</li>
+<li>사라진 덩어리의 가장 큰 글자가 그 쪽 본문 가운데 크기 × 1.3 이상이고 4.2mm 이상이면 제목 크기 글 사라짐입니다.</li>
+</ol>
+<h3 id="107-다른-도구로-같은-문서를-잴-때">10.7 다른 도구로 같은 문서를 잴 때</h3>
+<ol class="plain">
+<li>모든 도구에 같은 파일(같은 지문)을 씁니다.</li>
+<li>모든 도구를 같은 글꼴로 그립니다. 한컴 글꼴이 없는 환경이면 <a href="https://github.com/napurrin/onpok-fonts">온폭 글꼴</a>을 같이 쓰면 조건이 같아집니다. 글꼴이 다르면 줄 나눔이 달라져 같은 줄 비율이 크게 떨어집니다.</li>
+<li>각 도구의 쪽 그림에서 10.4 의 정보를 꺼냅니다.</li>
+<li>10.3 의 거르기를 모든 도구 결과를 놓고 한 번에 합니다. 도구마다 따로 거르면 문서 수가 달라져 견줄 수 없습니다.</li>
+<li>10.5·10.6 으로 문서마다 값을 내고, 문서 단위 비율에는 Wilson 구간을, 평균에는 문서별 값의 구간을 붙입니다.</li>
+<li>판 번호·컴퓨터·날짜·글꼴을 함께 적습니다. 시간은 같은 컴퓨터에서 번갈아 잰 값끼리만 견줍니다.</li>
+</ol>
+<h2 id="11-문서별-결과-목록">11. 문서별 결과 목록</h2>
+<ul class="plain">
+<li>문서별 결과 목록(문서 id·지문·문서마다 잰 값)은 공개하지 않습니다. 이 쪽에는 요약 숫자와 잰 방법만 싣습니다.</li>
+<li>연구·검증 목적으로 목록이 필요하면 <code>onmunseo.key [at] gmail.com</code> 으로 요청해 주세요(제목에 「On 문서 측정 목록 요청」, 쓰려는 곳을 적어 주세요).</li>
+<li>원문 파일은 어디에도 싣지 않습니다. 각 문서는 원 출처의 이용 조건을 따릅니다.</li>
+<li>영어 PDF(opendataloader-bench)와 글자 인식(KoOCR-Bench v2)은 공개 벤치마크입니다. 각 벤치마크의 원 저장소를 써 주세요.</li>
+</ul>
+<h2 id="12-나란히-그림">12. 나란히 그림</h2>
+<p>왼쪽은 게시 기관이 올린 한컴 PDF(만든 프로그램 한글 2024), 오른쪽은 같은 게시글의 한글 파일을 On 한글엔진 2.1.6 이 그린 쪽입니다. 모두 정책브리핑 보도자료(공공누리 제1유형)이고, 사람 이름·연락처가 없는 붙임 쪽을 골랐습니다. 두 화면 모두 내용을 바꾸지 않았습니다.</p>
+<figure><img src="img/sbs1.png" alt="농촌진흥청 보도자료 붙임 표 — 한컴 PDF 와 On 문서 화면" loading="lazy"></figure>
+<p>출처: 농촌진흥청 보도자료 「'생리장해 줄이고 생산성 높이고' 인삼 예정지 토양 관리 중요」(2026. 4. 30.) 3쪽, <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156759536">정책브리핑</a>, 공공누리 제1유형</p>
+<figure><img src="img/sbs2.png" alt="농촌진흥청 보도자료 붙임 추진계획 표" loading="lazy"></figure>
+<p>출처: 농촌진흥청 보도자료 「준고랭지 여름배추 시범사업으로 수급 안정 뒷받침」(2026. 6. 16.) 3쪽, <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156766729">정책브리핑</a>, 공공누리 제1유형</p>
+<figure><img src="img/sbs3.png" alt="농촌진흥청 보도자료 주요성과 품종 표" loading="lazy"></figure>
+<p>출처: 농촌진흥청 보도자료 「케이(K)-벼재배기술, 아프리카에 녹색혁명의 길 열다」(2026. 6. 16.) 8쪽, <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156766733">정책브리핑</a>, 공공누리 제1유형</p>
+<figure><img src="img/sbs4.png" alt="문화체육관광부 보도자료 붙임 선정 목록 표" loading="lazy"></figure>
+<p>출처: 문화체육관광부 보도자료 「2026년 지역 예술을 이끌 지역대표 예술단체 41개 선정」(2026. 2. 2.) 3쪽, <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156742458">정책브리핑</a>, 공공누리 제1유형. 이 쪽의 같은 줄 비율은 99.73%입니다(나머지 셋은 100%).</p>
+<p>나란히 그림은 잘 맞는 쪽을 고른 것입니다. 맞지 않는 문서의 수와 갈래는 <a href="#8-실패-사례--숨기지-않고-적음">8장</a>에 있습니다.</p>
+<h2 id="13-한계와-주의">13. 한계와 주의</h2>
+<ul class="plain">
+<li><b>글이 사라지는 문서가 아직 있습니다.</b> 복잡한 공공 문서 1,470개 가운데 132개는 글 일부가, 2개는 제목 크기 글이 한컴 PDF 와 달리 보이지 않습니다. 중요한 문서는 원본과 맞춰 봐 주세요.</li>
+<li><b>한글 2024 로 만든 PDF 와는 조금 더 다릅니다.</b> 같은 줄 비율이 전체보다 낮습니다(1,470짝 95.97%, 1,996짝 97.67%).</li>
+<li><b>기준 PDF 는 대부분 기관이 만든 것입니다.</b> 그 PDF 가 어떤 한글 판·글꼴·설정으로 만들어졌는지는 만든 프로그램 표시 말고는 알 수 없습니다. 그래서 「한컴과 다름」 가운데 일부는 판·설정 차이일 수 있습니다.</li>
+<li><b>고침을 만들며 본 문서가 섞여 있습니다.</b> 그래서 시험용(고칠 때 보지 않은 문서) 값을 따로 적었습니다. 시험용 값도 전체와 비슷합니다.</li>
+<li><b>같은 줄 비율은 글과 쪽 번호만 봅니다.</b> 글자 모양·굵기·색·선·그림 자리는 보지 않습니다.</li>
+<li><b>스캔·사진 글자 인식은 GPU 없는 CPU 로 돌아</b> 큰 AI 모델보다 낮습니다. 손글씨는 특히 틀리기 쉽습니다.</li>
+<li><b>시간은 컴퓨터·판마다 다릅니다.</b> 그리기 시간은 2.1.4 로 잰 값입니다.</li>
+<li><b>측정기를 고쳤습니다.</b> 2026-11-22 부터 그리기 값은 고친 측정기로 쟀습니다. 옛 숫자와의 차이에는 측정기 몫이 섞여 있습니다(<a href="#측정기-고침2026-11-22">측정기 고침</a>).</li>
+<li><b>측정 코드는 공개하지 않아</b> 남이 같은 코드로 확인할 수는 없습니다. 정의대로 다시 짜 확인해 주세요.</li>
+</ul>
+</div></main>
+<footer><div class="wrap"><p>글과 그림: CC BY 4.0 · 출처 표기 예: 「출처: On 문서(on-munseo)」 · 이 쪽의 원본은 <a href="https://github.com/on-munseo/on-munseo.github.io/blob/main/docs/benchmark.md">docs/benchmark.md</a> 입니다.</p></div></footer>
+</body>
+</html>

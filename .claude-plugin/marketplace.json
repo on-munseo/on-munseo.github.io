@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "on-munseo",
+  "description": "On 문서 — 한글(HWP·HWPX) 공문서 쓰기와 결재 전 점검을 위한 원격 MCP 연결 꾸러미",
+  "owner": {
+    "name": "On 문서",
+    "url": "https://github.com/on-munseo"
+  },
+  "plugins": [
+    {
+      "name": "on-document",
+      "description": "On 문서 원격 MCP(https://onmunseo.duckdns.org/mcp) 연결 — 한글·PDF·오피스 자료 읽기, 공문서 꼴 한글 파일 만들기, 결재 전 점검",
+      "author": { "name": "On 문서" },
+      "category": "documents",
+      "source": "./plugin",
+      "homepage": "https://on-munseo.github.io"
+    }
+  ]
+}

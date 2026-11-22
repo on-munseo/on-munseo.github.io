@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "on-document": {
+      "type": "http",
+      "url": "https://onmunseo.duckdns.org/mcp"
+    }
+  }
+}

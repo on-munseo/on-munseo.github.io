@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>On 문서 — 쓰기부터 결재 전 점검까지</title>
+<meta name="description" content="브라우저에서 한글(HWP·HWPX) 문서를 쓰고 고치고, 결재 전에 날짜·합계·공문 표기·개인정보를 점검하는 웹 한글 편집기입니다. 문서는 서버에 남기지 않습니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="On 문서">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="On 문서 — 쓰기부터 결재 전 점검까지">
+<meta property="og:description" content="한글 프로그램이 없어도 브라우저에서 한글(HWPX) 파일을 만들고 고칩니다. 쓰는 길은 세 가지입니다.">
+<meta property="og:url" content="https://on-munseo.github.io/">
+<meta property="og:image" content="https://on-munseo.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="On 문서 — 한글 문서를 웹에서 쓰고, 결재 전에 점검합니다">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://on-munseo.github.io/og.png">
+<style>
+:root{--bg:#fff;--bg2:#f4f8f8;--line:#dbe6e6;--ink:#17262a;--ink2:#4b5d61;--ink3:#6e7f83;--teal:#0f766e;--teal2:#0d5f59;--tealbg:#e6f4f2;--warn:#9a5b00;--warnbg:#fff6e5;--r:12px;--w:1040px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--teal2)}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--bg)}
+header.top .wrap{display:flex;align-items:center;gap:12px;min-height:60px;flex-wrap:wrap}
+.mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:var(--teal);color:#fff;font-weight:700;font-size:15px}
+.brand{font-weight:700;font-size:18px;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:10px}
+nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--ink2);font-size:14px;padding:6px 8px;border-radius:8px}
+nav a:hover{background:var(--bg2)}
+.hero{background:linear-gradient(180deg,var(--tealbg),var(--bg));padding:48px 0 36px}
+.chip{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:999px;padding:2px 12px;font-size:13px;color:var(--teal2);margin:0 6px 6px 0}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.3;margin:10px 0 14px;letter-spacing:-.5px}
+h1 b{color:var(--teal)}
+.lead{font-size:clamp(16px,2.4vw,18px);color:var(--ink2);max-width:760px;margin:0 0 22px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;border-radius:10px;padding:11px 18px;font-weight:600;border:1.5px solid var(--teal);color:var(--teal2);background:#fff}
+.btn.main{background:var(--teal);color:#fff}
+section{padding:40px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(22px,4vw,28px);margin:0 0 8px;letter-spacing:-.3px}
+h3{font-size:18px;margin:0 0 6px}
+.sub{color:var(--ink2);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;background:#fff}
+.card .n{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin-right:6px}
+.card p{margin:6px 0 10px;color:var(--ink2)}
+.tag{display:inline-block;background:var(--tealbg);color:var(--teal2);border-radius:8px;padding:2px 10px;font-size:13px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--bg2);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;font-size:14px;line-height:1.55;margin:8px 0}
+pre code{background:none;border:0;padding:0}
+.note{background:var(--warnbg);border-left:4px solid var(--warn);border-radius:8px;padding:12px 16px;color:#5a3a00}
+.shots{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+.shots.two{grid-template-columns:1fr 1fr}
+figure{margin:0}
+figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r);display:block;background:var(--bg2)}
+figcaption{font-size:14px;color:var(--ink3);margin-top:6px}
+.phone img{max-width:320px;margin:0 auto}
+ul.plain{padding-left:20px;margin:8px 0}
+ul.plain li{margin:4px 0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--bg2);font-weight:600}
+tr:last-child td{border-bottom:0}
+.small{font-size:14px;color:var(--ink3)}
+details{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:8px 0;background:#fff}
+summary{cursor:pointer;font-weight:600}
+details p{margin:8px 0 2px;color:var(--ink2)}
+footer{border-top:1px solid var(--line);background:var(--bg2);padding:28px 0 40px;font-size:13px;color:var(--ink3)}
+footer p{margin:6px 0}
+@media (max-width:720px){
+  .shots,.shots.two{grid-template-columns:1fr}
+  nav{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px}
+  nav a{white-space:nowrap}
+  .hero{padding:32px 0 28px}
+  section{padding:32px 0}
+}
+.hero .banner{width:100%;height:auto;border:1px solid var(--line);border-radius:var(--r);display:block;margin:0 0 20px;background:#fff}
+.btn.big{font-size:17px;padding:14px 22px}
+.demo figure img{border-radius:var(--r)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.feat figure{border:1px solid var(--line);border-radius:var(--r);padding:10px;background:#fff}
+.feat figure img{border:0;border-radius:8px}
+.feat figcaption b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
+ul.plain li b{color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./"><span class="mark">On</span>On 문서</a>
+  <nav aria-label="쪽 안 차례">
+    <a href="#numbers">잰 숫자</a><a href="#when">이럴 때</a><a href="#do">할 수 있는 일</a><a href="#how">누가 어떻게</a><a href="#doc">문서 다루기</a><a href="#limits">한계</a><a href="#terms">이용 조건</a><a href="benchmark.html">측정 자료</a><a href="#faq">자주 묻는 것</a>
+  </nav>
+</div></header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <img class="banner" src="img/banner.png" alt="On 문서 — 쓰기부터 결재 전 점검까지. 한글·PDF 문서를 한컴과 거의 같은 모양으로" width="1280" height="640">
+  <span class="chip">시범판</span><span class="chip">로그인 없이 손님으로</span><span class="chip">문서는 서버에 남기지 않음</span><span class="chip">한글 프로그램 없이</span><span class="chip">점검은 AI 없이</span>
+  <h1>한글 문서를 웹에서 쓰고,<br><b>결재 전에 점검</b>합니다</h1>
+  <p class="lead">한글(HWP·HWPX)·PDF·오피스 문서를 브라우저에서 열어 보고 고치며, 결재 전에 공문서 형식·숫자·개인정보·보안 표시를 점검하는 웹 서비스입니다. 한글 프로그램이 깔려 있지 않은 PC·맥·휴대폰에서도 쓰고, 점검과 고치기는 AI 없이 됩니다. 공공 분야 현장에서 일하며 만든 문서 도구이고, 지금은 시범판입니다. 로그인 없이 손님으로 바로 써 볼 수 있습니다.</p>
+  <div class="btns">
+    <a class="btn main big" href="https://onmunseo.duckdns.org/app/">웹에서 바로 쓰기</a>
+    <a class="btn big" href="#mcp">AI 도구에 붙이기(MCP·플러그인)</a>
+  </div>
+  <div class="card" style="margin-top:18px;max-width:760px"><b>AI 에게 이렇게 말하세요:</b> 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」<p class="small" style="margin:6px 0 0">Claude Code 같은 AI 도구가 저장소의 <a href="https://github.com/on-munseo/on-munseo.github.io/blob/main/llms-install.md">설치 안내</a>를 읽고 알아서 붙입니다. 손으로 하려면 <a href="https://github.com/on-munseo/on-munseo.github.io/blob/main/INSTALL.md">INSTALL.md</a>.</p></div>
+</div></div>
+
+<section id="numbers"><div class="wrap">
+  <h2>직접 잰 숫자</h2>
+  <p class="sub">공공 문서를 한컴 한글이 만든 결과와 맞대어 직접 잰 값입니다. 공식 순위가 아닙니다.</p>
+  <div class="tbl"><table><tbody>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>1만 8천여 개</b></th><td>시험한 공공 문서(파일 2만 7천여 개, 겹침 뺌). 그 가운데 공개 문서 6,821개·55,180쪽은 열고 저장하고 다시 열어 <b>멈춤 0 · 저장 실패 0</b></td></tr>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>99.87%</b></th><td>법령 별표·보도자료 한글 1,726개에서 꺼낸 한글 글자(한컴 PDF 의 1,716,582자 기준)</td></tr>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>100개 중 98~99개</b></th><td>쪽 수까지 한컴과 같은 문서 — 복잡한 공공 문서 1,453/1,470 · 정책브리핑 보도자료 1,982/1,996 · 법령 별표 3,375/3,432</td></tr>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>30종 중 29종 만점</b></th><td>On 문서로 만든 공문서를 한컴오피스 한글 2024 로 열어 채점(나머지 1종 99.7점)</td></tr>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>100% · 99.8% · 0.968</b></th><td>워드·엑셀·파워포인트 457개 글 재현율 · 엑셀 칸 값 · 영어 PDF 200개 공식 채점기 종합(그림 속 글까지 읽는 정밀 읽기)</td></tr>
+      <tr><th style="white-space:nowrap;font-size:17px;color:var(--teal2)"><b>1초에 약 190쪽</b></th><td>한글 그리기(복잡한 공공 문서 43,942쪽 평균, 윈도우 i7-14700). 글 꺼내기는 한글 2,150개를 모두 8.2초(맥북 M5 Pro). 서버는 그래픽 카드 없이 CPU 2코어·메모리 2.5GB</td></tr>
+  </tbody></table></div>
+  <p class="small">한글 그리기(쪽 수·사라진 글)는 2026-11-22 에 On 한글엔진 2.1.9 로 잰 값입니다. 만들기 30과제와 6,821개 열기·저장은 2.1.6, 그리기 속도는 2.1.4(모두 2026-11-19), 한글 글 꺼내기는 2026-11-12 판, 오피스·영어 PDF는 2026-11-19 시범판으로 쟀습니다. 문서 수는 2026-11-12 집계. 남은 약점은 <a href="#limits">한계</a>에 같은 무게로 적었습니다. 정의·95% 신뢰구간·직접 재 보는 법은 <a href="benchmark.html">측정 자료</a>에 있습니다. 문서별 결과 목록은 공개하지 않습니다(연구·검증 목적이면 <code>onmunseo.key [at] gmail.com</code> 으로 요청해 주세요). 「한컴과 같다」는 한컴 프로그램이 만든 PDF 와 견준 결과일 뿐, 인증이나 제휴가 아닙니다.</p>
+  <p><a class="btn" href="benchmark.html">자세한 측정 방법·신뢰구간</a></p>
+  <figure style="margin-top:14px"><img src="img/sbs1.png" alt="왼쪽은 한컴 한글 2024 가 만든 PDF, 오른쪽은 같은 한글 파일을 On 문서가 그린 쪽 — 농촌진흥청 보도자료 붙임의 표" loading="lazy" width="1480" height="1118"><figcaption>출처: 농촌진흥청 보도자료 「'생리장해 줄이고 생산성 높이고' 인삼 예정지 토양 관리 중요」(2026. 4. 30.) 3쪽, <a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156759536">정책브리핑</a>, 공공누리 제1유형. 왼쪽 한컴 PDF(만든 프로그램 한글 2024) · 오른쪽 On 문서. 「한컴과 같다」는 한컴 프로그램이 만든 PDF 와 견준 결과일 뿐, 인증이나 제휴가 아닙니다.</figcaption></figure>
+  <h3 id="install-before-after" style="margin-top:28px">On 문서 설치 전·후, 무엇이 달라지나</h3>
+  <p>같은 원고 5편(가상의 ○○ 자료)으로 한글(HWPX) 공문서를 두 가지 방법으로 만들고, 한컴오피스 한글 2024 로 열어 PDF 로 저장한 결과를 같은 잣대로 쟀습니다. 설치 전은 AI 채팅만으로 AI 가 스스로 코드를 짜서 만든 파일, 설치 후는 On 문서(공문서 쓰기)로 만든 파일입니다.</p>
+  <div class="tbl"><table><thead><tr><th style="text-align:left">한컴 한글 2024 로 연 결과</th><th>On 문서 설치 전 — AI 채팅만</th><th>On 문서 설치 후</th></tr></thead><tbody><tr><td>열린 문서</td><td>5/5</td><td>5/5</td></tr><tr><td>열렸지만 글이 하나도 보이지 않은 문서</td><td>3/5</td><td>0/5</td></tr><tr><td>원고 내용이 그대로 보인 요소(제목·문단·표 칸)</td><td>60/169 (35.5%)</td><td>169/169 (100%)</td></tr><tr><td>둘째 줄이 첫 줄 글자 자리에서 시작한 □·○·- 문단</td><td>0/17</td><td>32/32</td></tr><tr><td>쪽 끝에 제목만 남은 곳</td><td>0</td><td>0</td></tr><tr><td>끝 줄에 1~2글자만 넘어간 문단</td><td>1/17</td><td>1/32</td></tr><tr><td>(참고) 끝 줄이 줄 폭의 1/3 도 안 되는 문단</td><td>6/17</td><td>20/32</td></tr><tr><td>쪽 수(보고서·검토 보고·계획서·결과보고서·보도자료)</td><td>1·1·3·1·2 (1쪽 셋은 빈 쪽)</td><td>2·2·4·3·1</td></tr></tbody></table></div>
+  <p class="small">설치 전의 문단 숫자는 글이 보인 2편만 센 값입니다. 끝 줄이 짧은 문단은 설치 후가 더 많습니다.</p>
+  <figure style="margin-top:14px"><img src="img/install_before_after_1.png" alt="같은 검토 보고 원고를 한컴 한글 2024 로 연 첫 쪽 — 왼쪽 On 문서 설치 전(AI 채팅만) 파일은 빈 쪽, 오른쪽 On 문서 설치 후 파일은 제목·□○ 문단·표가 보임" loading="lazy" width="1400" height="1013"></figure>
+  <figure style="margin-top:14px"><img src="img/install_before_after_2.png" alt="같은 보도자료 원고를 한컴 한글 2024 로 연 첫 쪽 — 왼쪽 On 문서 설치 전(AI 채팅만)은 둘째 줄이 기호 아래에서 시작하고 줄 간격이 넓음, 오른쪽 On 문서 설치 후는 둘째 줄이 첫 줄 글자 자리에 맞음" loading="lazy" width="1400" height="1013"></figure>
+  <p class="small">어떻게 쟀나 — 여기서 「설치」는 AI 채팅에 On 문서 MCP 를 연결한 것입니다. ① 두 쪽 모두 같은 원고와 같은 요청 「이 자료로 공문서 꼴 한글(HWPX) 보고서를 만들어 줘」(보고서 자리는 과제 종류)로 만들었습니다. 설치 전은 MCP·플러그인 없이 빈 폴더에서 범용 AI 코딩 도구가 과제마다 한 번 만든 그대로이고(고르거나 다시 시키지 않음), 설치 후는 같은 원고에서 AI 가 뽑아 고정해 둔 짜임으로 On 문서 공문서 쓰기를 부른 결과입니다. ② 두 쪽 파일을 한컴오피스 한글 2024(9.1.1)로 열어 PDF 로 저장하고 그 PDF 를 쟀습니다. 「글이 보이지 않음」은 한컴에서 연 문서의 본문 글자가 0자라는 뜻입니다. ③ 2026-11-22 측정, On 문서 시범판 후보(On 한글엔진 2.1.9). 5편은 작은 표본이고, AI 와 때에 따라 설치 전 결과는 달라질 수 있습니다. 사람이 한컴에서 열어 보고 다시 시키면 나아질 수 있습니다.</p>
+</div></section>
+
+<section id="demo" class="demo"><div class="wrap">
+  <figure><img src="img/demo_check.gif" alt="가상 계획서의 틀린 날짜·요일·합계·개인 휴대전화·맞춤법을 하나씩 짚고, 한 번에 고치기를 누른 뒤 점수가 54에서 76으로 오르는 모습" loading="lazy" width="900" height="563"><figcaption>가상 계획서를 열면 틀린 곳이 짚히고, 「한 번에 고치기」를 누르면 그 자리에서 고쳐집니다. 요일·합계처럼 사람이 봐야 할 곳은 남겨 둡니다.</figcaption></figure>
+</div></section>
+
+<section id="when"><div class="wrap">
+  <h2>이럴 때 쓰세요</h2>
+  <ul class="plain">
+    <li><b>맥·한글 없는 PC에서 한글 파일을 고쳐 저장할 때</b> — 보기만이 아니라 글과 표를 고치고 한글(HWPX) 파일로 저장합니다. 설치 없이 브라우저에서 됩니다.</li>
+    <li><b>휴대폰에서 받은 hwp를 그 자리에서 고쳐 보낼 때</b> — 한컴과 같은 쪽 나눔·줄바꿈으로 열어 글을 고치고, 한글(HWPX) 파일로 저장해 보낼 수 있습니다.</li>
+    <li><b>결재 올리기 전에</b> — 날짜·요일, 금액·표 합계, 공문 표기, 맞춤법, 개인정보를 규칙으로 찾아 결재 점수로 보여 주고, 답이 정해진 곳은 한 번에 고칩니다.</li>
+    <li><b>대외비·보안 등급 문서를 AI에 올리기 전에</b> — 여는 순간 글로 적힌 보안 표시를 찾아 잠그고, 잠긴 동안은 AI·서버로 아무것도 보내지 않습니다. 그림으로만 찍힌 표시는 놓칠 수 있습니다.</li>
+    <li><b>개인정보가 든 문서를 보내기 전에</b> — 주민등록번호·전화번호·계좌번호 같은 개인정보를 찾아 문서에서 바로 가립니다. 이 브라우저 안에서 되고 서버로 보내지 않습니다.</li>
+    <li><b>AI 열쇠가 없는데 초안이 필요할 때</b> — 「도우미에게 맡기기」로 자료를 올리면 서버 도우미가 자료를 규칙으로 정리해 표지·목차가 있는 공문서 초안(한글 파일)을 몇 초 안에 만들어 줍니다. AI 를 쓰지 않아 원문에 없는 말을 지어내지 않고, 자료는 서버 밖으로 나가지 않습니다.</li>
+    <li><b>고른 문장을 공문서 말투로 바꾸거나 제목이 필요할 때</b> — 「바꿔 쓰기 도우미」(서버 안에서 도는 KT Mi:dm 2.0 Mini)가 공문서 문장·제목 후보 3개를 제안합니다(요약은 속도를 맞춘 뒤 켤 예정). 원래 글과 나란히 보여 주고, 원문에 없는 숫자는 빨갛게 짚습니다.</li>
+    <li><b>AI 채팅에 자료를 넘길 때</b> — 「자료 올리기」로 파일을 올리면 15분 동안만 열리는 자료 주소가 나옵니다. 그 주소를 AI 채팅에 주면 AI 가 On 문서로 글과 표를 꺼내 읽습니다.</li>
+    <li><b>AI 채팅은 쓰는데 결과를 한글 양식으로 받기 어려울 때</b> — 챗GPT·클로드·제미나이 같은 AI 채팅(무료·구독)에 붙여 넣을 글을 만들어 주고, 받은 답을 고른 양식의 한글 문서로 만듭니다. AI 열쇠 없이 됩니다.</li>
+    <li><b>문서를 서버에 남기지 않는 도구가 필요할 때</b> — 점검·가리기·체계도는 브라우저 안에서 되고, 서버를 거치는 일(한글로 바꾸기·글 꺼내기·글자 읽기·도우미)도 메모리에서만 다루고 처리 뒤 바로 버립니다.</li>
+    <li><b>PDF를 한글 파일로 옮길 때</b> — 글과 표를 꺼내 한글 파일로 만듭니다. 본문·제목 글꼴과 크기는 살리지만 쪽 모양이 그대로 옮겨지지는 않습니다.</li>
+    <li><b>영수증·스캔 문서의 글자를 옮길 때</b> — 사진이나 스캔 PDF의 글자를 읽어 고칠 수 있는 한글 문서로 엽니다. 손글씨는 틀리기 쉬워 원본과 맞춰 보셔야 합니다.</li>
+  </ul>
+</div></section>
+
+<section id="do"><div class="wrap">
+  <h2>할 수 있는 일</h2>
+  <div class="grid">
+    <div class="card"><h3>AI 없이</h3><ul class="plain">
+    <li><b>결재 전 점검·한 번에 고치기</b> — 열자마자 점수와 고칠 곳이 보이고, 날짜 표기·개인 휴대전화·맞춤법 같은 곳은 눌러서 한 번에 고칩니다.</li>
+    <li><b>숫자 검산</b> — 합계·요일·날짜가 맞지 않으면 짚어 줍니다. 표는 누르기만 하면 합계를 다시 계산합니다.</li>
+    <li><b>대외비 잠금</b> — 대외비 등 보안 표시가 있으면 여는 순간 잠그고, 서버·AI로 아무것도 보내지 않습니다.</li>
+    <li><b>개인정보 가리기</b> — 주민등록번호·전화·계좌 등을 찾아 문서에서 바로 가립니다.</li>
+    <li><b>연관 문서 대조</b> — 계획서와 예산서처럼 두 문서의 금액·날짜가 어긋난 곳을 찾습니다.</li>
+    <li><b>체계도·골라 바로</b> — 항목만 적거나 이미 쓴 글을 고르면 칸 모식도·흐름도·추진체계도가 그려집니다. 상자 글은 원문 낱말을 줄여 쓰고 새 말을 만들지 않습니다. 글을 고르면 형광펜·각주도 바로 답니다.</li>
+    <li><b>표를 그래프로·차트 고치기</b> — 표를 고르면 그 숫자로 그래프를 바로 그려 넣습니다. 문서 안 차트는 두 번 눌러 값을 고치면 그림과 한글 파일에 함께 들어갑니다.</li>
+    <li><b>개조식·쉬운 말·맞춤법</b> — 서술형 문단을 □ ○ - 개조식으로, 번역투·어려운 한자어를 쉬운 말로 바꾸고, 맞춤법·띄어쓰기를 봅니다.</li>
+    <li><b>AI 채팅으로 쓰고 한글로 받기</b> — 양식에 맞춰 AI 채팅에 붙여 넣을 글을 만들고, 받은 답을 붙여 넣으면 그 양식의 한글 문서로 만듭니다. 「물론입니다!」 같은 인사말은 지우되 지운 줄은 늘 보여 주고 되살릴 수 있습니다. AI 에는 사용자가 직접 붙여 넣으며, 이 서비스가 AI 로 보내는 것은 없습니다.</li>
+    <li><b>법률 자동 완성</b> — 법률 이름과 조만 치면 조문 제목까지 넣어 줍니다. 서버에 담아 둔 법제처 공개 법령 자료로 찾습니다.</li>
+    <li><b>정식 한글처럼 열기</b> — 한글(HWP·HWPX)·PDF·워드·PPT·엑셀을 브라우저에서 열고 한글 파일로 저장합니다. 원본 PDF를 옆에 띄워 견줘 볼 수도 있습니다.</li>
+    <li><b>양식으로 쓰기</b> — 계획·보고·행사·공고·보도자료 등 예시 양식 66종에서 골라 씁니다.</li>
+    <li><b>도우미에게 맡기기</b> — 첨부한 자료를 규칙으로 정리해 표지·목차가 있는 공문서 초안(한글 파일)을 몇 초 안에 만듭니다. 원문 문장을 골라 쓰므로 자료에 없는 말을 지어내지 않습니다.</li>
+    <li><b>바꿔 쓰기 도우미(열쇠 없이)</b> — 고른 글을 공문서 문장으로 다듬고, 제목 후보 3개를 제안합니다. 결과는 늘 「제안」으로 원래 글과 나란히 보여 주고, 원문에 없는 숫자는 빨갛게 짚습니다. <small>서버 안의 작은 AI(KT Mi:dm 2.0 Mini)가 하며, 글은 서버 밖으로 나가지 않습니다.</small></li>
+    </ul></div>
+    <div class="card"><h3>내 AI 열쇠를 연결하면</h3><p>본인 AI 열쇠(Claude 또는 Gemini)를 연결하면 위 기능에 더해 아래를 씁니다. 열쇠는 이 브라우저에만 두고 우리 서버로 보내지 않습니다. 글은 브라우저에서 고른 AI 회사로 바로 갑니다.</p><ul class="plain">
+    <li><b>쓰기</b> — 적어 둔 원고를 보고서·계획서·보도자료·기안문 꼴로 정리, 넣은 자료 파일만 근거로 초안 쓰기, 받은 공문 → 회신 기안문.</li>
+    <li><b>고치기·다듬기</b> — 말로 요청하면 해당 문단을 고치고 고친 곳마다 되돌리기, 「AI로 더 쉽게」, 핵심 구절만 굵게.</li>
+    <li><b>점검·예상 질문</b> — 맞춤법·띄어쓰기 의견을 문단마다 받고 고르기, 결재권자·감사관·민원인이 물을 만한 곳을 근거와 함께 찾기.</li>
+    <li><b>묻기·요약·풀이</b> — 문서 안 내용으로만 답하고 근거 문단을 함께 보여 주기, 메신저·메일·보고용 정리, 낱말·표·그림 풀이.</li>
+    </ul><p>보안 표시(대외비 등)가 있는 문서는 AI 로 보내지 않도록 잠깁니다. 글을 보내기 전에 주민등록번호·전화번호·메일 주소는 가립니다.</p></div>
+  </div>
+  <h3 style="margin-top:28px">기능 모습</h3>
+  <div class="feat">
+    <figure><img src="img/demo_pdf.gif" alt="공개 보도자료 한글 파일과 한컴 PDF를 나란히 띄운 모습" loading="lazy"><figcaption><b>정식 한글처럼 열기</b>한글 파일과 같은 파일을 한컴 한글에서 PDF로 저장한 것을 나란히 띄우면, 줄바꿈까지 같은 자리인 것을 견줘 볼 수 있습니다.</figcaption></figure>
+    <figure><img src="img/demo_table.gif" alt="표를 누르면 합계가 틀렸다고 알려 주는 모습" loading="lazy"><figcaption><b>표 한눈에</b>표를 누르면 합계·최대·최소를 AI 없이 바로 계산해, 틀린 합계를 짚어 줍니다.</figcaption></figure>
+    <figure><img src="img/demo_lock.gif" alt="가상 대외비 문서를 열면 잠금 알림이 뜨는 모습" loading="lazy"><figcaption><b>대외비는 AI로 안 나가요</b>「대외비」 표시가 있는 가상 문서를 열면 바로 잠기고, AI 단추를 눌러도 보내지 않습니다.</figcaption></figure>
+    <figure><img src="img/demo_mask.gif" alt="가상 문서의 개인정보를 가리는 모습" loading="lazy"><figcaption><b>개인정보는 눌러서 가리기</b>주민등록번호·휴대전화를 찾아 문서에서 바로 가립니다(예시 번호는 지어낸 것).</figcaption></figure>
+    <figure><img src="img/demo_cross.gif" alt="계획서와 예산서의 어긋난 곳을 짚는 모습" loading="lazy"><figcaption><b>계획서·예산서 맞춰 보기</b>날짜·인원·금액이 어긋난 곳을 두 문서에서 함께 짚고, 맞는 쪽 값으로 바꿉니다.</figcaption></figure>
+    <figure><img src="img/demo_diagram.gif" alt="가상 계획서 글로 모식도를 만드는 모습" loading="lazy"><figcaption><b>체계도·모식도 쉽게</b>항목만 적거나 쓴 글을 골라 「모식도로」를 누르면 칸 모식도가 그려지고 문서에 들어갑니다.</figcaption></figure>
+    <figure><img src="img/demo_ref.gif" alt="참고 문서의 표를 빈 자리에 넣는 모습" loading="lazy"><figcaption><b>참고 문서 쏙</b>참고 PDF·엑셀의 표를 칸 그대로 꺼내 빈 표 자리에 넣습니다. 출처는 각주로 붙습니다.</figcaption></figure>
+    <figure><img src="img/demo_chart.gif" alt="표로 그래프를 그리고 차트 값을 고치는 모습" loading="lazy"><figcaption><b>표를 그래프로·차트 고치기</b>표를 고르면 그 숫자로 그래프를 그려 넣고, 문서 안 차트는 두 번 눌러 값을 고칩니다.</figcaption></figure>
+    <figure><img src="img/demo_aichat.gif" alt="가상 AI 답으로 공문서 꼴 한글 문서를 만드는 모습" loading="lazy"><figcaption><b>AI 채팅으로 쓰고 한글로 받기</b>AI 채팅에 붙여 넣을 글을 만들고, 받은 답을 붙여 넣으면 양식 꼴의 한글 문서가 됩니다.</figcaption></figure>
+  </div>
+  <p class="small">화면 예시의 계획서·예산서·보안 문서는 모두 지어낸 것입니다(기관·사람·숫자는 「○○」 꼴). 「정식 한글처럼 열기」의 보도자료(고용노동부, 2026. 11. 11.)와 「참고 문서 쏙」의 조달청 보도자료(2025. 11. 20.)는 각 기관 누리집에 공개된 것으로, 내용을 바꾸지 않고 보여 줍니다.</p>
+</div></section>
+
+<section id="how"><div class="wrap">
+  <h2>누가 어떻게</h2>
+  <div class="grid">
+    <div class="card"><h3><span class="n">1</span>처음이면 — 웹 편집기에서 바로</h3>
+      <p><a href="https://onmunseo.duckdns.org/app/">onmunseo.duckdns.org/app/</a> 을 엽니다. 설치는 필요 없습니다.</p>
+      <ul class="plain">
+        <li><b>로그인 없이(손님):</b> 열쇠 없이 바로 씁니다. 한글 열기·고치기·점검·저장은 이 브라우저 안에서 하고 서버로 보내지 않습니다. 손님이 고친 문서와 최근 파일은 창을 닫으면 지워지고, 「이 기기에 기억하기」를 켤 때만 이 기기에 남습니다.</li>
+        <li><b>손님 하루 몫:</b> 서버를 거치는 일(첨부 글 꺼내기·한글 파일 만들기·AI 도구 연결)은 한 주소에서 하루 50번·1분에 6번, 파일 하나 6MB까지입니다. 바꿔 쓰기 도우미는 하루 20번, 도우미에게 맡기기는 하루 3번입니다. 손님 전체의 하루 몫이 차면 한국 시간 자정까지 닫힙니다.</li>
+        <li><b>열쇠가 있어야 하는 것:</b> 사진·스캔 글자 인식, 워드·PPT·PDF 를 한글로 바꿔 고치기, 함께 고치기, AI 도구 연결의 나머지 도구 6개(한글로 바꾸기·PDF·쪽 그림·도장·가린 한글 파일), 더 큰 파일과 넉넉한 하루 몫. 열쇠 신청: <a href="mailto:onmunseo.key@gmail.com?subject=On%20%EB%AC%B8%EC%84%9C%20%EC%97%B4%EC%87%A0%20%EC%8B%A0%EC%B2%AD">onmunseo.key@gmail.com</a>(제목에 「On 문서 열쇠 신청」)</li>
+        <li><b>열쇠·초대 링크로:</b> 받은 초대 링크를 열거나 열쇠를 넣고 들어갑니다.</li>
+        <li>순서를 따라 하고 싶으면 <a href="https://onmunseo.duckdns.org/start">시작하기</a> 쪽을 봐 주세요. 「AI 채팅으로 쓰기」와 「자료 올리기」도 여기서 시작합니다.</li>
+      </ul></div>
+    <div class="card" id="mcp"><h3><span class="n">2</span>AI 도구에 붙이기(MCP·플러그인)</h3>
+      <ul class="plain">
+        <li><b>채팅 AI(챗GPT·클로드):</b> 커넥터 설정에 주소 하나 <code>https://onmunseo.duckdns.org/mcp</code> 를 붙입니다. 열쇠가 있으면 연결할 때 뜨는 On 문서 로그인 창에 열쇠를 넣습니다. 열쇠 없이 붙이면 손님 도구 21개(글 꺼내기·결재점검·개인정보 찾기·한글 파일 만들기·공문서 쓰기·글 다듬기)만 보입니다.</li>
+        <li><b>Claude Code:</b> 한 줄이면 됩니다. 열쇠가 있으면 그다음 <code>/mcp</code> 에서 on-document 를 골라 로그인하고, 없으면 그대로 손님 도구로 씁니다.</li>
+      </ul>
+<pre><code>claude mcp add --transport http -s user on-document https://onmunseo.duckdns.org/mcp</code></pre>
+      <p>도구마다 순서는 <a href="https://github.com/on-munseo/on-munseo.github.io/blob/main/INSTALL.md">INSTALL.md</a>, 묶음 주소·도구 목록·플러그인·Cursor 설정은 <a href="https://github.com/on-munseo/on-munseo.github.io/blob/main/MCP.md">MCP 안내</a>에 있습니다.</p></div>
+  </div>
+  <figure style="margin-top:16px"><img src="img/mcp_text.gif" alt="Claude Code 에 On 글꺼내기를 붙이고 예시 계획서를 읽은 실제 응답" loading="lazy" width="640" height="398"><figcaption>Claude Code 에 글 꺼내기 묶음을 붙여 예시 계획서(가상 자료)를 읽은 실제 서버 응답입니다.</figcaption></figure>
+  <p class="note" style="margin-top:14px">열쇠를 주소 뒤에 붙이지 마세요. 대화 기록과 접속 기록에 남습니다. 메뉴 이름은 각 서비스의 판·요금제에 따라 조금 다를 수 있습니다.</p>
+</div></section>
+
+<section id="doc"><div class="wrap">
+  <h2>문서는 어떻게 다루나</h2>
+  <ul class="plain">
+    <li><b>저장하지 않습니다.</b> 서버를 거치는 일(한글로 바꾸기·글 꺼내기·글자 읽기·도우미)은 서버 메모리 안에서만 다루고, 처리가 끝나면 버립니다. 기록에는 글 내용을 남기지 않습니다.</li>
+    <li>「자료 올리기」로 올린 파일과 결과 받기 주소는 15분 뒤 사라집니다.</li>
+    <li>결재 전 점검·개인정보 가리기·체계도는 브라우저 안에서 합니다.</li>
+    <li>보안 등급 표시(대외비 등)가 글로 적힌 문서는 처리하지 않고 돌려보냅니다.</li>
+    <li><b>AI 채팅에 붙여 넣은 글과 AI 가 읽은 자료는 그 AI 회사로 갑니다.</b> 공개 문서와 본인 문서만 넣어 주세요. 기관 내부 문서는 올리지 마세요(<a href="#terms">이용 조건</a>).</li>
+    <li>참고 자료: 국가정보원 <a href="https://www.nis.go.kr/AF/1_7_7_1.do">「국가·공공기관 AI보안 가이드북」</a>(2025년 12월)</li>
+    <li>자세한 것은 <a href="https://onmunseo.duckdns.org/terms">이용약관</a>과 <a href="https://onmunseo.duckdns.org/privacy">개인정보 처리방침</a>에 있습니다.</li>
+  </ul>
+</div></section>
+
+<section id="limits"><div class="wrap">
+  <h2>한계</h2>
+  <ul class="plain">
+    <li><b>사라지는 글이 아직 있습니다.</b> 복잡한 공공 문서 1,470개 가운데 132개(9.0%)는 글 일부가, 2개(0.14%)는 제목 크기 글이 한컴과 달리 보이지 않습니다. 정책브리핑 1,996개에서는 30개·0개, 법령 별표 3,432개에서는 34개·1개입니다. 중요한 문서는 원본과 맞춰 봐 주세요.</li>
+    <li><b>쪽 수가 다른 문서:</b> 1,470개 가운데 17개, 정책브리핑 1,996개 가운데 14개, 법령 별표 3,432개 가운데 57개는 한컴과 쪽 수가 다릅니다. 한글 2024 로 만든 PDF 와는 같은 줄 비율이 전체보다 낮습니다(95.97%·97.67%).</li>
+    <li><b>보안 표시:</b> 글로 적힌 표시(대외비·비밀 등급 등)만 찾습니다. 그림으로만 찍힌 표시는 놓칠 수 있습니다.</li>
+    <li><b>사진·스캔 문서:</b> 큰 AI 모델·GPU 없이 서버 CPU 로 읽어 큰 AI 모델보다 낮습니다. 처음 보는 스캔 표 칸 시험 통과 86.3%, 한국어 글자 인식 공개 시험 종합 0.873 입니다. 손글씨는 특히 틀리기 쉽습니다.</li>
+    <li><b>개인정보 중 사람 이름:</b> 규칙으로 찾아 놓칠 수 있습니다(공개 시험 473건에서 이름 찾음률 58.4%). 가린 결과를 한 번 더 확인해 주세요.</li>
+    <li><b>PDF·오피스 → 한글 바꾸기:</b> 글과 표를 옮깁니다. 그림과 글꼴 모양은 일부만 옮기고, 쪽 모양은 그대로 옮기지 않습니다.</li>
+    <li><b>영어 PDF:</b> 위 0.968 은 그림 속 글까지 읽는 정밀 읽기 값이고, 문서당 0.38초 걸립니다(아이맥 M1). 시범판 기본값은 빠른 읽기(종합 0.945, 문서당 0.03초)입니다.</li>
+    <li><b>서버 도우미:</b> 「도우미에게 맡기기」는 원문 문장을 골라 정리하므로 큰 AI 채팅보다 덜 매끄럽고, 긴 글에서는 핵심이 조금 빠질 수 있습니다. 「바꿔 쓰기 도우미」(Mi:dm)는 작은 모델이라 제안을 늘 확인해야 하고, 한 번에 6~10초 걸립니다.</li>
+    <li><b>접속:</b> 인터넷으로만 씁니다. 업무망(폐쇄망)에서는 쓸 수 없고, 기관 보안 장비가 이 주소(duckdns.org)를 막는 곳도 있습니다.</li>
+    <li><b>시범판:</b> 열쇠마다, 손님마다 하루 몫과 동시에 처리하는 수가 정해져 있습니다. 손님이 몰려 자리가 차면 몇 초 기다리거나 「잠시 뒤 다시」 안내가 나옵니다.</li>
+    <li><b>점검 결과는 참고용입니다.</b> AI 가 쓴 글과 점검 결과는 결재 전에 사람이 확인해 주세요.</li>
+  </ul>
+</div></section>
+
+<section id="terms"><div class="wrap">
+  <h2>이용 조건</h2>
+  <ul class="plain">
+    <li><b>시범판과 MCP 는 무료 시범 서비스입니다.</b> 기능·하루 몫·주소는 바뀌거나 멈출 수 있습니다.</li>
+    <li>프로그램으로 대량 호출하거나 결과를 자동으로 모아 가지 마세요.</li>
+    <li>On 문서가 만든 결과물과 응답을 AI 모델 학습 자료로 쓰지 마세요.</li>
+    <li>사이트에서 내려받는 엔진·프로그램 파일을 떼어 따로 쓰거나 다시 배포하지 마세요.</li>
+    <li><b>공개 문서와 본인 문서만 넣어 주세요.</b> 기관 내부 문서는 올리지 마세요.</li>
+    <li>글과 그림은 CC BY 4.0, 설정 파일은 MIT 입니다. 「On 문서」 이름과 로고는 이 허락에 들어가지 않습니다. 그 밖은 <a href="https://onmunseo.duckdns.org/terms">이용약관</a>을 따릅니다.</li>
+  </ul>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <h2>자주 묻는 것</h2>
+  <details><summary>한글 프로그램이 없어도 되나요?</summary><p>됩니다. 브라우저에서 열고 고쳐 한글(HWPX) 파일로 저장합니다. 윈도우·맥·휴대폰·태블릿에서 씁니다.</p></details>
+  <details><summary>문서가 서버에 남나요?</summary><p>남기지 않습니다. 서버를 거치는 일은 메모리 안에서만 다루고 처리 뒤 버립니다. 올린 자료와 받기 주소는 15분 뒤 사라집니다.</p></details>
+  <details><summary>AI 열쇠나 유료 구독이 꼭 있어야 하나요?</summary><p>아닙니다. 점검·고치기는 AI 없이 되고, 「AI 채팅으로 쓰기」는 쓰던 무료 AI 채팅으로 됩니다. 열쇠가 없으면 「도우미에게 맡기기」로 서버 도우미가 초안을 만듭니다.</p></details>
+  <details><summary>업무망(폐쇄망)에서 쓸 수 있나요?</summary><p>지금은 안 됩니다. 인터넷에 연결된 PC 에서 씁니다.</p></details>
+  <details><summary>대외비 문서를 넣어도 되나요?</summary><p>넣지 마세요. 보안 등급 표시가 글로 적힌 문서는 처리하지 않습니다. 기관 내부 문서도 올리지 마세요.</p></details>
+  <details><summary>열쇠는 어떻게 받나요?</summary><p>열쇠 신청: <a href="mailto:onmunseo.key@gmail.com?subject=On%20%EB%AC%B8%EC%84%9C%20%EC%97%B4%EC%87%A0%20%EC%8B%A0%EC%B2%AD">onmunseo.key@gmail.com</a>(제목에 「On 문서 열쇠 신청」). 쓰려는 곳과 필요한 기능을 적어 주세요. 열쇠마다 하루 몫이 정해져 있고, 질문은 <a href="https://github.com/on-munseo/on-munseo.github.io/issues">깃허브 이슈</a>로 받습니다.</p></details>
+  <details><summary>소스 코드가 공개되어 있나요?</summary><p>아닙니다. 이 저장소에는 소개 글·그림·연결 설정만 있습니다. 엔진·서버 코드는 공개하지 않습니다.</p></details>
+  <details><summary>오류는 어디에 알리나요?</summary><p><a href="https://github.com/on-munseo/on-munseo.github.io/issues">깃허브 이슈</a>에 남겨 주세요. 이슈는 누구나 보니 문서 파일이나 개인정보는 올리지 마세요.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><a href="https://onmunseo.duckdns.org/start">시작하기</a> · <a href="https://onmunseo.duckdns.org/terms">이용약관</a> · <a href="https://onmunseo.duckdns.org/privacy">개인정보 처리방침</a> · <a href="mailto:onmunseo.key@gmail.com?subject=On%20%EB%AC%B8%EC%84%9C%20%EC%97%B4%EC%87%A0%20%EC%8B%A0%EC%B2%AD">열쇠 신청</a> · <a href="https://github.com/on-munseo/on-munseo.github.io/issues">문의(이슈)</a></p>
+  <p>「한글」·「한컴」·「HWP」·「HWPX」는 주식회사 한글과컴퓨터의 상표(등록상표 포함)이며, On 문서는 한글과컴퓨터와 제휴·후원·승인 관계가 없는 독립 서비스입니다. 챗GPT·클로드·Claude·제미나이·Gemini·KT Mi:dm 등 다른 제품 이름은 각 권리자의 것이며 설명을 위해서만 씁니다. 한글 편집 화면은 공개 엔진 rhwp(MIT)를 바탕으로 고쳐 씁니다.</p>
+  <p>이 사이트의 글과 그림은 <a href="https://creativecommons.org/licenses/by/4.0/deed.ko">CC BY 4.0</a> 으로 나눕니다 — 출처 「출처: On 문서(on-munseo)」만 밝히면 퍼 가고 고쳐 쓸 수 있습니다. 「On 문서」 이름과 로고는 이 허락에 들어가지 않습니다.</p>
+</div></footer>
+</body>
+</html>
