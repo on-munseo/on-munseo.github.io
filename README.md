@@ -9,7 +9,7 @@
 > On 문서 (On Document) is a browser-based tool to open, edit, and check Korean HWP/HWPX, PDF, and Office documents before approval, without the Hancom word processor. Checks run without AI. This repository holds the guide only; the service source is not public.
 
 <p align="center">
-  <a href="https://onmunseo.duckdns.org/app/"><b>웹에서 바로 쓰기</b></a>
+  <a href="https://onmunseo.kr/app/"><b>웹에서 바로 쓰기</b></a>
   &nbsp;·&nbsp;
   <a href="#ai-도구에-붙이기mcp플러그인"><b>AI 도구에 붙이기(MCP·플러그인)</b></a>
 </p>
@@ -115,13 +115,13 @@
 
 ### 처음이면 — 웹 편집기에서 바로
 
-[onmunseo.duckdns.org/app/](https://onmunseo.duckdns.org/app/) 을 엽니다. 설치는 필요 없습니다.
+[onmunseo.kr/app/](https://onmunseo.kr/app/) 을 엽니다. 설치는 필요 없습니다.
 
 - **로그인 없이(손님):** 열쇠 없이 바로 씁니다. 한글 열기·고치기·점검·저장은 이 브라우저 안에서 하고 서버로 보내지 않습니다. 손님이 고친 문서와 최근 파일은 창을 닫으면 지워지고, 「이 기기에 기억하기」를 켤 때만 이 기기에 남습니다.
 - **손님 하루 몫:** 서버를 거치는 일(첨부 글 꺼내기·한글 파일 만들기·AI 도구 연결)은 한 주소에서 하루 50번·1분에 6번, 파일 하나 6MB까지입니다. 바꿔 쓰기 도우미는 하루 20번, 도우미에게 맡기기는 하루 3번입니다. 손님 전체의 하루 몫이 차면 한국 시간 자정까지 닫힙니다.
 - **열쇠가 있어야 하는 것:** 사진·스캔 글자 인식, 워드·PPT·PDF 를 한글로 바꿔 고치기, 함께 고치기, AI 도구 연결의 나머지 도구 6개(한글로 바꾸기·PDF·쪽 그림·도장·가린 한글 파일), 더 큰 파일과 넉넉한 하루 몫. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」)
 - **열쇠·초대 링크로:** 받은 초대 링크를 열거나 열쇠를 넣고 들어갑니다.
-- 순서를 따라 하고 싶으면 [시작하기](https://onmunseo.duckdns.org/start) 쪽을 봐 주세요. 「AI 채팅으로 쓰기」와 「자료 올리기」도 여기서 시작합니다.
+- 순서를 따라 하고 싶으면 [시작하기](https://onmunseo.kr/start) 쪽을 봐 주세요. 「AI 채팅으로 쓰기」와 「자료 올리기」도 여기서 시작합니다.
 
 ### AI 도구에 붙이기(MCP·플러그인)
 
@@ -149,7 +149,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
 - 보안 등급 표시(대외비 등)가 글로 적힌 문서는 처리하지 않고 돌려보냅니다.
 - **AI 채팅에 붙여 넣은 글과 AI 가 읽은 자료는 그 AI 회사로 갑니다.** 공개 문서와 본인 문서만 넣어 주세요. 기관 내부 문서는 올리지 마세요([이용 조건](#이용-조건)).
 - 참고 자료: 국가정보원 [「국가·공공기관 AI보안 가이드북」](https://www.nis.go.kr/AF/1_7_7_1.do)(2025년 12월)
-- 자세한 것은 [이용약관](https://onmunseo.duckdns.org/terms)과 [개인정보 처리방침](https://onmunseo.duckdns.org/privacy)에 있습니다.
+- 자세한 것은 [이용약관](https://onmunseo.kr/terms)과 [개인정보 처리방침](https://onmunseo.kr/privacy)에 있습니다.
 
 ## 직접 잰 숫자
 
@@ -229,7 +229,7 @@ On 문서는 한글이 파일에 저장해 둔 줄 자리를 그대로 쓰고, �
 - On 문서가 만든 결과물과 응답을 AI 모델 학습 자료로 쓰지 마세요.
 - 사이트에서 내려받는 엔진·프로그램 파일을 떼어 따로 쓰거나 다시 배포하지 마세요.
 - **공개 문서와 본인 문서만 넣어 주세요.** 기관 내부 문서는 올리지 마세요.
-- 글과 그림은 CC BY 4.0, 설정 파일은 MIT 입니다. 「On 문서」 이름과 로고는 이 허락에 들어가지 않습니다([저작권·라이선스](#저작권라이선스)). 그 밖은 [이용약관](https://onmunseo.duckdns.org/terms)을 따릅니다.
+- 글과 그림은 CC BY 4.0, 설정 파일은 MIT 입니다. 「On 문서」 이름과 로고는 이 허락에 들어가지 않습니다([저작권·라이선스](#저작권라이선스)). 그 밖은 [이용약관](https://onmunseo.kr/terms)을 따릅니다.
 
 ## 문의
 

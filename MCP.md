@@ -2,7 +2,7 @@
 
 On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문서를 보내고 결과만 받아 쓰는 주소입니다. 사람이 여는 화면이 아니라서, 브라우저로 주소를 열면 안내 쪽만 보입니다.
 
-- 주소 앞부분: `https://onmunseo.duckdns.org`
+- 주소 앞부분: `https://onmunseo.kr`
 - 열쇠: 열쇠마다 쓸 수 있는 묶음이 정해져 있습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」). 질문·고장 신고는 [이슈](https://github.com/on-munseo/on-munseo.github.io/issues)에 남겨 주세요.
 - 손님: 열쇠 없이(인증 「없음」) 붙이면 손님 도구 21개가 보입니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB(base64 포함)까지입니다. 한글로 바꾸기(`on_to_hwpx`)·`on_pdf`·`on_pages`·`on_render_pages`·`on_stamp`·`on_mask_hwpx` 와 글자 인식(`ocr: true`)은 열쇠가 있어야 합니다.
 - 로그인: 챗GPT·클로드 웹·Claude Code 는 연결할 때 뜨는 **On 문서 로그인 창(OAuth)** 에 열쇠를 넣습니다. 머리말을 직접 넣는 도구는 `Authorization: Bearer <열쇠>` 로 보냅니다. 어느 쪽이든 열쇠를 주소에 넣지 마세요.
@@ -141,7 +141,7 @@ curl -s https://onmunseo.duckdns.org/mcp/text \
 - 결과를 **대량으로 모으거나 다른 AI 모델 학습에 쓰는 것은 금지**합니다.
 - 자동화로 남용하면(한도를 넘기려 열쇠 여러 개 쓰기, 쉬지 않고 계속 부르기, 결과 긁어 모으기 등) 미리 알리지 않고 열쇠를 끊습니다.
 - 엔진·규칙·코드를 꺼내 가거나 거꾸로 풀어내는 것은 허락하지 않습니다.
-- 전문은 [이용약관](https://onmunseo.duckdns.org/terms)·[개인정보 처리방침](https://onmunseo.duckdns.org/privacy)에 있습니다.
+- 전문은 [이용약관](https://onmunseo.kr/terms)·[개인정보 처리방침](https://onmunseo.kr/privacy)에 있습니다.
 
 ## 고지
 

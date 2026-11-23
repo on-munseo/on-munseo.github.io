@@ -28,6 +28,6 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 
 - **열쇠가 있으면:** 연결할 때 뜨는 On 문서 로그인 창에 넣습니다. 주소 뒤나 설정 파일에 적지 마세요.
 - **열쇠가 없으면(손님):** 로그인 없이 손님 도구 21개를 씁니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB까지입니다. 많이 쓰거나 글자 인식·도구 27개 전부가 필요하면 열쇠를 받습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」).
-- 설치 없이 웹에서 바로 쓰려면 [onmunseo.duckdns.org/app/](https://onmunseo.duckdns.org/app/) 을 엽니다.
+- 설치 없이 웹에서 바로 쓰려면 [onmunseo.kr/app/](https://onmunseo.kr/app/) 을 엽니다.
 
 주소는 `/mcp` 하나를 권장합니다. 고급용 묶음별 주소·도구 목록·Claude 데스크톱 설정 파일·curl 예시는 [MCP.md](MCP.md)에 있습니다.

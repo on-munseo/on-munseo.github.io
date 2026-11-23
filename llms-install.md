@@ -119,7 +119,7 @@ curl -s https://onmunseo.duckdns.org/mcp \
 
 - Claude Code: `claude mcp list` 에서 `on-document` 가 보이고, 다시 켠 뒤 `/mcp` 에서 연결됨으로 나오면 끝입니다.
 - 첫 시험: 「○○ 회의 결과를 한글 결과보고로 만들어 줘」라고 하면 `on_write_gov` 가 불립니다. 공개 문서나 본인 문서로 「이 파일 글 꺼내 줘」라고 하면 `on_read` 가 불립니다.
-- 설치 없이 웹에서 바로 쓰려면 https://onmunseo.duckdns.org/app/ 을 엽니다. 질문·고장 신고는 https://github.com/on-munseo/on-munseo.github.io/issues 입니다.
+- 설치 없이 웹에서 바로 쓰려면 https://onmunseo.kr/app/ 을 엽니다. 질문·고장 신고는 https://github.com/on-munseo/on-munseo.github.io/issues 입니다.
 
 ## 고급 — 기능만 골라 붙이기
 
