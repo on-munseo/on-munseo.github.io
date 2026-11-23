@@ -30,6 +30,8 @@
 > **AI 에게 이렇게 말하세요:** 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」
 >
 > Claude Code 같은 AI 도구가 이 저장소의 [설치 안내(llms-install.md)](llms-install.md)를 읽고 알아서 붙입니다. 손으로 하려면 [INSTALL.md](INSTALL.md).
+>
+> 등록한 뒤 그 도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보이고, 그다음부터는 모든 대화에서 계속 씁니다. 열쇠가 없으면 로그인 없이 손님으로 바로 한글 공문서 만들기(`on_write_gov`)·글 꺼내기·점검을 씁니다.
 
 <p align="center">
   <img src="docs/img/demo_check.gif" alt="가상 계획서의 틀린 날짜·요일·합계·개인 휴대전화·맞춤법을 하나씩 짚고, 한 번에 고치기를 누른 뒤 고쳐진 자리를 다시 보여 주며 점수가 54에서 76으로 오르는 모습" width="100%"><br>
@@ -126,11 +128,12 @@
 AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대화 안에서 문서를 읽고 한글 파일까지 받습니다.
 
 - **채팅 AI(챗GPT·클로드):** 커넥터 설정에 주소 하나 `https://onmunseo.duckdns.org/mcp` 를 붙입니다. 열쇠가 있으면 연결할 때 뜨는 On 문서 로그인 창에 열쇠를 넣습니다. 열쇠 없이 붙이면 손님 도구 21개(글 꺼내기·결재점검·개인정보 찾기·한글 파일 만들기·공문서 쓰기·글 다듬기)만 보입니다.
-- **Claude Code:** 한 줄이면 됩니다. 열쇠가 있으면 그다음 `/mcp` 에서 `on-document` 를 골라 로그인하고, 없으면 그대로 손님 도구로 씁니다.
+- **Claude Code:** 한 줄이면 됩니다. 등록한 뒤 Claude Code 를 다시 켜면(`/exit` 뒤 `claude`, VS Code 는 새 대화) 도구가 보입니다. 열쇠가 있으면 `/mcp` 에서 `on-document` 를 골라 로그인하고, 없으면 그대로 손님 도구로 씁니다.
   ```bash
   claude mcp add --transport http -s user on-document https://onmunseo.duckdns.org/mcp
   ```
-- 도구마다 순서는 [INSTALL.md](INSTALL.md), 묶음 주소(`/mcp/text`·`/mcp/check`·`/mcp/mask`·`/mcp/hwpx`·`/mcp/gov`·`/mcp/tidy`)·도구 목록·플러그인·Cursor·Claude 데스크톱 설정은 [MCP.md](MCP.md)에 있습니다.
+- 한글 보고서·계획서·결과보고서·보도자료를 만드는 도구는 공문서 쓰기(`on_write_gov`)이고, `on_write` 는 꾸밈 없는 일반 한글 문서를 만듭니다.
+- 주소는 `/mcp` 하나를 권장합니다. 도구마다 순서는 [INSTALL.md](INSTALL.md), 고급용 묶음 주소(`/mcp/text`·`/mcp/check`·`/mcp/mask`·`/mcp/hwpx`·`/mcp/gov`·`/mcp/tidy`)·도구 목록·플러그인·Cursor·Claude 데스크톱 설정은 [MCP.md](MCP.md)에 있습니다.
 - 열쇠를 주소 뒤에 붙이지 마세요. 대화 기록과 접속 기록에 남습니다.
 
 <p align="center">

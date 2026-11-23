@@ -7,6 +7,9 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 - 손님: 열쇠 없이(인증 「없음」) 붙이면 손님 도구 21개가 보입니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB(base64 포함)까지입니다. 한글로 바꾸기(`on_to_hwpx`)·`on_pdf`·`on_pages`·`on_render_pages`·`on_stamp`·`on_mask_hwpx` 와 글자 인식(`ocr: true`)은 열쇠가 있어야 합니다.
 - 로그인: 챗GPT·클로드 웹·Claude Code 는 연결할 때 뜨는 **On 문서 로그인 창(OAuth)** 에 열쇠를 넣습니다. 머리말을 직접 넣는 도구는 `Authorization: Bearer <열쇠>` 로 보냅니다. 어느 쪽이든 열쇠를 주소에 넣지 마세요.
 
+- **한글 문서 만들기 = 공문서 쓰기(`on_write_gov`):** 보고서·계획서·결과보고서·보도자료 한글 문서는 `on_write_gov` 가 휴먼명조·장 제목 막대·□ ○ - 단계의 공문서 꼴로 만듭니다. `on_write` 는 꾸밈 없는 일반 한글 문서를 만들고, style 없이 받은 원고가 공문서처럼 보이면(로마 숫자 장 제목 둘 이상, □·○ 개조식 줄, 제목이 …결과보고·…계획·…(안)·보도자료 등) 같은 공문서 꼴로 만들며 결과에 `auto_style` 을 적습니다. 꾸밈 없는 꼴을 바라면 `plain: true` 를 줍니다.
+- **주소는 `/mcp` 하나를 권장합니다.** 묶음 주소(`/mcp/text` 등)는 기능 하나만 붙여야 할 때 쓰는 고급 방법입니다.
+
 > ※ 공개 문서와 본인 문서만 보내 주세요. 기관 내부 문서는 올리지 마세요.
 
 ## 1. 주소와 도구
@@ -16,8 +19,8 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 | On 글꺼내기 (`on-text`) | `/mcp/text` | `on_read` 문서 읽기 · `on_detect` 형식 알아보기 · `on_meta` 문서 정보 · `on_tables` 표만 뽑기 · `on_chunks` RAG 조각 · `on_compare` 문서 비교(대비표) |
 | On 결재점검 (`on-check`) | `/mcp/check` | `on_check_text` 결재 전 점검 — 공문서 형식·맞춤법·띄어쓰기·날짜·요일·금액·목록 합계·번호 차례 |
 | On 개인정보 가리기 (`on-mask`) | `/mcp/mask` | `on_find_pii` 개인정보 찾기 · `on_mask_text` 가린 글 · `on_mask_hwpx` 가린 한글 파일 |
-| On 한글파일 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 한글 문서 · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
-| On 공문서 쓰기 (`on-gov`) | `/mcp/gov` | `on_write_gov` 공문서 꼴 한글 만들기 · `on_list_templates` 예시 양식 66종 목록 · `on_fill_template` 양식 채우기 · `on_table` 글을 공문서 표로 · `on_chart` 표를 그래프 그림으로 · `on_diagram` 글머리를 체계도 그림으로 |
+| On 한글파일 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
+| On 공문서 쓰기 (`on-gov`) | `/mcp/gov` | `on_write_gov` 보고서·계획서·결과보고서·보도자료 한글 문서(공문서 꼴) · `on_list_templates` 예시 양식 66종 목록 · `on_fill_template` 양식 채우기 · `on_table` 글을 공문서 표로 · `on_chart` 표를 그래프 그림으로 · `on_diagram` 글머리를 체계도 그림으로 |
 | On 글 다듬기 (`on-tidy`) | `/mcp/tidy` | `on_gaejo` 개조식으로 · `on_spell` 맞춤법·띄어쓰기 · `on_plain` 쉬운 말로 |
 | On 문서(전부) (`on-document`) | `/mcp` | 열쇠에 허락된 도구를 모두 모아 보입니다(지금 27개) |
 
@@ -45,7 +48,9 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 
 ## 4. 연결하기
 
-아래 예시는 전부(`/mcp`)입니다. 묶음만 붙이려면 주소 끝을 `/mcp/text` 처럼 바꾸세요.
+아래 예시는 전부(`/mcp`)입니다. 묶음만 붙이려면 주소 끝을 `/mcp/text` 처럼 바꾸세요(고급).
+
+어느 도구든 등록한 그 대화에는 도구가 아직 붙지 않습니다. 등록한 뒤 한 번 다시 켜거나(Claude Code 는 `/exit` 뒤 `claude`, VS Code 는 새 대화 또는 창 다시 불러오기) 새 대화를 열면 그다음부터 모든 대화에서 씁니다. 열쇠가 없으면 로그인 단계는 건너뛰고 손님으로 씁니다.
 
 ### 챗GPT
 
@@ -63,8 +68,10 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 ### Claude Code
 
 ```bash
-claude mcp add --transport http on-document https://onmunseo.duckdns.org/mcp
+claude mcp add --transport http -s user on-document https://onmunseo.duckdns.org/mcp
 ```
+
+`claude` 명령이 없는 곳(VS Code 확장 등)은 `~/.claude.json` 맨 위 `"mcpServers"` 에 `"on-document": { "type": "http", "url": "https://onmunseo.duckdns.org/mcp" }` 를 더해도 같습니다(다른 설정은 그대로 둠).
 
 붙인 뒤 Claude Code 안에서 `/mcp` 를 열고 `on-document` 를 골라 인증하면 로그인 창이 뜹니다. 머리말로 넣고 싶으면 이렇게 붙입니다.
 
