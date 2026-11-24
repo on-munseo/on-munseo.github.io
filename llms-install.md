@@ -12,7 +12,7 @@
 
 On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고, **주소 하나를 등록**하면 됩니다.
 
-- MCP 주소: `https://onmunseo.duckdns.org/mcp` — 이 주소 하나를 권장합니다(도구 전부). 묶음 주소는 아래 「고급」에 있습니다.
+- MCP 주소: `https://onmunseo.kr/mcp` — 이 주소 하나를 권장합니다(도구 전부). 묶음 주소는 아래 「고급」에 있습니다.
 - 전송 방식: Streamable HTTP(`http`)
 - 인증: 열쇠가 있으면 OAuth. 처음 쓸 때 On 문서 로그인 창이 뜨고, 사용자가 받은 열쇠를 넣습니다. 열쇠를 대신 만들거나 추측하지 마세요.
 - 열쇠를 주소 뒤나 설정 파일에 적지 마세요. 사용자가 「머리말로 넣어 달라」고 따로 말한 경우에만 `Authorization: Bearer <열쇠>` 머리말을 씁니다.
@@ -42,13 +42,13 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 2. 사용자 범위로 등록합니다. 아래 세 길 가운데 되는 것 하나를 차례로 씁니다.
    - **길 1 — `claude` 명령이 있으면:**
      ```bash
-     claude mcp add --transport http -s user on-document https://onmunseo.duckdns.org/mcp
+     claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
      ```
    - **길 2 — `claude` 명령이 없으면(VS Code 확장 등 PATH 에 없는 환경):** 사용자 설정 파일 `~/.claude.json` 의 맨 위 `"mcpServers"` 에 아래 항목을 더합니다. 이미 있는 다른 설정과 서버는 지우지 마세요(JSON 으로 읽어 이 키만 더하고 다시 씀). `"mcpServers"` 가 없으면 맨 위에 새로 둡니다. 이 꼴은 길 1 이 만드는 것과 같습니다.
      ```json
      {
        "mcpServers": {
-         "on-document": { "type": "http", "url": "https://onmunseo.duckdns.org/mcp" }
+         "on-document": { "type": "http", "url": "https://onmunseo.kr/mcp" }
        }
      }
      ```
@@ -65,7 +65,7 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 설정 파일을 고치지 말고, 사용자에게 다음 순서를 안내합니다.
 
 1. 설정 → 커넥터 → 「맞춤 커넥터 추가」(사용자 지정 커넥터 추가).
-2. 이름 `On 문서`, 원격 MCP 서버 주소 `https://onmunseo.duckdns.org/mcp`.
+2. 이름 `On 문서`, 원격 MCP 서버 주소 `https://onmunseo.kr/mcp`.
 3. 「연결」을 누릅니다. 열쇠가 있으면 뜨는 On 문서 로그인 창에 넣고, 없으면 손님으로 씁니다.
 4. **끝나면 사용자에게 알립니다:** 「새 대화를 열면 On 문서 도구가 보입니다.」
 
@@ -74,7 +74,7 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 ### C. ChatGPT(웹·앱)
 
 1. 설정 → 앱·커넥터 → 고급 설정에서 「개발자 모드」를 켭니다.
-2. 「만들기」(사용자 MCP 서버 추가)에서 이름 `On 문서`, 주소 `https://onmunseo.duckdns.org/mcp`, 인증 「OAuth」.
+2. 「만들기」(사용자 MCP 서버 추가)에서 이름 `On 문서`, 주소 `https://onmunseo.kr/mcp`, 인증 「OAuth」.
 3. 연결할 때 뜨는 On 문서 로그인 창에 열쇠를 넣습니다. 대화 창의 도구(+) 메뉴에서 On 문서를 켭니다.
 4. **끝나면 사용자에게 알립니다:** 「새 대화에서 도구(+) 메뉴의 On 문서를 켜면 씁니다.」
 
@@ -86,7 +86,7 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 {
   "mcpServers": {
     "on-document": {
-      "url": "https://onmunseo.duckdns.org/mcp"
+      "url": "https://onmunseo.kr/mcp"
     }
   }
 }
@@ -106,7 +106,7 @@ cat > call.json <<'EOF'
  "style":"결과보고서",
  "markdown":"# ○○ 회의 결과보고\n\n## Ⅰ. 회의 개요\n\n○ 일시: 2026. 11. 20.(금) 14:00\n○ 장소: ○○ 회의실\n\n## Ⅱ. 주요 내용\n\n○ 교육 과정 8회 운영, 수료 214명\n"}}}
 EOF
-curl -s https://onmunseo.duckdns.org/mcp \
+curl -s https://onmunseo.kr/mcp \
   -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
   --data-binary @call.json
 ```
@@ -127,12 +127,12 @@ curl -s https://onmunseo.duckdns.org/mcp \
 
 | 서버 이름 | 주소 | 하는 일 |
 |---|---|---|
-| `on-text` | `https://onmunseo.duckdns.org/mcp/text` | 한글·PDF·오피스에서 글과 표 꺼내기 |
-| `on-check` | `https://onmunseo.duckdns.org/mcp/check` | 결재 전 점검 |
-| `on-mask` | `https://onmunseo.duckdns.org/mcp/mask` | 개인정보 찾기·가리기 |
-| `on-hwpx` | `https://onmunseo.duckdns.org/mcp/hwpx` | 한글 파일 만들기(`on_write`)·바꾸기·쪽 그림 |
-| `on-gov` | `https://onmunseo.duckdns.org/mcp/gov` | 공문서 꼴 한글 쓰기(`on_write_gov`)·표·그래프·체계도 |
-| `on-tidy` | `https://onmunseo.duckdns.org/mcp/tidy` | 개조식·맞춤법·쉬운 말 |
+| `on-text` | `https://onmunseo.kr/mcp/text` | 한글·PDF·오피스에서 글과 표 꺼내기 |
+| `on-check` | `https://onmunseo.kr/mcp/check` | 결재 전 점검 |
+| `on-mask` | `https://onmunseo.kr/mcp/mask` | 개인정보 찾기·가리기 |
+| `on-hwpx` | `https://onmunseo.kr/mcp/hwpx` | 한글 파일 만들기(`on_write`)·바꾸기·쪽 그림 |
+| `on-gov` | `https://onmunseo.kr/mcp/gov` | 공문서 꼴 한글 쓰기(`on_write_gov`)·표·그래프·체계도 |
+| `on-tidy` | `https://onmunseo.kr/mcp/tidy` | 개조식·맞춤법·쉬운 말 |
 
 ## 지켜 주세요
 

@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "on-document",
-      "description": "On 문서 원격 MCP(https://onmunseo.duckdns.org/mcp) 연결 — 한글·PDF·오피스 자료 읽기, 공문서 꼴 한글 파일 만들기, 결재 전 점검",
+      "description": "On 문서 원격 MCP(https://onmunseo.kr/mcp) 연결 — 한글·PDF·오피스 자료 읽기, 공문서 꼴 한글 파일 만들기, 결재 전 점검",
       "author": { "name": "On 문서" },
       "category": "documents",
       "source": "./plugin",

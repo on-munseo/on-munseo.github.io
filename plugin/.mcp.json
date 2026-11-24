@@ -2,7 +2,7 @@
   "mcpServers": {
     "on-document": {
       "type": "http",
-      "url": "https://onmunseo.duckdns.org/mcp"
+      "url": "https://onmunseo.kr/mcp"
     }
   }
 }

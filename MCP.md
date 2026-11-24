@@ -55,7 +55,7 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 ### 챗GPT
 
 1. 설정에서 앱(커넥터)·플러그인 쪽으로 가서 「사용자 MCP 서버 추가」를 누릅니다. 화면 판에 따라 「개발자 모드」를 먼저 켜야 할 수 있습니다.
-2. 이름은 `On 문서`, 주소는 `https://onmunseo.duckdns.org/mcp`, 인증은 **OAuth** 를 고릅니다.
+2. 이름은 `On 문서`, 주소는 `https://onmunseo.kr/mcp`, 인증은 **OAuth** 를 고릅니다.
 3. 연결을 누르면 On 문서 로그인 창이 뜹니다. 열쇠를 넣고 「연결」합니다.
 
 - 챗GPT 에는 열쇠 대신 따로 만든 출입증이 갑니다(권한·하루 몫은 열쇠와 같음). 열쇠를 끊으면 출입증도 바로 막힙니다.
@@ -63,20 +63,20 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 
 ### 클로드(claude.ai)
 
-설정 → 커넥터 → 「사용자 지정 커넥터 추가」에서 이름 `On 문서`, 주소 `https://onmunseo.duckdns.org/mcp` 를 넣습니다. 「연결」을 눌러 뜨는 On 문서 로그인 창에 열쇠를 넣습니다.
+설정 → 커넥터 → 「사용자 지정 커넥터 추가」에서 이름 `On 문서`, 주소 `https://onmunseo.kr/mcp` 를 넣습니다. 「연결」을 눌러 뜨는 On 문서 로그인 창에 열쇠를 넣습니다.
 
 ### Claude Code
 
 ```bash
-claude mcp add --transport http -s user on-document https://onmunseo.duckdns.org/mcp
+claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
 ```
 
-`claude` 명령이 없는 곳(VS Code 확장 등)은 `~/.claude.json` 맨 위 `"mcpServers"` 에 `"on-document": { "type": "http", "url": "https://onmunseo.duckdns.org/mcp" }` 를 더해도 같습니다(다른 설정은 그대로 둠).
+`claude` 명령이 없는 곳(VS Code 확장 등)은 `~/.claude.json` 맨 위 `"mcpServers"` 에 `"on-document": { "type": "http", "url": "https://onmunseo.kr/mcp" }` 를 더해도 같습니다(다른 설정은 그대로 둠).
 
 붙인 뒤 Claude Code 안에서 `/mcp` 를 열고 `on-document` 를 골라 인증하면 로그인 창이 뜹니다. 머리말로 넣고 싶으면 이렇게 붙입니다.
 
 ```bash
-claude mcp add --transport http on-text https://onmunseo.duckdns.org/mcp/text \
+claude mcp add --transport http on-text https://onmunseo.kr/mcp/text \
   --header "Authorization: Bearer <열쇠>"
 ```
 
@@ -101,7 +101,7 @@ claude plugin install on-document@on-munseo
   "mcpServers": {
     "on-document": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "https://onmunseo.duckdns.org/mcp", "--header", "Authorization:${ON_AUTH}"],
+      "args": ["-y", "mcp-remote", "https://onmunseo.kr/mcp", "--header", "Authorization:${ON_AUTH}"],
       "env": { "ON_AUTH": "Bearer <열쇠>" }
     }
   }
@@ -118,7 +118,7 @@ claude plugin install on-document@on-munseo
 {
   "mcpServers": {
     "on-document": {
-      "url": "https://onmunseo.duckdns.org/mcp",
+      "url": "https://onmunseo.kr/mcp",
       "headers": { "Authorization": "Bearer <열쇠>" }
     }
   }
@@ -128,7 +128,7 @@ claude plugin install on-document@on-munseo
 ### 직접 불러 보기(curl)
 
 ```bash
-curl -s https://onmunseo.duckdns.org/mcp/text \
+curl -s https://onmunseo.kr/mcp/text \
   -H "Authorization: Bearer <열쇠>" \
   -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
