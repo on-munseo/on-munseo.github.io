@@ -152,6 +152,21 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
   Claude Code 에 글 꺼내기 묶음을 붙여 예시 계획서(가상 자료)를 읽은 실제 서버 응답입니다.
 </p>
 
+### 제품별 저장소
+
+기능 하나만 AI 도구에 붙이려면 제품별 저장소를 봅니다. 저장소마다 연결 한 줄·도구 표·손님 한도와, 잰 것이 있는 곳은 직접 잰 성능이 있고, Claude Code 플러그인(`claude plugin install <저장소 이름> --marketplace on-munseo/<저장소 이름>`)으로도 붙습니다. 웹 화면은 이 저장소의 On 문서 하나이고, 처음이면 위의 `/mcp` 하나를 권장합니다.
+
+| 제품 | 하는 일 | 저장소 | 주소(앞에 `https://onmunseo.kr`) |
+|---|---|---|---|
+| On 글꺼내기 | 한글·PDF·오피스에서 글과 표 꺼내기 | [on-munseo/on-text](https://github.com/on-munseo/on-text) | `/mcp/text` |
+| On 결재점검 | 공문서 형식·맞춤법·날짜·요일·금액·목록 합계 점검 | [on-munseo/on-check](https://github.com/on-munseo/on-check) | `/mcp/check` |
+| On 개인정보 가리기 | 개인정보 찾기·가린 글·가린 한글 파일 | [on-munseo/on-mask](https://github.com/on-munseo/on-mask) | `/mcp/mask` |
+| On HWPX 만들기 | 마크다운으로 한글(HWPX) 파일 만들기·서식 채우기·쪽 그림 | [on-munseo/on-hwpx](https://github.com/on-munseo/on-hwpx) | `/mcp/hwpx` |
+| On 공문서 쓰기 | 공문서 꼴 한글 보고서·계획서·보도자료, 표·그래프·체계도 | [on-munseo/on-gov](https://github.com/on-munseo/on-gov) | `/mcp/gov` |
+| On 글 다듬기 | 개조식·맞춤법·띄어쓰기·쉬운 말 | [on-munseo/on-tidy](https://github.com/on-munseo/on-tidy) | `/mcp/tidy` |
+| On 근거 | 법령 조문 원문·글 속 법령 인용 확인 | [on-munseo/on-geungeo](https://github.com/on-munseo/on-geungeo) | `/mcp/law` |
+| On폭 글꼴 | 한글 문서에 자주 쓰는 글꼴과 글자 폭을 맞춘 무료 글꼴(SIL OFL 1.1) | [napurrin/onpok-fonts](https://github.com/napurrin/onpok-fonts) | — |
+
 ## 문서는 어떻게 다루나
 
 - **저장하지 않습니다.** 서버를 거치는 일(한글로 바꾸기·글 꺼내기·글자 읽기·도우미)은 서버 메모리 안에서만 다루고, 처리가 끝나면 버립니다. 기록에는 글 내용을 남기지 않습니다.

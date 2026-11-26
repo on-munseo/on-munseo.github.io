@@ -20,7 +20,7 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 | On 글꺼내기 (`on-text`) | `/mcp/text` | `on_read` 문서 읽기 · `on_detect` 형식 알아보기 · `on_meta` 문서 정보 · `on_tables` 표만 뽑기 · `on_chunks` RAG 조각 · `on_compare` 문서 비교(대비표) |
 | On 결재점검 (`on-check`) | `/mcp/check` | `on_check_text` 결재 전 점검 — 공문서 형식·맞춤법·띄어쓰기·날짜·요일·금액·목록 합계·번호 차례 |
 | On 개인정보 가리기 (`on-mask`) | `/mcp/mask` | `on_find_pii` 개인정보 찾기 · `on_mask_text` 가린 글 · `on_mask_hwpx` 가린 한글 파일 |
-| On 한글파일 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
+| On HWPX 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
 | On 공문서 쓰기 (`on-gov`) | `/mcp/gov` | `on_write_gov` 보고서·계획서·결과보고서·보도자료 한글 문서(공문서 꼴) · `on_list_templates` 예시 양식 66종 목록 · `on_fill_template` 양식 채우기 · `on_table` 글을 공문서 표로 · `on_chart` 표를 그래프 그림으로 · `on_diagram` 글머리를 체계도 그림으로 |
 | On 글 다듬기 (`on-tidy`) | `/mcp/tidy` | `on_gaejo` 개조식으로 · `on_spell` 맞춤법·띄어쓰기 · `on_plain` 쉬운 말로 |
 | On 근거 (`on-geungeo`) | `/mcp/law` | 현행 법령 전체: `law_find` 법령 이름 찾기 · `law_article` 조문 원문(조문 번호를 비우면 조문 목록) · `law_search` 문구 찾기 · `law_check_citations` 글 속 인용 확인 / 의료·응급 법률 55개: `med_laws` 법률 목록 · `med_article` 조문 깊이 보기(위임 조문·곧 시행될 개정·벌칙 요약·판례·해석례) · `med_search` 문구 찾기 · `med_duties` 의무·기한·벌칙 · `med_changes` 개정 이유·신구 대비 · `med_upcoming` 곧 시행될 개정 · `med_related` 연관 법률 · `med_compare` 법률 비교 · `med_terms` 용어 비교 · `med_checklist` 의무 체크리스트 · `med_annex` 별표·서식 · `med_decisions` 판례·법령해석례 |
