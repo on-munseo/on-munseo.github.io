@@ -14,6 +14,8 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 
 한글 보고서·계획서·결과보고서·보도자료는 **공문서 쓰기(`on_write_gov`)** 가 만듭니다. `on_write` 는 꾸밈 없는 일반 한글 문서를 만들고, 원고가 공문서처럼 보이면 같은 공문서 꼴로 만듭니다(꾸밈 없는 꼴은 `plain: true`).
 
+같은 주소에 법령 원문 도구 **On 근거**(`law_article`·`med_article`·`law_check_citations` 등)도 들어 있어, 문서에 쓴 법령 조문과 인용을 법제처 원문으로 확인합니다.
+
 ## 손으로 붙이기
 
 주소: `https://onmunseo.kr/mcp`
@@ -27,7 +29,7 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 | Cursor 등 | `mcp.json` 의 `mcpServers` 에 `"on-document": { "url": "https://onmunseo.kr/mcp" }` |
 
 - **열쇠가 있으면:** 연결할 때 뜨는 On 문서 로그인 창에 넣습니다. 주소 뒤나 설정 파일에 적지 마세요.
-- **열쇠가 없으면(손님):** 로그인 없이 손님 도구 21개를 씁니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB까지입니다. 많이 쓰거나 글자 인식·도구 27개 전부가 필요하면 열쇠를 받습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」).
+- **열쇠가 없으면(손님):** 로그인 없이 손님 도구 37개(문서 도구 21개 + 법령 원문 On 근거 16개)를 씁니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB까지입니다. 많이 쓰거나 글자 인식·PDF 정밀 읽기, 한글로 바꾸기·PDF·쪽 그림·도장·가린 한글 파일 도구가 필요하면 열쇠를 받습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」).
 - 설치 없이 웹에서 바로 쓰려면 [onmunseo.kr/app/](https://onmunseo.kr/app/) 을 엽니다.
 
 주소는 `/mcp` 하나를 권장합니다. 고급용 묶음별 주소·도구 목록·Claude 데스크톱 설정 파일·curl 예시는 [MCP.md](MCP.md)에 있습니다.

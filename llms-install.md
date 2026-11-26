@@ -22,6 +22,11 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 - 「한글 문서로 만들어 줘」처럼 보고서·계획서·결과보고서·보도자료 한글 문서를 만들 때 쓰는 도구는 `on_write_gov` 입니다. 휴먼명조·장 제목 막대·□ ○ - 단계의 공문서 꼴로 나옵니다.
 - `on_write` 는 꾸밈 없는 일반 한글 문서를 만듭니다. style 없이 받은 원고가 공문서처럼 보이면 같은 공문서 꼴로 만들고 결과에 `auto_style` 을 적습니다(꾸밈 없는 꼴을 바라면 `plain: true`).
 
+## 법령 원문 = On 근거(`law_…`·`med_…`)
+
+- 같은 주소(`/mcp`)에 법령 원문 도구 16개가 들어 있고, 열쇠가 없어도 씁니다. 법제처 현행 원문을 미리 받아 둔 사본이며 결과 끝에 받은 날이 적힙니다.
+- 법령 조문을 말하거나 문서에 법령을 인용할 때는 기억에 기대지 말고 `law_article`(현행 법령 전체)·`med_article`(의료·응급 법률 55개 — 위임·개정·벌칙·판례까지)로 원문을 확인하고, 다 쓴 글은 `law_check_citations` 로 인용을 맞대어 봅니다.
+
 ## 열쇠가 없으면(손님) — 등록 전에 먼저 읽기
 
 - 사용자에게 열쇠가 없으면 **로그인(Authenticate) 단계는 건너뜁니다.** 등록만 하면 손님으로 바로 씁니다.
@@ -118,7 +123,7 @@ curl -s https://onmunseo.kr/mcp \
 ## 확인
 
 - Claude Code: `claude mcp list` 에서 `on-document` 가 보이고, 다시 켠 뒤 `/mcp` 에서 연결됨으로 나오면 끝입니다.
-- 첫 시험: 「○○ 회의 결과를 한글 결과보고로 만들어 줘」라고 하면 `on_write_gov` 가 불립니다. 공개 문서나 본인 문서로 「이 파일 글 꺼내 줘」라고 하면 `on_read` 가 불립니다.
+- 첫 시험: 「○○ 회의 결과를 한글 결과보고로 만들어 줘」라고 하면 `on_write_gov` 가 불립니다. 공개 문서나 본인 문서로 「이 파일 글 꺼내 줘」라고 하면 `on_read` 가 불립니다. 「응급의료법 제2조 원문 보여 줘」라고 하면 `med_article` 이나 `law_article` 이 불립니다.
 - 설치 없이 웹에서 바로 쓰려면 https://onmunseo.kr/app/ 을 엽니다. 질문·고장 신고는 https://github.com/on-munseo/on-munseo.github.io/issues 입니다.
 
 ## 고급 — 기능만 골라 붙이기
@@ -133,6 +138,7 @@ curl -s https://onmunseo.kr/mcp \
 | `on-hwpx` | `https://onmunseo.kr/mcp/hwpx` | 한글 파일 만들기(`on_write`)·바꾸기·쪽 그림 |
 | `on-gov` | `https://onmunseo.kr/mcp/gov` | 공문서 꼴 한글 쓰기(`on_write_gov`)·표·그래프·체계도 |
 | `on-tidy` | `https://onmunseo.kr/mcp/tidy` | 개조식·맞춤법·쉬운 말 |
+| `on-geungeo` | `https://onmunseo.kr/mcp/law` | 법령 원문(On 근거) — 현행 법령 조문·문구 찾기·인용 확인, 의료·응급 법률의 위임·개정·벌칙·판례 |
 
 ## 지켜 주세요
 
