@@ -133,6 +133,34 @@ claude plugin install on-document@on-munseo
 }
 ```
 
+### Codex
+
+열쇠 없이는 설정 파일 `~/.codex/config.toml` 에 두 줄을 넣고 새 세션을 엽니다(윈도우 `%USERPROFILE%\.codex\config.toml`):
+
+```toml
+[mcp_servers.on-document]
+url = "https://onmunseo.kr/mcp"
+```
+
+터미널 한 줄로는(이미 있으면 건너뜀):
+
+```bash
+C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-document >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-document"; then printf '\n[mcp_servers.on-document]\nurl = "https://onmunseo.kr/mcp"\n' >> "$C/config.toml"; (cd / && codex mcp get on-document >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-document" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-document)
+```
+
+- `codex mcp add --url` 로 더하면 곧바로 On 문서 로그인 창(브라우저)을 엽니다. 열쇠가 있을 때만 쓰거나, 위 두 줄을 넣은 뒤 `codex mcp login on-document` 로 로그인합니다.
+- 묶음 하나만 붙이려면 이름과 주소 끝을 바꿉니다(예: `[mcp_servers.on-text]`·`url = "https://onmunseo.kr/mcp/text"`).
+
+### VS Code
+
+터미널에서 한 줄로 사용자 프로필에 더합니다:
+
+```bash
+code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'
+```
+
+또는 작업 공간의 `.vscode/mcp.json` 에 `{"servers": {"on-document": {"type": "http", "url": "https://onmunseo.kr/mcp"}}}` 를 둡니다. 한 번 누르기: [VS Code 에 붙이기](https://insiders.vscode.dev/redirect/mcp/install?name=on-document&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fonmunseo.kr%2Fmcp%22%7D) · [Cursor 에 붙이기](https://cursor.com/install-mcp?name=on-document&config=eyJ1cmwiOiJodHRwczovL29ubXVuc2VvLmtyL21jcCJ9)
+
 ### 직접 불러 보기(curl)
 
 ```bash

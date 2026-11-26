@@ -4,7 +4,7 @@
 
 ## 먼저 요약(세 줄)
 
-1. **등록은 AI 가 한 번** — 사용자 범위로 등록하면 그 뒤 모든 새 대화에서 계속 씁니다.
+1. **등록은 AI 가 한 번** — 사용자 범위로 등록하면 그 뒤 모든 새 대화에서 계속 씁니다. Codex 는 `codex mcp add --url` 대신 설정 파일에 두 줄을 더합니다(아래 E — 그 명령은 곧바로 로그인 창을 띄움).
 2. **활성화는 사용자가 한 번** — 등록한 그 대화에는 도구가 아직 붙지 않습니다. Claude Code 터미널은 `/exit` 뒤 `claude` 다시, VS Code 는 새 대화 또는 창 다시 불러오기(명령 팔레트 「Developer: Reload Window」), Claude 데스크톱·웹·ChatGPT 는 커넥터 「연결」.
 3. **열쇠가 없으면 로그인은 건너뛰고 손님으로 바로** 씁니다. 손님도 한글 공문서 만들기(`on_write_gov`)·글 꺼내기·결재 전 점검을 바로 쓸 수 있습니다.
 
@@ -101,6 +101,33 @@ On 문서는 원격 MCP 서버 하나입니다. 설치할 프로그램은 없고
 
 **끝나면 사용자에게 알립니다:** 「설정의 MCP 화면에서 On 문서를 켜거나 도구를 다시 켜면 보입니다.」
 
+### E. Codex
+
+`codex mcp add --url` 은 쓰지 않습니다 — 이 주소의 로그인 정보를 보고 곧바로 브라우저 로그인 창을 띄웁니다. 설정 파일에 두 줄을 더합니다(이미 있으면 건너뜀).
+
+```bash
+C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-document >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-document"; then printf '\n[mcp_servers.on-document]\nurl = "https://onmunseo.kr/mcp"\n' >> "$C/config.toml"; (cd / && codex mcp get on-document >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-document" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-document)
+```
+
+윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 `~/.codex/config.toml`(윈도우 `%USERPROFILE%\.codex\config.toml`) 끝에 아래 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-document = { url = "https://onmunseo.kr/mcp" }` 를 더함).
+
+```toml
+[mcp_servers.on-document]
+url = "https://onmunseo.kr/mcp"
+```
+
+`codex mcp list` 에 `on-document` 가 보이면 끝입니다. **끝나면 사용자에게 알립니다:** 「새 Codex 세션을 열면 On 문서 도구가 보입니다.」 열쇠가 있는 사용자만 그 뒤 `codex mcp login on-document` 로 로그인합니다.
+
+### F. VS Code(코파일럿 에이전트 등)
+
+사용자 프로필에 더합니다.
+
+```bash
+code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'
+```
+
+사람에게는 한 번 누르기 주소를 줄 수 있습니다: https://insiders.vscode.dev/redirect/mcp/install?name=on-document&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fonmunseo.kr%2Fmcp%22%7D (Cursor 는 https://cursor.com/install-mcp?name=on-document&config=eyJ1cmwiOiJodHRwczovL29ubXVuc2VvLmtyL21jcCJ9)
+
 ## 지금 대화에서 바로 쓰기(활성화 전 임시)
 
 등록한 그 대화에서 사용자가 곧바로 「한글 문서 만들어 줘」라고 했는데 On 문서 도구가 아직 안 보이면, 사용자를 기다리게 하지 말고 같은 주소를 HTTP 로 직접 불러 손님으로 처리할 수 있습니다. 서버는 상태를 두지 않는 방식이라 `tools/call` 하나로 됩니다(`initialize` 는 안 해도 됨).
@@ -122,7 +149,7 @@ curl -s https://onmunseo.kr/mcp \
 
 ## 확인
 
-- Claude Code: `claude mcp list` 에서 `on-document` 가 보이고, 다시 켠 뒤 `/mcp` 에서 연결됨으로 나오면 끝입니다.
+- Claude Code: `claude mcp list` 에서 `on-document` 가 보이고, 다시 켠 뒤 `/mcp` 에서 연결됨으로 나오면 끝입니다. Codex 는 `codex mcp list` 에서 `on-document` 가 보이면 끝입니다.
 - 첫 시험: 「○○ 회의 결과를 한글 결과보고로 만들어 줘」라고 하면 `on_write_gov` 가 불립니다. 공개 문서나 본인 문서로 「이 파일 글 꺼내 줘」라고 하면 `on_read` 가 불립니다. 「응급의료법 제2조 원문 보여 줘」라고 하면 `med_article` 이나 `law_article` 이 불립니다.
 - 설치 없이 웹에서 바로 쓰려면 https://onmunseo.kr/app/ 을 엽니다. 질문·고장 신고는 https://github.com/on-munseo/on-munseo.github.io/issues 입니다.
 

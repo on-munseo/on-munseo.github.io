@@ -27,9 +27,11 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 | Claude 데스크톱·claude.ai | 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 문서`, 주소 붙여 넣기 → 「연결」 |
 | 챗GPT | 설정 → 앱·커넥터 → 고급 설정에서 개발자 모드 켜기 → 만들기 → 주소, 인증 「OAuth」 |
 | Cursor 등 | `mcp.json` 의 `mcpServers` 에 `"on-document": { "url": "https://onmunseo.kr/mcp" }` |
+| Codex | 설정 파일 `~/.codex/config.toml` 에 두 줄 `[mcp_servers.on-document]`·`url = "https://onmunseo.kr/mcp"` 를 더하고 새 세션을 엶(`codex mcp add --url` 은 곧바로 로그인 창을 띄움). 열쇠가 있으면 그 뒤 `codex mcp login on-document` |
+| VS Code | 터미널에서 `code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'` 한 줄 |
 
 - **열쇠가 있으면:** 연결할 때 뜨는 On 문서 로그인 창에 넣습니다. 주소 뒤나 설정 파일에 적지 마세요.
-- **열쇠가 없으면(손님):** 로그인 없이 손님 도구 37개(문서 도구 21개 + 법령 원문 On 근거 16개)를 씁니다. 한 주소에서 하루 50번·1분에 6번, 요청 하나 6MB까지입니다. 많이 쓰거나 글자 인식·PDF 정밀 읽기, 한글로 바꾸기·PDF·쪽 그림·도장·가린 한글 파일 도구가 필요하면 열쇠를 받습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」).
+- **열쇠가 없으면(손님):** 로그인 없이 손님 도구 38개(문서 도구 22개 + 법령 원문 On 근거 16개)를 씁니다. 한 주소에서 하루 50번·1분에 6번(법령 도구는 따로 하루 100번·1분에 20번), 요청 하나 6MB까지입니다. 많이 쓰거나 글자 인식·PDF 정밀 읽기, 한글로 바꾸기·PDF·쪽 그림·도장 도구가 필요하면 열쇠를 받습니다. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」).
 - 설치 없이 웹에서 바로 쓰려면 [onmunseo.kr/app/](https://onmunseo.kr/app/) 을 엽니다.
 
 주소는 `/mcp` 하나를 권장합니다. 고급용 묶음별 주소·도구 목록·Claude 데스크톱 설정 파일·curl 예시는 [MCP.md](MCP.md)에 있습니다.

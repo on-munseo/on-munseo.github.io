@@ -8,6 +8,34 @@
 
 > On 문서 (On Document) is a browser-based tool to open, edit, and check Korean HWP/HWPX, PDF, and Office documents before approval, without the Hancom word processor. Checks run without AI. This repository holds the guide only; the service source is not public.
 
+<!-- ai-install -->
+## AI 에게 — 이 저장소를 설치하려면
+
+사람은 쓰는 AI 도구에 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」라고만 하면 됩니다. 내려받거나 빌드할 것은 없습니다. 원격 MCP 서버 주소 `https://onmunseo.kr/mcp` 하나를 쓰는 AI 도구에 **사용자 범위**로 등록하면 끝입니다. **열쇠(로그인)는 없어도 됩니다** — 로그인 단계는 건너뛰고 손님으로 바로 씁니다. 쓰는 도구의 한 줄만 실행하세요.
+
+- **Claude Code**
+  ```bash
+  claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
+  ```
+- **Codex** — 설정 파일(`~/.codex/config.toml`)에 두 줄을 더합니다(이미 있으면 건너뜀). `codex mcp add --url` 은 쓰지 마세요 — 곧바로 브라우저 로그인 창을 띄웁니다.
+  ```bash
+  C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-document >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-document"; then printf '\n[mcp_servers.on-document]\nurl = "https://onmunseo.kr/mcp"\n' >> "$C/config.toml"; (cd / && codex mcp get on-document >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-document" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-document)
+  ```
+  윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 그 파일 끝에 `[mcp_servers.on-document]`·`url = "https://onmunseo.kr/mcp"` 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-document = { url = "https://onmunseo.kr/mcp" }` 를 더함).
+- **Cursor** — `~/.cursor/mcp.json` 의 `"mcpServers"` 에 한 줄을 더합니다(이미 있는 서버는 그대로). 사람은 [Cursor 에 붙이기](https://cursor.com/install-mcp?name=on-document&config=eyJ1cmwiOiJodHRwczovL29ubXVuc2VvLmtyL21jcCJ9).
+  ```json
+  "on-document": { "url": "https://onmunseo.kr/mcp" }
+  ```
+- **VS Code** — 사람은 [VS Code 에 붙이기](https://insiders.vscode.dev/redirect/mcp/install?name=on-document&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fonmunseo.kr%2Fmcp%22%7D).
+  ```bash
+  code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'
+  ```
+- **Claude 데스크톱·claude.ai** — 사람이 화면에서: 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 문서`, 주소 `https://onmunseo.kr/mcp` → 「연결」.
+
+등록한 그 대화에는 도구가 아직 붙지 않습니다. 끝나면 사용자에게 「도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보입니다」라고 알려 주세요. `claude mcp list`(Codex 는 `codex mcp list`) 목록에 `on-document` 줄이 있으면 등록된 것입니다. 열쇠가 없어도 손님으로 한글 공문서 만들기(`on_write_gov`)·글 꺼내기·결재 전 점검·법령 원문을 바로 씁니다. 손으로 하려면 [INSTALL.md](INSTALL.md) · 자세한 순서: [llms-install.md](llms-install.md)
+
+<!-- ai-install -->
+
 <p align="center">
   <a href="https://onmunseo.kr/app/"><b>웹에서 바로 쓰기</b></a>
   &nbsp;·&nbsp;
@@ -26,12 +54,6 @@
 | **CPU 만** | 그래픽 카드 없이 CPU 2코어·메모리 2.5GB 서버에서 돎. 문서는 처리한 뒤 남기지 않음 |
 
 <sub>모두 직접 잰 값입니다(2026-11-26 기준). 공식 순위표 값은 순위표가 밝힌 값이고, 우리 값은 같은 공식 채점기로 우리가 잰 값입니다. 잰 판과 날짜는 [직접 잰 숫자](#직접-잰-숫자)에 있습니다.</sub>
-
-> **AI 에게 이렇게 말하세요:** 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」
->
-> Claude Code 같은 AI 도구가 이 저장소의 [설치 안내(llms-install.md)](llms-install.md)를 읽고 알아서 붙입니다. 손으로 하려면 [INSTALL.md](INSTALL.md).
->
-> 등록한 뒤 그 도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보이고, 그다음부터는 모든 대화에서 계속 씁니다. 열쇠가 없으면 로그인 없이 손님으로 바로 한글 공문서 만들기(`on_write_gov`)·글 꺼내기·점검을 씁니다.
 
 <p align="center">
   <img src="docs/img/demo_check.gif" alt="가상 계획서의 틀린 날짜·요일·합계·개인 휴대전화·맞춤법을 하나씩 짚고, 한 번에 고치기를 누른 뒤 고쳐진 자리를 다시 보여 주며 점수가 54에서 76으로 오르는 모습" width="100%"><br>
@@ -146,7 +168,7 @@ AI 채팅이나 Claude Code 에 On 문서를 붙이면([AI 도구에 붙이기](
 
 - **로그인 없이(손님):** 열쇠 없이 바로 씁니다. 한글 열기·고치기·점검·저장은 이 브라우저 안에서 하고 서버로 보내지 않습니다. 손님이 고친 문서와 최근 파일은 창을 닫으면 지워지고, 「이 기기에 기억하기」를 켤 때만 이 기기에 남습니다.
 - **손님 하루 몫:** 서버를 거치는 일(첨부 글 꺼내기·한글 파일 만들기·AI 도구 연결)은 한 주소에서 하루 50번·1분에 6번(AI 도구의 법령 도구는 따로 하루 100번·1분에 20번), 파일 하나 6MB까지입니다. 바꿔 쓰기 도우미는 하루 20번, 도우미에게 맡기기는 하루 3번입니다. 손님 전체의 하루 몫이 차면 한국 시간 자정까지 닫힙니다.
-- **열쇠가 있어야 하는 것:** 사진·스캔 글자 인식, PDF 정밀 읽기(그림 속 글·표까지), 워드·PPT·PDF 를 한글로 바꿔 고치기, 함께 고치기, AI 도구 연결의 나머지 도구 6개(한글로 바꾸기·PDF·쪽 그림·도장·가린 한글 파일), 더 큰 파일과 넉넉한 하루 몫. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」)
+- **열쇠가 있어야 하는 것:** 사진·스캔 글자 인식, PDF 정밀 읽기(그림 속 글·표까지), 워드·PPT·PDF 를 한글로 바꿔 고치기, 함께 고치기, AI 도구 연결의 나머지 도구 5개(한글로 바꾸기·PDF·쪽 그림 둘·도장), 더 큰 파일과 넉넉한 하루 몫. 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」)
 - **열쇠·초대 링크로:** 받은 초대 링크를 열거나 열쇠를 넣고 들어갑니다.
 - 순서를 따라 하고 싶으면 [시작하기](https://onmunseo.kr/start) 쪽을 봐 주세요. 「AI 채팅으로 쓰기」와 「자료 올리기」도 여기서 시작합니다.
 
@@ -159,6 +181,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
   ```bash
   claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
   ```
+- **Codex:** 설정 파일 `~/.codex/config.toml` 에 두 줄 `[mcp_servers.on-document]`·`url = "https://onmunseo.kr/mcp"` 를 더하면 로그인 창 없이 손님으로 씁니다(`codex mcp add --url` 은 곧바로 On 문서 로그인 창을 띄움). 열쇠가 있으면 두 줄을 넣은 뒤 로그인합니다: `codex mcp login on-document`
 - 한글 보고서·계획서·결과보고서·보도자료를 만드는 도구는 공문서 쓰기(`on_write_gov`)이고, `on_write` 는 꾸밈 없는 일반 한글 문서를 만듭니다.
 - 법령 조문을 쓰거나 점검할 때는 On 근거(`law_article`·`med_article`·`law_check_citations` 등)가 법제처 원문으로 확인합니다. `/mcp` 에 함께 들어 있고, 법령 도구만 따로 붙이는 주소는 `/mcp/law` 입니다.
 - 열쇠가 있으면 PDF 를 읽을 때 `precise: true` 로 정밀 읽기(그림 속 글·표까지 제자리에)를 고를 수 있습니다. 손님은 기본 읽기로 읽습니다.
