@@ -23,6 +23,7 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 | On HWPX 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
 | On 공문서 쓰기 (`on-gov`) | `/mcp/gov` | `on_write_gov` 보고서·계획서·결과보고서·보도자료 한글 문서(공문서 꼴) · `on_list_templates` 예시 양식 66종 목록 · `on_fill_template` 양식 채우기 · `on_table` 글을 공문서 표로 · `on_chart` 표를 그래프 그림으로 · `on_diagram` 글머리를 체계도 그림으로 |
 | On 글 다듬기 (`on-tidy`) | `/mcp/tidy` | `on_gaejo` 개조식으로 · `on_spell` 맞춤법·띄어쓰기 · `on_plain` 쉬운 말로 |
+| On 쓰기 (`on-write`) | `/mcp/write` | 공문서 쓰기(`on_write_gov` 등 6) · `on_write` · `on_fields`·`on_fill` · 글 다듬기(`on_gaejo`·`on_spell`·`on_plain`) · 법령 도구 전부 — 받은 문서에서 글을 꺼내거나 점검·가리는 도구 없이 쓰기·다듬기·법령만 모은 주소(2026-11-27) |
 | On 근거 (`on-geungeo`) | `/mcp/law` | 현행 법령 전체: `law_find` 법령 이름 찾기 · `law_article` 조문 원문(조문 번호를 비우면 조문 목록) · `law_search` 문구 찾기 · `law_check_citations` 글 속 인용 확인 / 의료·응급 법률 55개: `med_laws` 법률 목록 · `med_article` 조문 깊이 보기(위임 조문·곧 시행될 개정·벌칙 요약·판례·해석례) · `med_search` 문구 찾기 · `med_duties` 의무·기한·벌칙 · `med_changes` 개정 이유·신구 대비 · `med_upcoming` 곧 시행될 개정 · `med_related` 연관 법률 · `med_compare` 법률 비교 · `med_terms` 용어 비교 · `med_checklist` 의무 체크리스트 · `med_annex` 별표·서식 · `med_decisions` 판례·법령해석례 |
 | On 문서(전부) (`on-document`) | `/mcp` | 열쇠에 허락된 문서 도구와 On 근거를 모두 모아 보입니다 — 모든 권한 열쇠 43개(문서 27 + 법령 16) · 처음 받는 열쇠 34개(공문서 쓰기·글 다듬기 빼고) · 손님 38개 |
 

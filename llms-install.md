@@ -165,6 +165,7 @@ curl -s https://onmunseo.kr/mcp \
 | `on-hwpx` | `https://onmunseo.kr/mcp/hwpx` | 한글 파일 만들기(`on_write`)·바꾸기·쪽 그림 |
 | `on-gov` | `https://onmunseo.kr/mcp/gov` | 공문서 꼴 한글 쓰기(`on_write_gov`)·표·그래프·체계도 |
 | `on-tidy` | `https://onmunseo.kr/mcp/tidy` | 개조식·맞춤법·쉬운 말 |
+| `on-write` | `https://onmunseo.kr/mcp/write` | 공문서 쓰기·한글 만들기·서식 채우기·글 다듬기·법령 — 문서를 읽어 가는 도구 없이 |
 | `on-geungeo` | `https://onmunseo.kr/mcp/law` | 법령 원문(On 근거) — 현행 법령 조문·문구 찾기·인용 확인, 의료·응급 법률의 위임·개정·벌칙·판례 |
 
 ## 지켜 주세요

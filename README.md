@@ -185,7 +185,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
 - 한글 보고서·계획서·결과보고서·보도자료를 만드는 도구는 공문서 쓰기(`on_write_gov`)이고, `on_write` 는 꾸밈 없는 일반 한글 문서를 만듭니다.
 - 법령 조문을 쓰거나 점검할 때는 On 근거(`law_article`·`med_article`·`law_check_citations` 등)가 법제처 원문으로 확인합니다. `/mcp` 에 함께 들어 있고, 법령 도구만 따로 붙이는 주소는 `/mcp/law` 입니다.
 - 열쇠가 있으면 PDF 를 읽을 때 `precise: true` 로 정밀 읽기(그림 속 글·표까지 제자리에)를 고를 수 있습니다. 손님은 기본 읽기로 읽습니다.
-- 주소는 `/mcp` 하나를 권장합니다. 도구마다 순서는 [INSTALL.md](INSTALL.md), 고급용 묶음 주소(`/mcp/text`·`/mcp/check`·`/mcp/mask`·`/mcp/hwpx`·`/mcp/gov`·`/mcp/tidy`·`/mcp/law`)·도구 목록·한도·플러그인·Cursor·Claude 데스크톱 설정은 [MCP.md](MCP.md)에 있습니다.
+- 주소는 `/mcp` 하나를 권장합니다. 도구마다 순서는 [INSTALL.md](INSTALL.md), 고급용 묶음 주소(`/mcp/text`·`/mcp/check`·`/mcp/mask`·`/mcp/hwpx`·`/mcp/gov`·`/mcp/tidy`·`/mcp/write`·`/mcp/law`)·도구 목록·한도·플러그인·Cursor·Claude 데스크톱 설정은 [MCP.md](MCP.md)에 있습니다.
 - 열쇠를 주소 뒤에 붙이지 마세요. 대화 기록과 접속 기록에 남습니다.
 
 <p align="center">
