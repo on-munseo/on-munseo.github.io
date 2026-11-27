@@ -1,0 +1,67 @@
+# 공식 MCP 목록(registry.modelcontextprotocol.io)에 On 문서 항목을 올리는 일 — on-munseo/on-munseo.github.io 의 .github/workflows/ 에 둘 때(준비만, 2026-11-27)
+# · 사람이 Actions 화면에서 「Run workflow」를 눌러야만 돎(workflow_dispatch) — push 만으로는 올리지 않음
+# · 로그인은 GitHub OIDC(비밀값 없음) — 조직 저장소에서 돌면 io.github.on-munseo/* 이름공간을 받음
+#   (기기 코드 로그인(mcp-publisher login github)은 지금 조직 이름공간을 못 받음 — 공식 문서·이슈 #1468)
+# · which=products: 제품 묶음 7개(원격 주소만) · which=main: 본 항목(원격 /mcp + npm on-munseo-local) — npm 0.2.1 에 mcpName 이 들어간 뒤에만
+# · dry_run=true(기본): 검사(validate)만
+name: Publish to MCP Registry
+on:
+  workflow_dispatch:
+    inputs:
+      which:
+        description: "products | main | all"
+        required: true
+        default: products
+      dry_run:
+        description: "true 면 검사만"
+        required: true
+        default: "true"
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      MCP_PUBLISHER_VERSION: v1.8.16
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check out product repositories
+        run: |
+          set -euo pipefail
+          for r in on-text on-check on-mask on-hwpx on-gov on-tidy on-geungeo; do
+            git clone --depth 1 "https://github.com/on-munseo/$r.git" "products/$r"
+          done
+      - name: Install cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+      - name: Download and verify mcp-publisher
+        run: |
+          set -euo pipefail
+          archive="mcp-publisher_linux_amd64.tar.gz"
+          base_url="https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}"
+          curl --fail --location --silent --show-error --output "$archive" "$base_url/$archive"
+          curl --fail --location --silent --show-error --output "$archive.sigstore.json" "$base_url/$archive.sigstore.json"
+          cosign verify-blob --bundle "$archive.sigstore.json" \
+            --certificate-identity "https://github.com/modelcontextprotocol/registry/.github/workflows/release.yml@refs/tags/${MCP_PUBLISHER_VERSION}" \
+            --certificate-oidc-issuer "https://token.actions.githubusercontent.com" "$archive"
+          tar xzf "$archive" mcp-publisher
+      - name: Validate
+        run: |
+          set -euo pipefail
+          files=()
+          case "${{ inputs.which }}" in
+            products) for r in products/*/; do files+=("$r/server.json"); done ;;
+            main) files=("server.json") ;;
+            all) files=("server.json"); for r in products/*/; do files+=("$r/server.json"); done ;;
+            *) echo "which 는 products·main·all 가운데 하나"; exit 1 ;;
+          esac
+          printf '%s\n' "${files[@]}" > files.txt
+          while read -r f; do ./mcp-publisher validate "$f"; done < files.txt
+      - name: Authenticate to MCP Registry
+        if: ${{ inputs.dry_run != 'true' }}
+        run: ./mcp-publisher login github-oidc
+      - name: Publish
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          set -euo pipefail
+          while read -r f; do ./mcp-publisher publish "$f"; done < files.txt
