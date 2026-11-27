@@ -8,71 +8,21 @@
 
 > On 문서 (On Document) is a browser-based tool to open, edit, and check Korean HWP/HWPX, PDF, and Office documents before approval, without the Hancom word processor. Checks run without AI. This repository holds the guide only; the service source is not public.
 
-<!-- ai-install -->
-## AI 에게 — 이 저장소를 설치하려면
-
-사람은 쓰는 AI 도구에 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」라고만 하면 됩니다. 길은 셋이고 **①부터** 권합니다. 어느 길도 열쇠·로그인이 없습니다. 문서 읽기·가리기·점검·만들기·다듬기는 ①, 법령 원문은 ②, 모두 한곳에 있는 것은 ③입니다. 「설치해 줘」라고만 하면 ①과 ② 를 붙입니다.
-
-**① 내 PC 판 — 문서를 이 컴퓨터 밖으로 보내지 않음(먼저).** 글 꺼내기·신구 대비표·개인정보 찾기·가리기·결재 전 점검·공문서 쓰기·서식 채우기·한글 파일 만들기·글 다듬기를 이 컴퓨터 안에서 합니다. 이 프로그램은 인터넷을 쓰지 않습니다(설치 뒤 `on_local_info` 로 확인 — 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작이고, 그것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). Node.js 20 이상이 있어야 합니다.
-- **지금 쓰는 AI 도구에만**(AI 가 설치할 때는 이것 — 다른 도구의 설정은 건드리지 않음)
-  ```bash
-  claude mcp add -s user on-local -- npx -y on-munseo-local@0.2.1
-  ```
-  Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.2.1` · 윈도우 Claude Code 는 `claude mcp add -s user on-local -- cmd /c npx -y on-munseo-local@0.2.1` · Cursor·Claude 데스크톱은 설정 파일의 `"mcpServers"` 에 `"on-local": { "command": "npx", "args": ["-y", "on-munseo-local@0.2.1"] }`(윈도우 `"on-local": { "command": "cmd", "args": ["/c", "npx", "-y", "on-munseo-local@0.2.1"] }`) · VS Code 는 `code --add-mcp '{"name":"on-local","command":"npx","args":["-y","on-munseo-local@0.2.1"]}'`
-- **사람이 이 PC 의 여러 AI 도구에 한 번에** — Claude Code·Claude 데스크톱·Codex·Cursor·VS Code 를 찾아 모두 등록합니다(바꾸기 전에 백업, 이미 있으면 건너뜀, 미리 보기 `--dry-run`, 되돌리기 `--undo`, ②까지 `--pair`).
-  ```bash
-  npx -y on-munseo-local@0.2.1 setup --pair
-  ```
-- **판 고정** — 위 「지금 쓰는 AI 도구에만」 줄은 판 번호를 적어 붙입니다(`on-munseo-local@0.2.1`). 자동으로 새 판을 받지 않고, 사람이 올릴 때만 바뀝니다(npm 에 새 판이 올라와도 이미 붙인 판은 그대로 · 인터넷이 끊겨도 한 번 받은 판은 뜸). (`setup` 은 이 판(0.2.1)까지 등록 줄에 `@latest` 를 적습니다 — 판을 고정하려면 도구별 한 줄로 붙입니다) 새 판으로 올리기: 등록한 줄의 판 번호만 새 판으로 바꿔 다시 붙입니다(Claude Code 는 `claude mcp remove -s user on-local` 뒤 새 판 번호로 위 한 줄) · 바뀐 점: [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)
-
-**② 짝 주소(법령) — 도구에 넣은 낱말·글만 서버로.** 법령 원문·글 속 인용 확인(On 근거)은 서버에만 있습니다. 서버로 가는 것은 넣은 법령 이름·조문 번호·인용을 확인할 글이고, 파일을 보내는 도구는 없습니다. 인용을 확인할 글에 개인정보가 있으면 ① 의 `on_mask_text` 로 가린 뒤 넣습니다.
-- 지금 쓰는 도구에만(① 의 `setup --pair` 는 ② 까지 함께 붙임):
-- **Claude Code**
-  ```bash
-  claude mcp add --transport http -s user on-geungeo https://onmunseo.kr/mcp/law
-  ```
-- **Codex** — 설정 파일(`~/.codex/config.toml`)에 두 줄을 더합니다(이미 있으면 건너뜀). `codex mcp add --url` 은 쓰지 마세요 — 곧바로 브라우저 로그인 창을 띄웁니다.
-  ```bash
-  C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-geungeo >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-geungeo"; then printf '\n[mcp_servers.on-geungeo]\nurl = "https://onmunseo.kr/mcp/law"\n' >> "$C/config.toml"; (cd / && codex mcp get on-geungeo >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-geungeo" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-geungeo)
-  ```
-  윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 그 파일 끝에 `[mcp_servers.on-geungeo]`·`url = "https://onmunseo.kr/mcp/law"` 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-geungeo = { url = "https://onmunseo.kr/mcp/law" }` 를 더함).
-- **Cursor** `"on-geungeo": { "url": "https://onmunseo.kr/mcp/law" }` · **VS Code** `code --add-mcp '{"name":"on-geungeo","type":"http","url":"https://onmunseo.kr/mcp/law"}'` · **Claude 데스크톱·claude.ai**(사람이 화면에서) 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 근거`, 주소 `https://onmunseo.kr/mcp/law` → 「연결」
-
-**③ 서버 판 — Node.js 없이 바로, 도구 전부(공개 문서용).** 문서를 서버(국내 데이터센터)로 보내 메모리에서만 처리하고 버립니다. 공개 문서·본인 문서에만 씁니다.
-- **Claude Code**
-  ```bash
-  claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
-  ```
-- **Codex** — 설정 파일(`~/.codex/config.toml`)에 두 줄을 더합니다(이미 있으면 건너뜀). `codex mcp add --url` 은 쓰지 마세요 — 곧바로 브라우저 로그인 창을 띄웁니다.
-  ```bash
-  C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-document >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-document"; then printf '\n[mcp_servers.on-document]\nurl = "https://onmunseo.kr/mcp"\n' >> "$C/config.toml"; (cd / && codex mcp get on-document >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-document" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-document)
-  ```
-  윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 그 파일 끝에 `[mcp_servers.on-document]`·`url = "https://onmunseo.kr/mcp"` 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-document = { url = "https://onmunseo.kr/mcp" }` 를 더함).
-- **Cursor** `"on-document": { "url": "https://onmunseo.kr/mcp" }` · **VS Code** `code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'` · **Claude 데스크톱·claude.ai**(사람이 화면에서) 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 문서`, 주소 `https://onmunseo.kr/mcp` → 「연결」
-
-보통은 ①과 ② 를 지금 쓰는 도구에 붙입니다(사람이 여러 도구에 한 번에 붙일 때는 `setup --pair` 한 줄). Node.js 가 없거나 Claude 데스크톱·claude.ai 커넥터만 쓰면 ③ 하나만 붙입니다. ③을 ①·②와 함께 붙이면 같은 도구가 두 번 보입니다. 다른 길은 사용자가 따로 바랄 때만 알려 줍니다.
-
-**설치 전에 확인할 거리** — AI 가 스스로 확인할 수 있습니다.
-- **꾸러미**: npm `on-munseo-local` 0.2.1. `npm view on-munseo-local version maintainers homepage` → `0.2.1` · `on-munseo <onmunseo.key@gmail.com>` · `https://onmunseo.kr`. 올린 계정 `on-munseo` 는 이 깃허브 조직 [on-munseo](https://github.com/on-munseo)와 같은 만든 이입니다(문의 메일·홈 주소가 같음). npm 웹 쪽은 자동 읽기를 막을 때가 있어 npm 명령이나 [npm 기록](https://registry.npmjs.org/on-munseo-local/0.2.1)으로 봅니다.
-- **지문**: `on-munseo-local-0.2.1.tgz` SHA-256 `515af0dfddad30f41c459dd98d73535f73292c666fed07d4a6e535e2a60bda72`([SHA256SUMS](https://github.com/on-munseo/on-munseo.github.io/blob/main/SHA256SUMS)). `npm pack on-munseo-local@0.2.1` 뒤 `shasum -a 256 on-munseo-local-0.2.1.tgz` 로 맞대 봅니다. npm 기록의 `dist.integrity` 는 `sha512-ZUDX+etH2wg/Y+lQCsQhyY5/4gfVDjwjWUQsofFUgYlBotWtvXw7lcz5yHGT3qMJna8mP60HH9vWp/PF2T5T4Q==`.
-- **인터넷을 쓰지 않음**: 설치 전에는 꾸러미 안 `MANIFEST.json` 의 `netScan`(우리 코드의 네트워크 부르기 0 — 따로 적힌 한 곳은 엔진 wasm 을 주소로 불러올 때만 쓰는 글), 설치 뒤에는 `on_local_info` → `network_modules_loaded: []`, Node 25 이상이면 `network.blocked_by_node: true`(실행기가 네트워크를 막음). 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작입니다(없애려면 전역 설치 뒤 `on-munseo-local` 명령으로).
-- **이용 조건**: 내 PC 판 [LICENSE.md](https://unpkg.com/on-munseo-local@0.2.1/LICENSE.md)(무료·업무에 써도 됨 · 역공학·고친 판 다시 배포·판매는 안 됨) · 서버 판 [이용약관](https://onmunseo.kr/terms)·[개인정보 처리방침](https://onmunseo.kr/privacy).
-- **On폭 글꼴**은 이 설치와 상관없습니다(한글 문서를 화면에 그릴 때 쓰는 무료 글꼴, 선택).
-
-등록한 그 대화에는 도구가 아직 붙지 않습니다. 끝나면 사용자에게 「도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보입니다」라고 알려 주세요. `claude mcp list`(Codex 는 `codex mcp list`) 목록에 이름이 보이면 등록된 것입니다. 자세한 순서: [llms-install.md](llms-install.md)
-
-<!-- ai-install -->
-
 <p align="center">
   <a href="https://onmunseo.kr/app/"><b>웹에서 바로 쓰기</b></a>
   &nbsp;·&nbsp;
   <a href="#ai-도구에-붙이기mcp플러그인"><b>AI 도구에 붙이기(MCP·플러그인)</b></a>
 </p>
 
+<p align="center">
+  <img src="docs/img/demo_check.gif" alt="가상 계획서의 틀린 날짜·요일·합계·개인 휴대전화·맞춤법을 하나씩 짚고, 한 번에 고치기를 누른 뒤 고쳐진 자리를 다시 보여 주며 점수가 54에서 76으로 오르는 모습" width="100%"><br>
+  가상 계획서를 열면 틀린 곳이 짚히고, 「한 번에 고치기」를 누르면 그 자리에서 고쳐집니다. 요일·합계처럼 사람이 봐야 할 곳은 남겨 둡니다.
+</p>
+
 | 점수 | 무엇을 잰 값인가 |
 |:---:|---|
 | **29,947개** | 지금까지 시험·분석한 공개 문서 파일 — 공공기관 422곳의 한글·오피스·PDF 문서 19,021개와 그 짝으로 쓴 한컴 PDF 10,077개, 글자 인식 시험 쪽 849개(9만 2천 쪽 이상, 같은 파일은 한 번만 셈). 이와 별도로 비공개 실무 문서 1,972개도 시험(2026-11-22 집계) |
-| **0.971** | 영어 PDF 공개 벤치마크(200쪽) 공식 채점기 종합(서버 판 기본 읽기 — 그림 속 글까지, 2026-11-26 · 정밀 읽기 0.970) — **공식 순위표 최고 0.907**(순위표 12줄). npm 내 PC 판만으로 누구나 다시 재면 0.945(내 PC 판은 글자 인식 없이 읽음 — [재현 대본](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench)) |
+| **0.971** | 영어 PDF 공개 벤치마크(200쪽)를 고치지 않은 공식 채점기로 잰 종합 점수(서버 판 기본 읽기 — 그림 속 글까지, 2026-11-26 · 정밀 읽기 0.970). npm 내 PC 판만으로는 0.945(글자 인식 없이 읽음)이고, 공개한 대본으로 누구나 다시 잴 수 있습니다([재현 대본](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench)) |
 | **100점** | On 문서로 만든 공문서 30종을 한컴오피스 한글 2024 로 열어 채점 — 30종 모두 100점 |
 | **98.7%** | 쪽 수까지 한컴과 같은 한글 문서 — 공공 문서 6,898개 중 6,811개(복잡한 공공 문서·보도자료·법령 별표) |
 | **0.981** | 한글(HWPX) 파일 속 표를 칸 나눔·합친 칸·칸 글까지 원본 그대로 꺼낸 점수(표 구조 TEDS, 1이 만점) — 개발에 쓰지 않은 법령 별표 50개 |
@@ -80,58 +30,9 @@
 | **100% / 35.5%** | AI 채팅으로 만든 공문서가 한컴에서 원고 그대로 보인 비율 — On 문서 설치 후 / 설치 전 |
 | **CPU 만** | 그래픽 카드 없이 CPU 2코어·메모리 2.5GB 서버에서 돎. 문서는 처리한 뒤 남기지 않음 |
 
-<sub>모두 직접 잰 값입니다(2026-11-26 기준). 공식 순위표 값은 순위표가 밝힌 값이고, 우리 값은 같은 공식 채점기로 우리가 잰 값입니다. 누구나 다시 잴 수 있게 대본을 공개한 것은 [믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것)에 있습니다. 잰 판과 날짜는 [직접 잰 숫자](#직접-잰-숫자)에 있습니다.</sub>
+<sub>모두 직접 잰 값입니다(2026-11-26 기준). 누구나 다시 잴 수 있게 대본을 공개한 것은 [믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것)에, 잰 판과 날짜는 [직접 잰 숫자](#직접-잰-숫자)에, 다른 도구와 같은 조건으로 잰 값은 맨 아래 [측정과 비교(참고)](#측정과-비교참고)에 있습니다.</sub>
 
-<p align="center">
-  <img src="docs/img/demo_check.gif" alt="가상 계획서의 틀린 날짜·요일·합계·개인 휴대전화·맞춤법을 하나씩 짚고, 한 번에 고치기를 누른 뒤 고쳐진 자리를 다시 보여 주며 점수가 54에서 76으로 오르는 모습" width="100%"><br>
-  가상 계획서를 열면 틀린 곳이 짚히고, 「한 번에 고치기」를 누르면 그 자리에서 고쳐집니다. 요일·합계처럼 사람이 봐야 할 곳은 남겨 둡니다.
-</p>
-
-## 다른 도구와 견줄 때
-
-같은 문서·같은 채점으로 직접 잰 값입니다. 공식 순위가 아니며, 잰 판·조건·정의는 [측정 자료](docs/benchmark.md)에 있습니다.
-
-| 견줄 갈래 | On 문서 | 견준 상대 | 잰 날 |
-|---|---|---|---|
-| 한글 읽기 — 공공 한글 1,726개 한글 글자 재현율(한컴 PDF 대조) | 99.87% | 국내 공개 엔진 A 99.87%(같음) | 2026-11-12 |
-| 한글 읽기 — 법령 별표 HWPX 50개 원본 대조 글자 오류율 · 표 구조 TEDS | 0.09% · 0.981 | A 0.12% · 0.968 | 2026-11-20 · 11-23 |
-| 오피스 읽기 — 공공데이터 457개 표 칸 재현율(워드·엑셀·파워포인트) | 98.95 · 99.80 · 99.89% | A 90.08 · 99.01 · 95.63% | 2026-11-17 · 11-23 |
-| 영어 PDF 200쪽 공식 채점기 — 기본 읽기(그림 속 글 가볍게) · 정밀 읽기 | 0.971 · 0.970 | A 최신 기본 0.965 · 0.967 | 2026-11-26 · 11-25 |
-| 글 꺼내기 속도 — 공식 한글 2,150개(같은 M3 맥북·같은 실행, 데운 뒤) 합계 · 문서당 가운데 | 3.1초 · 0.27ms | A 36.8초 · 0.52ms | 2026-11-26 |
-| 쪽 그림 — 복잡한 공공 문서 1,470개 중 쪽 수까지 한컴과 같은 문서 · 제목 크기 글이 사라진 문서 | 1,454 · 1 | 바탕 엔진 rhwp 원판 v0.9.0 1,410 · 55 | 2026-11-22~23 |
-| 공문서 만들기 — 한컴오피스 한글 2024 로 연 자체 30과제 평균 점수 | 99.6(지금 시범판 100) | 공개 HWPX 보고서 생성 MCP 86.4 | 2026-11-19(지금 판 11-25) |
-
-- 진 곳도 적습니다: 영어 PDF 의 표(TEDS) 칸은 국내 공개 엔진 A 최신 판(0.9805)이 우리 기본 읽기(0.9799)보다 조금 높습니다(2026-11-26). 법제처 API 를 실시간으로 부르는 법령 조회 MCP 는 자치법규·행정규칙 본문·의료 밖 판례까지 더 넓게 찾고, On 근거는 미리 받은 사본으로 의료·응급 법률 55개의 위임·개정 이유·벌칙·판례·해석례를 잇는 깊이와 글 속 법령 인용 확인이 몫입니다.
-- On 한글엔진은 공개 엔진 rhwp(MIT) 바탕에 우리 고침을 더한 것입니다. 점검·가리기·만들기는 언어 모델(AI) 없이 규칙으로 해서 같은 입력이면 같은 결과이고, 표·그래프·체계도는 원문 숫자를 하나라도 잃으면 결과 대신 까닭을 냅니다.
-- AI 도구 연결(MCP)로 보낸 문서는 서버(국내 데이터센터)의 메모리에서만 처리하고 버립니다. 서버를 거치는 MCP 에는 공개 문서·본인 문서만 — 기관 내부 문서는 웹 편집기에서 브라우저 안에서 처리하는 기능(한글 열기·고치기·저장, 결재 전 점검, 개인정보 가리기)으로 다룹니다(웹 편집기라도 첨부 글 꺼내기·글자 인식·한글 파일 만들기는 서버를 거침).
-
-**바로 가기:** [다른 도구와 견줄 때](#다른-도구와-견줄-때) · [믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것) · [이럴 때 쓰세요](#이럴-때-쓰세요) · [할 수 있는 일](#할-수-있는-일) · [누가 어떻게](#누가-어떻게) · [직접 잰 숫자](#직접-잰-숫자) · [한계](#한계) · [이용 조건](#이용-조건) · [열쇠 신청·문의](#문의)
-
-## 믿을 근거 — 남이 다시 확인할 수 있는 것
-
-**하는 일(일의 낱말로).** ① 내 PC 판 하나로 — 읽기(한글·PDF·워드·엑셀·파워포인트의 글·표) · 신구 대비표(두 판 견주기) · 결재 전 점검(공문서 형식·맞춤법·날짜·요일·금액) · 개인정보 찾기·가리기(가린 글·가린 한글 파일) · 공문서 쓰기(보고서·계획서·결과보고서·보도자료) · 예시 양식 66종 채우기 · 서식 채우기 · 글을 표로 · HWP→HWPX 바꾸기 · 글 다듬기(개조식·맞춤법·쉬운 말). 법령 원문·글 속 인용 확인은 ② 짝 주소, 그래프·체계도 그림·PDF·글자 인식은 ③ 서버 판에 있습니다. 내 PC 판의 도구 이름은 설치 뒤 `on_local_info` 의 `tools_here` 에 모두 나옵니다.
-
-**누구나 다시 잴 수 있는 숫자.** 아래 셋은 공개한 대본·공개 출처·npm 꾸러미만으로 돌아갑니다(비공개 코드 없음). 우리가 잰 값이지만, 남이 같은 값을 다시 낼 수 있습니다.
-
-| 무엇 | 값 | 다시 재는 법 |
-|---|---|---|
-| 영어 PDF 200쪽 — [opendataloader-bench](https://github.com/opendataloader-project/opendataloader-bench) 공식 채점기(고치지 않음) 종합 | 내 PC 판(글자 인식 없이) **0.945**(읽는 순서 0.949 · 표 0.938 · 제목 0.938) — 서버 판 기본 읽기는 **0.971**(아래 참고) · 공식 순위표 최고 0.907 | [repro/opendataloader-bench](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench) — npm `on-munseo-local@0.2.1`(0.2.1 도 바이트까지 같은 결과). 결과 200개 지문이 다섯 번 모두 같음 |
-| 서식 채우기 — 법제처 공개 법령 서식·별지 709개 | 값을 넣은 654개 가운데 **653개가 원래 서식 그대로**(글꼴·문단·표 모양과 그림은 바이트 그대로, 본문 짜임 같음, 빠진 글자 0). 남은 1개는 한 줄에 날짜 칸과 쌍점 칸이 겹친 서식의 결함(고칠 것) | [repro/form-fill](https://github.com/on-munseo/on-local/tree/main/repro/form-fill) — 같은 꾸러미 · 서식 709개의 원 출처 주소·SHA-1 목록. 두 번 돌려 만든 파일 지문이 모두 같음 |
-| 개인정보 찾기 — 공개 시험 [korean-pii-benchmark-v3](https://huggingface.co/datasets/schift-io/korean-pii-benchmark-v3) 473줄(정답은 그 시험의 표시, 채점 정의는 우리가 적음) | 사람 이름 찾음률 **95.6%**(정밀도 100%) · 주소 **97.9%**(100%) · 가리면 안 되는 문장 59줄 중 가린 줄 0. 약한 곳: 지역번호로 시작하는 일반 전화 43.1%(휴대전화는 모두 찾음). 이 시험은 규칙을 고칠 때 본 것이라 실제보다 높게 나올 수 있음 | [repro/korean-pii](https://github.com/on-munseo/on-local/tree/main/repro/korean-pii) — `on-munseo-local@0.2.1`(서버 판과 같은 모델·같은 값). 다섯 번 돌려 473줄 찾은 자리가 모두 같음 |
-
-- 이 벤치의 공식 순위표에는 올라가 있지 않습니다. 순위표 저장소에 외부 엔진 결과를 더하는 요청 7건(2026-06~11)이 아직 병합되지 않았고, 순위표는 2026-04-30 뒤로 바뀌지 않았습니다. 그래서 등재 대신 재현 대본을 둡니다.
-- 서버 판의 0.971(그림 속 글을 가볍게 글자 인식)·0.970(정밀 읽기)은 서버의 글자 인식 모델을 써서 이 대본으로는 재현되지 않습니다. 서버 판 값은 MCP 로 다시 잴 수 있으나 손님 하루 몫(한 주소 100번) 안에서 나눠 재야 합니다.
-- 그 밖의 숫자(그리기 1,470짝·만들기 30과제·개인정보 찾기 등)는 대본을 공개하지 않은 자체 측정입니다. 정의·판·날짜는 [측정 자료](docs/benchmark.md)에 있습니다.
-
-**꾸러미 확인.** 내 PC 판은 **판을 고정해 붙입니다**(도구별 한 줄의 `on-munseo-local@<판>` — `setup` 이 판 번호를 적는 것은 0.2.1 다음 판부터). npm 에 새 판이 올라와도 이미 붙인 판은 바뀌지 않고, 사람이 올릴 때만 바뀝니다(인터넷이 끊겨도 한 번 받은 판은 뜸 — `@latest` 로 붙이면 끊긴 동안 뜨지 못함). 판마다 지문(SHA-256)은 [SHA256SUMS](SHA256SUMS)·[릴리스](https://github.com/on-munseo/on-local/releases)에, 바뀐 점은 [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)에 있습니다.
-
-**보안 점검(자체 점검 — 외부 모의해킹이 아님).**
-- 2026-11-21 전수 점검: 코드 읽기·재현 시험·화면·함께 고치기 방·파일 파서 퍼징·배포 설정 등 11개 영역. 찾은 것 높음 16 · 중간 32 · 낮음 33.
-- 높음 16 · 중간 31 · 낮음 31 은 고쳐 운영 판에 넣었습니다(영역마다 고치기 전에 재현 → 고친 뒤 같은 재현으로 확인 → 회귀 시험).
-- 남긴 것: 중간 1(서버 안내 글이 AI 의 도구 고르기를 이끄는 문장 — 안내 글을 사실만 적게 두는 쪽으로) · 낮음 2(공유 링크·열쇠가 브라우저 방문 기록에 남는 것 — 브라우저가 하는 일이라 고칠 수 있는 데까지).
-- 2026-11-23 사이트 겉 점검: 높음·중간·낮음 0, 참고 1(화면 꾸밈(style)에 인라인을 허용하는 CSP).
-
-**지원 창구·답하는 때.** 질문·고장·기능 요청은 [이슈](https://github.com/on-munseo/on-munseo.github.io/issues)에, 보안 문제는 공개 이슈 대신 [SECURITY.md](SECURITY.md)의 메일로 알려 주세요. 근무일 3일 안에 받았다고 답하고, 보안 신고는 7일 안에 판단과 고칠 일정을 알립니다.
+**바로 가기:** [이럴 때 쓰세요](#이럴-때-쓰세요) · [할 수 있는 일](#할-수-있는-일) · [설치 안내](#설치-안내사람ai-공통) · [믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것) · [누가 어떻게](#누가-어떻게) · [직접 잰 숫자](#직접-잰-숫자) · [한계](#한계) · [이용 조건](#이용-조건) · [열쇠 신청·문의](#문의) · [측정과 비교(참고)](#측정과-비교참고)
 
 ## 이럴 때 쓰세요
 
@@ -213,6 +114,88 @@ AI 채팅이나 Claude Code 에 On 문서를 붙이면([AI 도구에 붙이기](
 
 화면 예시의 계획서·예산서·보안 문서는 모두 지어낸 것입니다(기관·사람·숫자는 「○○」 꼴). 「정식 한글처럼 열기」의 보도자료(고용노동부, 2026. 11. 11.)와 「참고 문서 쏙」의 조달청 보도자료(2025. 11. 20.)는 각 기관 누리집에 공개된 것으로, 내용을 바꾸지 않고 보여 줍니다.
 
+<!-- ai-install -->
+## 설치 안내(사람·AI 공통)
+
+사람은 쓰는 AI 도구에 「https://github.com/on-munseo/on-munseo.github.io 의 On 문서를 설치해 줘」라고만 하면 됩니다. 길은 셋이고 **①부터** 권합니다. 어느 길도 열쇠·로그인이 없습니다. 문서 읽기·가리기·점검·만들기·다듬기는 ①, 법령 원문은 ②, 모두 한곳에 있는 것은 ③입니다. 「설치해 줘」라고만 하면 ①과 ② 를 붙입니다.
+
+**① 내 PC 판 — 문서를 이 컴퓨터 밖으로 보내지 않음(먼저).** 글 꺼내기·신구 대비표·개인정보 찾기·가리기·결재 전 점검·공문서 쓰기·서식 채우기·한글 파일 만들기·글 다듬기를 이 컴퓨터 안에서 합니다. 이 프로그램은 인터넷을 쓰지 않습니다(설치 뒤 `on_local_info` 로 확인 — 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작이고, 그것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). Node.js 20 이상이 있어야 합니다.
+- **지금 쓰는 AI 도구에만**(AI 가 설치할 때는 이것 — 다른 도구의 설정은 건드리지 않음)
+  ```bash
+  claude mcp add -s user on-local -- npx -y on-munseo-local@0.2.1
+  ```
+  Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.2.1` · 윈도우 Claude Code 는 `claude mcp add -s user on-local -- cmd /c npx -y on-munseo-local@0.2.1` · Cursor·Claude 데스크톱은 설정 파일의 `"mcpServers"` 에 `"on-local": { "command": "npx", "args": ["-y", "on-munseo-local@0.2.1"] }`(윈도우 `"on-local": { "command": "cmd", "args": ["/c", "npx", "-y", "on-munseo-local@0.2.1"] }`) · VS Code 는 `code --add-mcp '{"name":"on-local","command":"npx","args":["-y","on-munseo-local@0.2.1"]}'`
+- **사람이 이 PC 의 여러 AI 도구에 한 번에** — Claude Code·Claude 데스크톱·Codex·Cursor·VS Code 를 찾아 모두 등록합니다(바꾸기 전에 백업, 이미 있으면 건너뜀, 미리 보기 `--dry-run`, 되돌리기 `--undo`, ②까지 `--pair`).
+  ```bash
+  npx -y on-munseo-local@0.2.1 setup --pair
+  ```
+- **판 고정** — 위 「지금 쓰는 AI 도구에만」 줄은 판 번호를 적어 붙입니다(`on-munseo-local@0.2.1`). 자동으로 새 판을 받지 않고, 사람이 올릴 때만 바뀝니다(npm 에 새 판이 올라와도 이미 붙인 판은 그대로 · 인터넷이 끊겨도 한 번 받은 판은 뜸). (`setup` 은 이 판(0.2.1)까지 등록 줄에 `@latest` 를 적습니다 — 판을 고정하려면 도구별 한 줄로 붙입니다) 새 판으로 올리기: 등록한 줄의 판 번호만 새 판으로 바꿔 다시 붙입니다(Claude Code 는 `claude mcp remove -s user on-local` 뒤 새 판 번호로 위 한 줄) · 바뀐 점: [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)
+
+**② 짝 주소(법령) — 도구에 넣은 낱말·글만 서버로.** 법령 원문·글 속 인용 확인(On 근거)은 서버에만 있습니다. 서버로 가는 것은 넣은 법령 이름·조문 번호·인용을 확인할 글이고, 파일을 보내는 도구는 없습니다. 인용을 확인할 글에 개인정보가 있으면 ① 의 `on_mask_text` 로 가린 뒤 넣습니다.
+- 지금 쓰는 도구에만(① 의 `setup --pair` 는 ② 까지 함께 붙임):
+- **Claude Code**
+  ```bash
+  claude mcp add --transport http -s user on-geungeo https://onmunseo.kr/mcp/law
+  ```
+- **Codex** — 설정 파일(`~/.codex/config.toml`)에 두 줄을 더합니다(이미 있으면 건너뜀). `codex mcp add --url` 은 쓰지 마세요 — 곧바로 브라우저 로그인 창을 띄웁니다.
+  ```bash
+  C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-geungeo >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-geungeo"; then printf '\n[mcp_servers.on-geungeo]\nurl = "https://onmunseo.kr/mcp/law"\n' >> "$C/config.toml"; (cd / && codex mcp get on-geungeo >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-geungeo" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-geungeo)
+  ```
+  윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 그 파일 끝에 `[mcp_servers.on-geungeo]`·`url = "https://onmunseo.kr/mcp/law"` 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-geungeo = { url = "https://onmunseo.kr/mcp/law" }` 를 더함).
+- **Cursor** `"on-geungeo": { "url": "https://onmunseo.kr/mcp/law" }` · **VS Code** `code --add-mcp '{"name":"on-geungeo","type":"http","url":"https://onmunseo.kr/mcp/law"}'` · **Claude 데스크톱·claude.ai**(사람이 화면에서) 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 근거`, 주소 `https://onmunseo.kr/mcp/law` → 「연결」
+
+**③ 서버 판 — Node.js 없이 바로, 도구 전부(공개 문서용).** 문서를 서버(국내 데이터센터)로 보내 메모리에서만 처리하고 버립니다. 공개 문서·본인 문서에만 씁니다.
+- **Claude Code**
+  ```bash
+  claude mcp add --transport http -s user on-document https://onmunseo.kr/mcp
+  ```
+- **Codex** — 설정 파일(`~/.codex/config.toml`)에 두 줄을 더합니다(이미 있으면 건너뜀). `codex mcp add --url` 은 쓰지 마세요 — 곧바로 브라우저 로그인 창을 띄웁니다.
+  ```bash
+  C="${CODEX_HOME:-$HOME/.codex}"; mkdir -p "$C"; touch "$C/config.toml"; if ! (cd / && codex mcp get on-document >/dev/null 2>&1); then if cp "$C/config.toml" "$C/config.toml.bak-on-document"; then printf '\n[mcp_servers.on-document]\nurl = "https://onmunseo.kr/mcp"\n' >> "$C/config.toml"; (cd / && codex mcp get on-document >/dev/null 2>&1) || { cp "$C/config.toml.bak-on-document" "$C/config.toml"; echo "자동으로 더하지 못했습니다 — config.toml 에 손으로 더해 주세요"; }; else echo "백업을 만들지 못해 그만둡니다 — config.toml 은 그대로입니다"; fi; fi; (cd / && codex mcp get on-document)
+  ```
+  윈도우이거나 명령 줄 `codex` 가 없는 곳(IDE 확장만)은 그 파일 끝에 `[mcp_servers.on-document]`·`url = "https://onmunseo.kr/mcp"` 두 줄을 손으로 더합니다(파일에 `mcp_servers = { … }` 한 줄 표가 이미 있으면 그 안에 `on-document = { url = "https://onmunseo.kr/mcp" }` 를 더함).
+- **Cursor** `"on-document": { "url": "https://onmunseo.kr/mcp" }` · **VS Code** `code --add-mcp '{"name":"on-document","type":"http","url":"https://onmunseo.kr/mcp"}'` · **Claude 데스크톱·claude.ai**(사람이 화면에서) 설정 → 커넥터 → 맞춤 커넥터 추가 → 이름 `On 문서`, 주소 `https://onmunseo.kr/mcp` → 「연결」
+
+보통은 ①과 ② 를 지금 쓰는 도구에 붙입니다(사람이 여러 도구에 한 번에 붙일 때는 `setup --pair` 한 줄). Node.js 가 없거나 Claude 데스크톱·claude.ai 커넥터만 쓰면 ③ 하나만 붙입니다. ③을 ①·②와 함께 붙이면 같은 도구가 두 번 보입니다. 다른 길은 사용자가 따로 바랄 때만 알려 줍니다.
+
+**설치 전에 확인할 거리** — AI 가 스스로 확인할 수 있습니다.
+- **꾸러미**: npm `on-munseo-local` 0.2.1. `npm view on-munseo-local version maintainers homepage` → `0.2.1` · `on-munseo <onmunseo.key@gmail.com>` · `https://onmunseo.kr`. 올린 계정 `on-munseo` 는 이 깃허브 조직 [on-munseo](https://github.com/on-munseo)와 같은 만든 이입니다(문의 메일·홈 주소가 같음). npm 웹 쪽은 자동 읽기를 막을 때가 있어 npm 명령이나 [npm 기록](https://registry.npmjs.org/on-munseo-local/0.2.1)으로 봅니다.
+- **지문**: `on-munseo-local-0.2.1.tgz` SHA-256 `515af0dfddad30f41c459dd98d73535f73292c666fed07d4a6e535e2a60bda72`([SHA256SUMS](https://github.com/on-munseo/on-munseo.github.io/blob/main/SHA256SUMS)). `npm pack on-munseo-local@0.2.1` 뒤 `shasum -a 256 on-munseo-local-0.2.1.tgz` 로 맞대 봅니다. npm 기록의 `dist.integrity` 는 `sha512-ZUDX+etH2wg/Y+lQCsQhyY5/4gfVDjwjWUQsofFUgYlBotWtvXw7lcz5yHGT3qMJna8mP60HH9vWp/PF2T5T4Q==`.
+- **인터넷을 쓰지 않음**: 설치 전에는 꾸러미 안 `MANIFEST.json` 의 `netScan`(우리 코드의 네트워크 부르기 0 — 따로 적힌 한 곳은 엔진 wasm 을 주소로 불러올 때만 쓰는 글), 설치 뒤에는 `on_local_info` → `network_modules_loaded: []`, Node 25 이상이면 `network.blocked_by_node: true`(실행기가 네트워크를 막음). 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작입니다(없애려면 전역 설치 뒤 `on-munseo-local` 명령으로).
+- **이용 조건**: 내 PC 판 [LICENSE.md](https://unpkg.com/on-munseo-local@0.2.1/LICENSE.md)(무료·업무에 써도 됨 · 역공학·고친 판 다시 배포·판매는 안 됨) · 서버 판 [이용약관](https://onmunseo.kr/terms)·[개인정보 처리방침](https://onmunseo.kr/privacy).
+- **On폭 글꼴**은 이 설치와 상관없습니다(한글 문서를 화면에 그릴 때 쓰는 무료 글꼴, 선택).
+
+등록한 그 대화에는 도구가 아직 붙지 않습니다. 끝나면 사용자에게 「도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보입니다」라고 알려 주세요. `claude mcp list`(Codex 는 `codex mcp list`) 목록에 이름이 보이면 등록된 것입니다. 자세한 순서: [llms-install.md](llms-install.md)
+
+<!-- ai-install -->
+
+## 믿을 근거 — 남이 다시 확인할 수 있는 것
+
+**하는 일(일의 낱말로).** ① 내 PC 판 하나로 — 읽기(한글·PDF·워드·엑셀·파워포인트의 글·표) · 신구 대비표(두 판 견주기) · 결재 전 점검(공문서 형식·맞춤법·날짜·요일·금액) · 개인정보 찾기·가리기(가린 글·가린 한글 파일) · 공문서 쓰기(보고서·계획서·결과보고서·보도자료) · 예시 양식 66종 채우기 · 서식 채우기 · 글을 표로 · HWP→HWPX 바꾸기 · 글 다듬기(개조식·맞춤법·쉬운 말). 법령 원문·글 속 인용 확인은 ② 짝 주소, 그래프·체계도 그림·PDF·글자 인식은 ③ 서버 판에 있습니다. 내 PC 판의 도구 이름은 설치 뒤 `on_local_info` 의 `tools_here` 에 모두 나옵니다.
+
+**누구나 다시 잴 수 있는 숫자.** 아래 셋은 공개한 대본·공개 출처·npm 꾸러미만으로 돌아갑니다(비공개 코드 없음). 우리가 잰 값이지만, 남이 같은 값을 다시 낼 수 있습니다.
+
+| 무엇 | 값 | 다시 재는 법 |
+|---|---|---|
+| 영어 PDF 200쪽 — [opendataloader-bench](https://github.com/opendataloader-project/opendataloader-bench) 공식 채점기(고치지 않음) 종합 | 내 PC 판(글자 인식 없이) **0.945**(읽는 순서 0.949 · 표 0.938 · 제목 0.938) — 서버 판 기본 읽기는 **0.971**(아래 참고) | [repro/opendataloader-bench](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench) — npm `on-munseo-local@0.2.0`(0.2.1·0.3.0 도 결과가 바이트까지 같음). 결과 200개 지문이 다섯 번 모두 같음 |
+| 서식 채우기 — 법제처 공개 법령 서식·별지 709개 | 값을 넣은 654개 가운데 **653개가 원래 서식 그대로**(글꼴·문단·표 모양과 그림은 바이트 그대로, 본문 짜임 같음, 빠진 글자 0). 남은 1개는 한 줄에 날짜 칸과 쌍점 칸이 겹친 서식의 결함(고칠 것) | [repro/form-fill](https://github.com/on-munseo/on-local/tree/main/repro/form-fill) — 같은 꾸러미 · 서식 709개의 원 출처 주소·SHA-1 목록. 두 번 돌려 만든 파일 지문이 모두 같음 |
+| 개인정보 찾기 — 공개 시험 [korean-pii-benchmark-v3](https://huggingface.co/datasets/schift-io/korean-pii-benchmark-v3) 473줄(정답은 그 시험의 표시, 채점 정의는 우리가 적음) | 사람 이름 찾음률 **95.6%**(정밀도 100%) · 주소 **97.9%**(100%) · 가리면 안 되는 문장 59줄 중 가린 줄 0. 약한 곳: 지역번호로 시작하는 일반 전화 43.1%(휴대전화는 모두 찾음). 이 시험은 규칙을 고칠 때 본 것이라 실제보다 높게 나올 수 있음 | [repro/korean-pii](https://github.com/on-munseo/on-local/tree/main/repro/korean-pii) — `on-munseo-local@0.2.1`(서버 판과 같은 모델·같은 값). 다섯 번 돌려 473줄 찾은 자리가 모두 같음 |
+
+- 서버 판의 0.971(그림 속 글을 가볍게 글자 인식)·0.970(정밀 읽기)은 서버의 글자 인식 모델을 써서 이 대본으로는 재현되지 않습니다. 서버 판 값은 MCP 로 다시 잴 수 있으나 손님 하루 몫(한 주소 100번) 안에서 나눠 재야 합니다.
+- 그 밖의 숫자(그리기 1,470짝·만들기 30과제·개인정보 찾기 등)는 대본을 공개하지 않은 자체 측정입니다. 정의·판·날짜는 [측정 자료](docs/benchmark.md)에 있습니다.
+
+**꾸러미 확인.** 내 PC 판은 **판을 고정해 붙입니다**(도구별 한 줄의 `on-munseo-local@<판>` — `setup` 이 판 번호를 적는 것은 0.2.1 다음 판부터). npm 에 새 판이 올라와도 이미 붙인 판은 바뀌지 않고, 사람이 올릴 때만 바뀝니다(인터넷이 끊겨도 한 번 받은 판은 뜸 — `@latest` 로 붙이면 끊긴 동안 뜨지 못함). 판마다 지문(SHA-256)은 [SHA256SUMS](SHA256SUMS)·[릴리스](https://github.com/on-munseo/on-local/releases)에, 바뀐 점은 [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)에 있습니다.
+
+**만든 바탕.** On 한글엔진은 공개 엔진 rhwp(MIT) 바탕에 우리 고침을 더한 것입니다. 점검·가리기·만들기는 언어 모델(AI) 없이 규칙으로 해서 같은 입력이면 같은 결과이고, 표·그래프·체계도는 원문 숫자를 하나라도 잃으면 결과 대신 까닭을 냅니다.
+
+**보안 점검(자체 점검 — 외부 모의해킹이 아님).**
+- 2026-11-21 전수 점검: 코드 읽기·재현 시험·화면·함께 고치기 방·파일 파서 퍼징·배포 설정 등 11개 영역. 찾은 것 높음 16 · 중간 32 · 낮음 33.
+- 높음 16 · 중간 31 · 낮음 31 은 고쳐 운영 판에 넣었습니다(영역마다 고치기 전에 재현 → 고친 뒤 같은 재현으로 확인 → 회귀 시험).
+- 남긴 것: 중간 1(서버 안내 글이 AI 의 도구 고르기를 이끄는 문장 — 안내 글을 사실만 적게 두는 쪽으로) · 낮음 2(공유 링크·열쇠가 브라우저 방문 기록에 남는 것 — 브라우저가 하는 일이라 고칠 수 있는 데까지).
+- 2026-11-23 사이트 겉 점검: 높음·중간·낮음 0, 참고 1(화면 꾸밈(style)에 인라인을 허용하는 CSP).
+
+**지원 창구·답하는 때.** 질문·고장·기능 요청은 [이슈](https://github.com/on-munseo/on-munseo.github.io/issues)에, 보안 문제는 공개 이슈 대신 [SECURITY.md](SECURITY.md)의 메일로 알려 주세요. 근무일 3일 안에 받았다고 답하고, 보안 신고는 7일 안에 판단과 고칠 일정을 알립니다.
+
 ## 누가 어떻게
 
 ### 처음이면 — 웹 편집기에서 바로
@@ -263,7 +246,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
 
 ## 문서는 어떻게 다루나
 
-- **저장하지 않습니다.** 서버를 거치는 일(한글로 바꾸기·글 꺼내기·글자 읽기·도우미)은 서버 메모리 안에서만 다루고, 처리가 끝나면 버립니다. 기록에는 글 내용을 남기지 않습니다.
+- **저장하지 않습니다.** 서버를 거치는 일(AI 도구 연결·한글로 바꾸기·글 꺼내기·글자 읽기·도우미)은 서버(국내 데이터센터) 메모리 안에서만 다루고, 처리가 끝나면 버립니다. 기록에는 글 내용을 남기지 않습니다.
 - 「자료 올리기」로 올린 파일과 결과 받기 주소는 15분 뒤 사라집니다.
 - 결재 전 점검·개인정보 가리기·체계도는 브라우저 안에서 합니다.
 - 보안 등급 표시(대외비 등)가 글로 적힌 문서는 처리하지 않고 돌려보냅니다.
@@ -273,7 +256,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
 
 ## 직접 잰 숫자
 
-공공 문서를 한컴 한글이 만든 결과와 맞대어 직접 잰 값입니다. 공식 순위가 아닙니다.
+공공 문서를 한컴 한글이 만든 결과와 맞대어 직접 잰 값입니다.
 
 | | |
 |---|---|
@@ -281,7 +264,7 @@ AI 채팅이나 Claude Code 를 자주 쓰면 On 문서를 도구로 붙여, 대
 | **99.87%** | 법령 별표·보도자료 한글 1,726개에서 꺼낸 한글 글자(한컴 PDF 의 1,716,582자 기준) |
 | **100개 중 98~99개** | 쪽 수까지 한컴과 같은 문서 — 복잡한 공공 문서 1,454/1,470 · 정책브리핑 보도자료 1,982/1,996 · 법령 별표 3,375/3,432 |
 | **30종 모두 100점** | On 문서로 만든 공문서 30종을 한컴오피스 한글 2024 로 열어 채점 — 끝 줄에 1~2글자만 넘어간 문단 0 |
-| **0.971** | 영어 PDF 200쪽 공개 벤치마크 공식 채점기 종합(기본 읽기 — 그림 속 글을 가볍게 읽음, 2026-11-26) — 공식 순위표 최고 0.907(순위표 12줄). 그림 속 글까지 다 읽는 정밀 읽기는 0.970(그림 속 글 규칙을 만들 때 보지 않은 125쪽만 재도 0.970 — 바탕 읽기 규칙은 이 벤치를 보며 다듬었음). 글자 인식이 없는 npm 내 PC 판은 0.945 이고 누구나 다시 잴 수 있습니다([재현 대본](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench)) |
+| **0.971** | 영어 PDF 200쪽 공개 벤치마크 공식 채점기 종합(기본 읽기 — 그림 속 글을 가볍게 읽음, 2026-11-26). 그림 속 글까지 다 읽는 정밀 읽기는 0.970(그림 속 글 규칙을 만들 때 보지 않은 125쪽만 재도 0.970 — 바탕 읽기 규칙은 이 벤치를 보며 다듬었음). 글자 인식이 없는 npm 내 PC 판은 0.945 이고 누구나 다시 잴 수 있습니다([재현 대본](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench)) |
 | **0.999 · 0.981** | 한글(HWPX) 파일 속 원본 글과 대조한 글자 정확도 · 표 구조 점수(TEDS) — 개발에 쓰지 않은 법령 별표 50개 |
 | **1.000 · 0.989~0.999** | 워드·엑셀·파워포인트 공공데이터 457개 글 재현율 · 표 칸 재현율(워드 0.989 · 엑셀 0.998 · 파워포인트 0.999) |
 | **95.6% · 94.5%** | 서버를 거치는 개인정보 찾기(AI 도구 연결)의 사람 이름 찾음률 — 공개 시험 473건 · 모델 학습에 쓰지 않은 날짜의 관보 3,138조각. 관보에서 이름이라고 찾은 것 가운데 맞은 것은 90.7% |
@@ -359,6 +342,25 @@ On 문서는 한글이 파일에 저장해 둔 줄 자리를 그대로 쓰고, �
 - 열쇠 신청: `onmunseo.key [at] gmail.com`(제목에 「On 문서 열쇠 신청」). 쓰려는 곳(개인·업무·연구 등)과 필요한 기능을 적어 주세요.
 - 질문·고장 신고·기능 요청은 [이슈](https://github.com/on-munseo/on-munseo.github.io/issues)에 남겨 주세요. 문서 파일이나 개인정보는 이슈에 올리지 마세요(이슈는 누구나 봅니다).
 - 숫자와 안내가 바뀌면 이 저장소의 [커밋 기록](https://github.com/on-munseo/on-munseo.github.io/commits/main)에 남깁니다. 다시 찾아보실 때를 위해 저장소 위쪽의 ★(Star)로 표시해 두셔도 됩니다.
+
+## 측정과 비교(참고)
+
+같은 문서·같은 채점으로 다른 도구와 함께 직접 잰 값입니다. 공식 순위가 아니며, 잰 판·조건·정의는 [측정 자료](docs/benchmark.md)에 있습니다. On 문서만의 값은 위 [직접 잰 숫자](#직접-잰-숫자)와 [믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것)에 있습니다.
+
+| 견줄 갈래 | On 문서 | 견준 상대 | 잰 날 |
+|---|---|---|---|
+| 한글 읽기 — 공공 한글 1,726개 한글 글자 재현율(한컴 PDF 대조) | 99.87% | 국내 공개 엔진 A 99.87%(같음) | 2026-11-12 |
+| 한글 읽기 — 법령 별표 HWPX 50개 원본 대조 글자 오류율 · 표 구조 TEDS | 0.09% · 0.981 | A 0.12% · 0.968 | 2026-11-20 · 11-23 |
+| 오피스 읽기 — 공공데이터 457개 표 칸 재현율(워드·엑셀·파워포인트) | 98.95 · 99.80 · 99.89% | A 90.08 · 99.01 · 95.63% | 2026-11-17 · 11-23 |
+| 영어 PDF 200쪽 공식 채점기 — 기본 읽기(그림 속 글 가볍게) · 정밀 읽기 | 0.971 · 0.970 | A 최신 기본 0.965 · 0.967 | 2026-11-26 · 11-25 |
+| 글 꺼내기 속도 — 공식 한글 2,150개(같은 M3 맥북·같은 실행, 데운 뒤) 합계 · 문서당 가운데 | 3.1초 · 0.27ms | A 36.8초 · 0.52ms | 2026-11-26 |
+| 쪽 그림 — 복잡한 공공 문서 1,470개 중 쪽 수까지 한컴과 같은 문서 · 제목 크기 글이 사라진 문서 | 1,454 · 1 | 바탕 엔진 rhwp 원판 v0.9.0 1,410 · 55 | 2026-11-22~23 |
+| 공문서 만들기 — 한컴오피스 한글 2024 로 연 자체 30과제 평균 점수 | 99.6(지금 시범판 100) | 공개 HWPX 보고서 생성 MCP 86.4 | 2026-11-19(지금 판 11-25) |
+
+- 우리 값이 낮은 곳: 영어 PDF 의 표(TEDS) 칸은 국내 공개 엔진 A 최신 판(0.9805)이 우리 기본 읽기(0.9799)보다 조금 높습니다(2026-11-26).
+- 법령: 법제처 API 를 실시간으로 부르는 법령 조회 MCP 는 자치법규·행정규칙 본문·의료 밖 판례까지 더 넓게 찾고, On 근거는 미리 받은 사본으로 의료·응급 법률 55개의 위임·개정 이유·벌칙·판례·해석례를 잇는 깊이와 글 속 법령 인용 확인이 몫입니다.
+- 쪽 그림 줄의 견준 상대는 On 한글엔진의 바탕인 공개 엔진 rhwp(MIT)의 원판입니다.
+- 영어 PDF 벤치의 공식 순위표: 순위표에 오른 값 가운데 가장 높은 것은 0.907(순위표 12줄)입니다. 순위표 값은 순위표가 밝힌 값이고, 우리 값은 같은 공식 채점기로 우리가 잰 값입니다. On 문서는 이 순위표에 올라가 있지 않습니다 — 순위표 저장소에 외부 엔진 결과를 더하는 요청 7건(2026-06~11)이 아직 병합되지 않았고, 순위표는 2026-04-30 뒤로 바뀌지 않았습니다. 그래서 등재 대신 재현 대본([믿을 근거](#믿을-근거--남이-다시-확인할-수-있는-것))을 둡니다.
 
 ## 고지
 
