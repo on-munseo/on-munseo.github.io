@@ -19,7 +19,7 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 ## 손으로 붙이기
 
 <!-- ai-install -->
-**먼저 — 내 PC 판(문서를 이 컴퓨터 밖으로 보내지 않음, 인터넷 안 씀):** `npx -y on-munseo-local@latest setup --pair`(이 PC 의 AI 도구를 찾아 등록 — 법령 짝 주소까지). Node.js 20 이상(띄울 때 npx 가 npm 저장소에 새 판을 묻는 것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). 공문서 쓰기·법령은 짝 주소 `https://onmunseo.kr/mcp/law`(도구에 넣은 원고·질문·채울 서식만 서버로). 아래 표는 ③ 서버 판(Node 없이 바로 — 공개 문서용) 붙이는 법입니다. 확인할 거리(꾸러미·지문·만든 이·이용 조건)는 [README](README.md#ai-에게--이-저장소를-설치하려면)에 있습니다.
+**먼저 — 내 PC 판(문서를 이 컴퓨터 밖으로 보내지 않음, 인터넷 안 씀):** Claude Code 는 `claude mcp add -s user on-local -- npx -y on-munseo-local@latest`, Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@latest`(사람이 이 PC 의 여러 AI 도구에 한 번에: `npx -y on-munseo-local@latest setup --pair` — 법령 짝 주소까지). Node.js 20 이상(띄울 때 npx 가 npm 저장소에 새 판을 묻는 것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). 공문서 쓰기·법령은 짝 주소 `https://onmunseo.kr/mcp/law`(도구에 넣은 원고·질문·채울 서식만 서버로). 아래 표는 ③ 서버 판(Node 없이 바로 — 공개 문서용) 붙이는 법입니다. 확인할 거리(꾸러미·지문·만든 이·이용 조건)는 [README](README.md#ai-에게--이-저장소를-설치하려면)에 있습니다.
 <!-- ai-install -->
 
 주소: `https://onmunseo.kr/mcp`
