@@ -1,13 +1,37 @@
 {
   "name": "on-document",
-  "version": "0.1.1",
-  "description": "On 문서 원격 MCP 연결 — 한글(HWP·HWPX)·PDF·오피스 자료 읽기, 공문서 꼴 한글(HWPX) 파일 만들기, 결재 전 점검, 법령 원문 확인(On 근거). 서버 주소 하나만 담은 설정 꾸러미이며 엔진 코드·비밀값은 없습니다. Connects Claude Code to the hosted On Document MCP server (Korean HWP/HWPX documents, Korean statute lookup).",
+  "displayName": "On 문서",
+  "version": "0.2.0",
+  "description": "On 문서 원격 MCP(onmunseo.kr) 연결 — 한글(HWP·HWPX)·PDF·오피스 문서 읽기, 공문서 꼴 한글(HWPX) 파일 만들기, 결재 전 점검, 개인정보 가리기, 법령 원문 확인. 엔진 코드·비밀값 없이 서버 주소만 담은 설정입니다. Connects Claude to the hosted On Document MCP server for Korean HWP/HWPX documents and Korean statute lookup.",
   "author": {
-    "name": "On 문서",
+    "name": "on-munseo",
     "url": "https://github.com/on-munseo"
   },
   "homepage": "https://on-munseo.github.io",
   "repository": "https://github.com/on-munseo/on-munseo.github.io",
-  "keywords": ["hwp", "hwpx", "한글", "공문서", "법령", "mcp", "korean"],
-  "license": "MIT"
+  "keywords": [
+    "hwp",
+    "hwpx",
+    "pdf",
+    "한글",
+    "공문서",
+    "결재",
+    "법령",
+    "온문서",
+    "on-munseo",
+    "onmunseo",
+    "korean",
+    "mcp"
+  ],
+  "license": "MIT",
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://github.com/on-munseo/on-munseo.github.io/blob/main/MCP.md",
+  "supportUrl": "https://github.com/on-munseo/on-munseo.github.io/issues",
+  "privacyPolicyUrl": "https://onmunseo.kr/privacy",
+  "termsOfServiceUrl": "https://onmunseo.kr/terms",
+  "network": {
+    "hosts": [
+      "onmunseo.kr"
+    ]
+  }
 }

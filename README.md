@@ -344,7 +344,7 @@ On 문서는 한글이 파일에 저장해 둔 줄 자리를 그대로 쓰고, �
 ## 저작권·라이선스
 
 - **글과 그림**(README·MCP.md·INSTALL.md·llms-install.md·docs 의 글, 화면 그림, 측정 자료): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ko). 출처만 밝히면 복사·배포·고쳐 쓰기·상업적 이용을 할 수 있습니다. 출처 표기 예: 「출처: On 문서(on-munseo)」
-- **설정 파일**(`plugin/`·`.claude-plugin/` 안의 plugin.json·.mcp.json·marketplace.json): MIT.
+- **설정 파일**(`plugin/`·`.claude-plugin/` 안의 plugin.json·.mcp.json·marketplace.json과 plugin/README.md): MIT. plugin/assets 의 아이콘은 On 문서 로고라 들어가지 않습니다.
 - 「On 문서」 이름과 로고는 위 허락에 들어가지 않습니다.
 - 서비스의 엔진·서버 코드와 자료는 이 저장소에 없고 공개하지 않습니다.
 

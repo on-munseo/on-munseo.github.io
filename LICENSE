@@ -25,8 +25,9 @@ Copyright (c) 2026 On 문서 (github.com/on-munseo)
 2. 설정 파일 — MIT License
 ────────────────────────────────────────
 대상: plugin/ 과 .claude-plugin/ 안의 파일
-      (plugin/.claude-plugin/plugin.json, plugin/.mcp.json,
+      (plugin/.claude-plugin/plugin.json, plugin/.mcp.json, plugin/README.md,
        .claude-plugin/marketplace.json)
+      — plugin/assets/icon.png 는 On 문서 로고라 이 라이선스에 들어가지 않습니다(아래 「그 밖」).
 
 MIT License
 
