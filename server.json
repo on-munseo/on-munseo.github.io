@@ -1,0 +1,42 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.on-munseo/on-document",
+  "title": "On 문서",
+  "description": "Korean HWP/HWPX, PDF and Office files: extract, check, mask, and write government-style HWPX",
+  "version": "0.2.1",
+  "websiteUrl": "https://onmunseo.kr",
+  "repository": {
+    "url": "https://github.com/on-munseo/on-munseo.github.io",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://onmunseo.kr/mcp"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "on-munseo-local",
+      "version": "0.2.1",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ONDOC_LOCAL_READ",
+          "description": "Folders the local edition may read (default: anywhere the user can read)",
+          "isRequired": false
+        },
+        {
+          "name": "ONDOC_LOCAL_OUT",
+          "description": "Folder for result files (default: ~/On문서_결과)",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}
