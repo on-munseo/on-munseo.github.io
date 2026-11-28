@@ -18,10 +18,10 @@ On 문서의 MCP 창구는 AI 도구(챗GPT·클로드·Claude Code 등)가 문�
 
 | 묶음(서버 이름) | 주소 | 도구 |
 |---|---|---|
-| On 글꺼내기 (`on-text`) | `/mcp/text` | `on_read` 문서 읽기 · `on_detect` 형식 알아보기 · `on_meta` 문서 정보 · `on_tables` 표만 뽑기 · `on_chunks` RAG 조각 · `on_compare` 문서 비교(대비표) |
+| On 글꺼내기 (`on-text`) | `/mcp/text` | `on_read` 한글·PDF·워드·엑셀·파워포인트의 글과 표를 마크다운으로 꺼내기 · `on_detect` 형식 알아보기 · `on_meta` 문서 정보 · `on_tables` 표만 뽑기 · `on_chunks` RAG 조각 · `on_compare` 문서 비교(대비표) |
 | On 결재점검 (`on-check`) | `/mcp/check` | `on_check_text` 결재 전 점검 — 공문서 형식·맞춤법·띄어쓰기·날짜·요일·금액·목록 합계·번호 차례 |
 | On 개인정보 가리기 (`on-mask`) | `/mcp/mask` | `on_find_pii` 개인정보 찾기 · `on_mask_text` 가린 글 · `on_mask_hwpx` 가린 한글 파일 |
-| On HWPX 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기 · `on_stamp` 도장 찍기 |
+| On HWPX 만들기 (`on-hwpx`) | `/mcp/hwpx` | `on_write` 마크다운으로 꾸밈 없는 일반 한글 문서(공문서처럼 보이는 원고는 공문서 꼴) · `on_to_hwpx` HWPX 로 바꾸기 · `on_pdf` PDF 만들기 · `on_pages`·`on_render_pages` 쪽 그림 · `on_fields` 채울 곳 찾기 · `on_fill` 서식 채우기·기존 `.hwp`·`.hwpx`의 문단 글(`replace`)·표 칸 글(`cells`)을 원래 서식 그대로 고치기 · `on_stamp` 도장 찍기 |
 | On 공문서 쓰기 (`on-gov`) | `/mcp/gov` | `on_write_gov` 보고서·계획서·결과보고서·보도자료 한글 문서(공문서 꼴) · `on_list_templates` 예시 양식 66종 목록 · `on_fill_template` 양식 채우기 · `on_table` 글을 공문서 표로 · `on_chart` 표를 그래프 그림으로 · `on_diagram` 글머리를 체계도 그림으로 |
 | On 글 다듬기 (`on-tidy`) | `/mcp/tidy` | `on_gaejo` 개조식으로 · `on_spell` 맞춤법·띄어쓰기 · `on_plain` 쉬운 말로 |
 | On 쓰기 (`on-write`) | `/mcp/write` | 공문서 쓰기(`on_write_gov` 등 6) · `on_write` · `on_fields`·`on_fill` · 글 다듬기(`on_gaejo`·`on_spell`·`on_plain`) · 법령 도구 전부 — 받은 문서에서 글을 꺼내거나 점검·가리는 도구 없이 쓰기·다듬기·법령만 모은 주소(2026-11-27) |

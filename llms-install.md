@@ -4,7 +4,7 @@
 
 **0.3.2 묶음(게시 전, 2026-11-28)** — 시범판·내 PC 판의 엔진은 On 한글엔진 2.2.4(2.2.3 에 쪽 나눔 고침 다섯을 더함)입니다. npm 최신은 아직 0.3.1 이므로 설치·판 고정·지문 확인 줄은 0.3.1 을 유지합니다.
 
-서식 채우기 `on_fill`(`replace`·`cells` 포함)은 원래 서식이 `.hwp` 이면 HWPX 와 함께 `.hwp` 로도 줍니다(`as` 기본 `both`, `as: "hwpx"` 면 HWPX 만). 낸 `.hwp` 를 다시 읽어 채운 글과 같을 때만 주며, 못 맞추면 HWPX 만 주고 까닭을 알립니다. 원래 `.hwpx` 와 `on_write`·`on_to_hwpx` 등 다른 만들기·바꾸기 도구는 HWPX 만 줍니다. 자세한 보존 방식과 측정은 [MCP 안내](MCP.md#서식-채우기의-hwp-결과032)에 있습니다.
+서식 채우기 `on_fill`은 기존 `.hwp`·`.hwpx`의 문단 글(`replace`)과 표 칸 글(`cells`)을 원래 서식 그대로 고칩니다. 원래 서식이 `.hwp` 이면 HWPX 와 함께 `.hwp` 로도 줍니다(`as` 기본 `both`, `as: "hwpx"` 면 HWPX 만). 낸 `.hwp` 를 다시 읽어 채운 글과 같을 때만 주며, 못 맞추면 HWPX 만 주고 까닭을 알립니다. 원래 `.hwpx` 와 `on_write`·`on_to_hwpx` 등 다른 만들기·바꾸기 도구는 HWPX 만 줍니다. 자세한 보존 방식과 측정은 [MCP 안내](MCP.md#서식-채우기의-hwp-결과032)에 있습니다.
 
 영어 PDF 200개 공식 채점기 종합은 서버 판 기본 0.971(0.9714) · 정밀 0.971(0.9705), 내 PC 판 0.3.2 묶음(게시 전)은 0.9713 입니다(2026-11-28, 맥북 M5 Pro). 가벼운 글자 인식은 내 PC 판 0.3.1 부터 들어 있습니다. 아래 설치 줄의 0.3.1 로 새 묶음의 점수가 재현된다고 안내하지 마세요. [측정 자료](docs/benchmark.md#51-형식별-요약)에 조건을 적었습니다.
 
@@ -221,7 +221,7 @@ curl -s https://onmunseo.kr/mcp \
 
 | 서버 이름 | 주소 | 하는 일 |
 |---|---|---|
-| `on-text` | `https://onmunseo.kr/mcp/text` | 한글·PDF·오피스에서 글과 표 꺼내기 |
+| `on-text` | `https://onmunseo.kr/mcp/text` | 한글·PDF·워드·엑셀·파워포인트의 글과 표를 마크다운으로 꺼내기(`on_read`, RAG 조각은 `on_chunks`) |
 | `on-check` | `https://onmunseo.kr/mcp/check` | 결재 전 점검 |
 | `on-mask` | `https://onmunseo.kr/mcp/mask` | 개인정보 찾기·가리기 |
 | `on-hwpx` | `https://onmunseo.kr/mcp/hwpx` | 한글 파일 만들기(`on_write`)·바꾸기·쪽 그림 |
