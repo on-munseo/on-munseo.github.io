@@ -1,7 +1,7 @@
 {
   "name": "on-document",
   "displayName": "On 문서",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "On 문서 원격 MCP(onmunseo.kr) 연결 — 한글(HWP·HWPX)·PDF·오피스 문서 읽기, 공문서 꼴 한글(HWPX) 파일 만들기, 결재 전 점검, 개인정보 가리기, 법령 원문 확인. 엔진 코드·비밀값 없이 서버 주소만 담은 설정입니다. Connects Claude to the hosted On Document MCP server for Korean HWP/HWPX documents and Korean statute lookup.",
   "author": {
     "name": "on-munseo",
