@@ -3,7 +3,7 @@
   "name": "io.github.on-munseo/on-document",
   "title": "On 문서",
   "description": "Korean HWP/HWPX, PDF and Office files: extract, check, mask, and write government-style HWPX",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "websiteUrl": "https://onmunseo.kr",
   "repository": {
     "url": "https://github.com/on-munseo/on-munseo.github.io",
@@ -20,7 +20,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "on-munseo-local",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
