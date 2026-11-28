@@ -127,14 +127,14 @@ AI 채팅이나 Claude Code 에 On 문서를 붙이면([AI 도구에 붙이기](
 **① 내 PC 판 — 문서를 이 컴퓨터 밖으로 보내지 않음(먼저).** 글 꺼내기·신구 대비표·개인정보 찾기·가리기·결재 전 점검·공문서 쓰기·서식 채우기·한글 파일 만들기·글 다듬기를 이 컴퓨터 안에서 합니다. 이 프로그램은 인터넷을 쓰지 않습니다(설치 뒤 `on_local_info` 로 확인 — 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작이고, 그것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). Node.js 20 이상이 있어야 합니다.
 - **지금 쓰는 AI 도구에만**(AI 가 설치할 때는 이것 — 다른 도구의 설정은 건드리지 않음)
   ```bash
-  claude mcp add -s user on-local -- npx -y on-munseo-local@0.3.2
+  claude mcp add -s user on-local -- npx -y on-munseo-local@0.3.3
   ```
-  Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.3.2` · 윈도우 Claude Code 는 `claude mcp add -s user on-local -- cmd /c npx -y on-munseo-local@0.3.2` · Cursor·Claude 데스크톱은 설정 파일의 `"mcpServers"` 에 `"on-local": { "command": "npx", "args": ["-y", "on-munseo-local@0.3.2"] }`(윈도우 `"on-local": { "command": "cmd", "args": ["/c", "npx", "-y", "on-munseo-local@0.3.2"] }`) · VS Code 는 `code --add-mcp '{"name":"on-local","command":"npx","args":["-y","on-munseo-local@0.3.2"]}'`
+  Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.3.3` · 윈도우 Claude Code 는 `claude mcp add -s user on-local -- cmd /c npx -y on-munseo-local@0.3.3` · Cursor·Claude 데스크톱은 설정 파일의 `"mcpServers"` 에 `"on-local": { "command": "npx", "args": ["-y", "on-munseo-local@0.3.3"] }`(윈도우 `"on-local": { "command": "cmd", "args": ["/c", "npx", "-y", "on-munseo-local@0.3.3"] }`) · VS Code 는 `code --add-mcp '{"name":"on-local","command":"npx","args":["-y","on-munseo-local@0.3.3"]}'`
 - **사람이 이 PC 의 여러 AI 도구에 한 번에** — Claude Code·Claude 데스크톱·Codex·Cursor·VS Code 를 찾아 모두 등록합니다(바꾸기 전에 백업, 이미 있으면 건너뜀, 미리 보기 `--dry-run`, 되돌리기 `--undo`, ②까지 `--pair`).
   ```bash
-  npx -y on-munseo-local@0.3.2 setup --pair
+  npx -y on-munseo-local@0.3.3 setup --pair
   ```
-- **판 고정** — 위 줄은 판 번호를 적어 붙입니다(`on-munseo-local@0.3.2`). 자동으로 새 판을 받지 않고, 사람이 올릴 때만 바뀝니다(npm 에 새 판이 올라와도 이미 붙인 판은 그대로 · 인터넷이 끊겨도 한 번 받은 판은 뜸). 새 판으로 올리기: `npx -y on-munseo-local@latest setup --update`(등록된 줄의 판 번호만 새 판으로 · 바꾸기 전 백업 · 미리 보기 `--dry-run`) · 바뀐 점: [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)
+- **판 고정** — 위 줄은 판 번호를 적어 붙입니다(`on-munseo-local@0.3.3`). 자동으로 새 판을 받지 않고, 사람이 올릴 때만 바뀝니다(npm 에 새 판이 올라와도 이미 붙인 판은 그대로 · 인터넷이 끊겨도 한 번 받은 판은 뜸). 새 판으로 올리기: `npx -y on-munseo-local@latest setup --update`(등록된 줄의 판 번호만 새 판으로 · 바꾸기 전 백업 · 미리 보기 `--dry-run`) · 바뀐 점: [CHANGELOG](https://github.com/on-munseo/on-local/blob/main/CHANGELOG.md)
 
 **② 짝 주소(법령) — 도구에 넣은 낱말·글만 서버로.** 법령 원문·글 속 인용 확인(On 근거)은 서버에만 있습니다. 서버로 가는 것은 넣은 법령 이름·조문 번호·인용을 확인할 글이고, 파일을 보내는 도구는 없습니다. 인용을 확인할 글에 개인정보가 있으면 ① 의 `on_mask_text` 로 가린 뒤 넣습니다.
 - 지금 쓰는 도구에만(① 의 `setup --pair` 는 ② 까지 함께 붙임):
@@ -164,10 +164,10 @@ AI 채팅이나 Claude Code 에 On 문서를 붙이면([AI 도구에 붙이기](
 보통은 ①과 ② 를 지금 쓰는 도구에 붙입니다(사람이 여러 도구에 한 번에 붙일 때는 `setup --pair` 한 줄). Node.js 가 없거나 Claude 데스크톱·claude.ai 커넥터만 쓰면 ③ 하나만 붙입니다. ③을 ①·②와 함께 붙이면 같은 도구가 두 번 보입니다. 다른 길은 사용자가 따로 바랄 때만 알려 줍니다.
 
 **설치 전에 확인할 거리** — AI 가 스스로 확인할 수 있습니다.
-- **꾸러미**: npm `on-munseo-local` 0.3.2. `npm view on-munseo-local version maintainers homepage` → `0.3.2` · `on-munseo <onmunseo.key@gmail.com>` · `https://onmunseo.kr`. 올린 계정 `on-munseo` 는 이 깃허브 조직 [on-munseo](https://github.com/on-munseo)와 같은 만든 이입니다(문의 메일·홈 주소가 같음). npm 웹 쪽은 자동 읽기를 막을 때가 있어 npm 명령이나 [npm 기록](https://registry.npmjs.org/on-munseo-local/0.3.1)으로 봅니다.
-- **지문**: `on-munseo-local-0.3.2.tgz` SHA-256 `544204ddb98ccb6f96f24a838db0ccf32e6960b539dbe82c148fafa9b4bda9d8`([SHA256SUMS](https://github.com/on-munseo/on-munseo.github.io/blob/main/SHA256SUMS)). `npm pack on-munseo-local@0.3.2` 뒤 `shasum -a 256 on-munseo-local-0.3.1.tgz` 로 맞대 봅니다. npm 기록의 `dist.integrity` 는 `sha512-xxXG3RgcFJtNI5NlZ7uh+qciJl0YYWwHt/RtOZW81fYMnNYXOd0DxoQiIQss0r53uSvfJiuJi67UWsuN4hVJ0g==`.
+- **꾸러미**: npm `on-munseo-local` 0.3.3. `npm view on-munseo-local version maintainers homepage` → `0.3.3` · `on-munseo <onmunseo.key@gmail.com>` · `https://onmunseo.kr`. 올린 계정 `on-munseo` 는 이 깃허브 조직 [on-munseo](https://github.com/on-munseo)와 같은 만든 이입니다(문의 메일·홈 주소가 같음). npm 웹 쪽은 자동 읽기를 막을 때가 있어 npm 명령이나 [npm 기록](https://registry.npmjs.org/on-munseo-local/0.3.1)으로 봅니다.
+- **지문**: `on-munseo-local-0.3.3.tgz` SHA-256 `a08cff196dd6f874941f1b2f1d0811bbc74f0a3e6b0ac60700db55297e902063`([SHA256SUMS](https://github.com/on-munseo/on-munseo.github.io/blob/main/SHA256SUMS)). `npm pack on-munseo-local@0.3.3` 뒤 `shasum -a 256 on-munseo-local-0.3.1.tgz` 로 맞대 봅니다. npm 기록의 `dist.integrity` 는 `sha512-xxXG3RgcFJtNI5NlZ7uh+qciJl0YYWwHt/RtOZW81fYMnNYXOd0DxoQiIQss0r53uSvfJiuJi67UWsuN4hVJ0g==`.
 - **인터넷을 쓰지 않음**: 설치 전에는 꾸러미 안 `MANIFEST.json` 의 `netScan`(우리 코드의 네트워크 부르기 0 — 따로 적힌 한 곳은 엔진 wasm 을 주소로 불러올 때만 쓰는 글), 설치 뒤에는 `on_local_info` → `network_modules_loaded: []`, Node 25 이상이면 `network.blocked_by_node: true`(실행기가 네트워크를 막음). 띄울 때 npx 가 npm 저장소에 새 판을 묻는 것은 npx 의 동작입니다(없애려면 전역 설치 뒤 `on-munseo-local` 명령으로).
-- **이용 조건**: 내 PC 판 [LICENSE.md](https://unpkg.com/on-munseo-local@0.3.2/LICENSE.md)(무료·업무에 써도 됨 · 역공학·고친 판 다시 배포·판매는 안 됨) · 서버 판 [이용약관](https://onmunseo.kr/terms)·[개인정보 처리방침](https://onmunseo.kr/privacy).
+- **이용 조건**: 내 PC 판 [LICENSE.md](https://unpkg.com/on-munseo-local@0.3.3/LICENSE.md)(무료·업무에 써도 됨 · 역공학·고친 판 다시 배포·판매는 안 됨) · 서버 판 [이용약관](https://onmunseo.kr/terms)·[개인정보 처리방침](https://onmunseo.kr/privacy).
 - **On폭 글꼴**은 이 설치와 상관없습니다(한글 문서를 화면에 그릴 때 쓰는 무료 글꼴, 선택).
 
 등록한 그 대화에는 도구가 아직 붙지 않습니다. 끝나면 사용자에게 「도구를 한 번 다시 켜거나 새 대화를 열면 On 문서 도구가 보입니다」라고 알려 주세요. `claude mcp list`(Codex 는 `codex mcp list`) 목록에 이름이 보이면 등록된 것입니다. 자세한 순서: [llms-install.md](llms-install.md)
@@ -182,9 +182,9 @@ AI 채팅이나 Claude Code 에 On 문서를 붙이면([AI 도구에 붙이기](
 
 | 무엇 | 값 | 다시 재는 법 |
 |---|---|---|
-| 영어 PDF 200개 — [opendataloader-bench](https://github.com/opendataloader-project/opendataloader-bench) 공식 채점기(고치지 않음) 종합 | 내 PC 판 **0.3.2 묶음(게시 전)** — 가벼운 글자 인식 포함 **0.971**(0.9713, 더 자세히 0.97132 · 읽는 순서 0.973 · 표 0.981 · 제목 0.959). 서버 판 0.97136 과 200개 중 190개 출력이 바이트까지 같음(2026-11-28) | [repro/opendataloader-bench](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench) — 재현 명령의 npm 판은 아직 `on-munseo-local@0.3.2`. 같은 대본으로 잰 0.3.2 묶음은 게시 전. 글자 인식이 없던 옛 판 0.2.0~0.3.0 은 0.945 |
-| 서식 채우기 — 법제처 공개 법령 서식·별지 709개 | 값을 넣은 655개 가운데 **638개가 원래 서식 그대로**(글꼴·문단·표 모양과 그림은 바이트 그대로, 본문 짜임 같음, 빠진 글자 0 — 도구가 미리 알린 자리 표시 글을 값으로 갈아 끼운 24칸은 따로 셈). 남은 17개 가운데 14개는 「처리기간」 칸에 그 문단에 없던 글자 모양으로 값을 넣은 것, 1개는 날짜 칸과 쌍점 칸이 겹친 서식의 결함(고칠 것) | [repro/form-fill](https://github.com/on-munseo/on-local/tree/main/repro/form-fill) — npm `on-munseo-local@0.3.2` · 서식 709개의 원 출처 주소·SHA-1 목록. 다섯 번 돌려 만든 파일 지문이 모두 같음. 0.2.0 은 654개 중 653개 |
-| 개인정보 찾기 — 공개 시험 [korean-pii-benchmark-v3](https://huggingface.co/datasets/schift-io/korean-pii-benchmark-v3) 473줄(정답은 그 시험의 표시, 채점 정의는 우리가 적음) | 사람 이름 찾음률 **95.6%**(정밀도 100%) · 주소 **97.9%**(100%) · 가리면 안 되는 문장 59줄 중 가린 줄 0. 약한 곳: 지역번호로 시작하는 일반 전화 43.1%(휴대전화는 모두 찾음). 이 시험은 규칙을 고칠 때 본 것이라 실제보다 높게 나올 수 있음 | [repro/korean-pii](https://github.com/on-munseo/on-local/tree/main/repro/korean-pii) — `on-munseo-local@0.3.2`(서버 판과 같은 모델·같은 값 · 0.2.1 도 같음). 다섯 번 돌려 473줄 찾은 자리가 모두 같음 |
+| 영어 PDF 200개 — [opendataloader-bench](https://github.com/opendataloader-project/opendataloader-bench) 공식 채점기(고치지 않음) 종합 | 내 PC 판 **0.3.2 묶음(게시 전)** — 가벼운 글자 인식 포함 **0.971**(0.9713, 더 자세히 0.97132 · 읽는 순서 0.973 · 표 0.981 · 제목 0.959). 서버 판 0.97136 과 200개 중 190개 출력이 바이트까지 같음(2026-11-28) | [repro/opendataloader-bench](https://github.com/on-munseo/on-local/tree/main/repro/opendataloader-bench) — 재현 명령의 npm 판은 아직 `on-munseo-local@0.3.3`. 같은 대본으로 잰 0.3.2 묶음은 게시 전. 글자 인식이 없던 옛 판 0.2.0~0.3.0 은 0.945 |
+| 서식 채우기 — 법제처 공개 법령 서식·별지 709개 | 값을 넣은 655개 가운데 **638개가 원래 서식 그대로**(글꼴·문단·표 모양과 그림은 바이트 그대로, 본문 짜임 같음, 빠진 글자 0 — 도구가 미리 알린 자리 표시 글을 값으로 갈아 끼운 24칸은 따로 셈). 남은 17개 가운데 14개는 「처리기간」 칸에 그 문단에 없던 글자 모양으로 값을 넣은 것, 1개는 날짜 칸과 쌍점 칸이 겹친 서식의 결함(고칠 것) | [repro/form-fill](https://github.com/on-munseo/on-local/tree/main/repro/form-fill) — npm `on-munseo-local@0.3.3` · 서식 709개의 원 출처 주소·SHA-1 목록. 다섯 번 돌려 만든 파일 지문이 모두 같음. 0.2.0 은 654개 중 653개 |
+| 개인정보 찾기 — 공개 시험 [korean-pii-benchmark-v3](https://huggingface.co/datasets/schift-io/korean-pii-benchmark-v3) 473줄(정답은 그 시험의 표시, 채점 정의는 우리가 적음) | 사람 이름 찾음률 **95.6%**(정밀도 100%) · 주소 **97.9%**(100%) · 가리면 안 되는 문장 59줄 중 가린 줄 0. 약한 곳: 지역번호로 시작하는 일반 전화 43.1%(휴대전화는 모두 찾음). 이 시험은 규칙을 고칠 때 본 것이라 실제보다 높게 나올 수 있음 | [repro/korean-pii](https://github.com/on-munseo/on-local/tree/main/repro/korean-pii) — `on-munseo-local@0.3.3`(서버 판과 같은 모델·같은 값 · 0.2.1 도 같음). 다섯 번 돌려 473줄 찾은 자리가 모두 같음 |
 
 - 서버 판 기본 읽기는 0.9714, 정밀 읽기는 0.9705 입니다(2026-11-28). 내 PC 판 0.3.2 묶음(게시 전)의 0.97132 는 위와 같은 공개 대본으로 쟀습니다. 정밀 읽기는 서버에만 있어 이 내 PC 판 대본으로는 재현되지 않습니다. 서버 판 값은 MCP 로 다시 잴 수 있으나 손님 하루 몫(한 주소 100번) 안에서 나눠 재야 합니다.
 - 내 PC 판과 서버 판 결과 대조: 네트워크를 막은 내 PC 판 0.3.2 후보로 공개 문서 153개를 2,091번 대조해 모두 같았습니다(가린 한글 29개는 바이트까지 같음).

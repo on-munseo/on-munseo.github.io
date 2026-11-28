@@ -23,7 +23,7 @@ AI 는 이 저장소의 [llms-install.md](llms-install.md)를 읽고 순서대�
 ## 손으로 붙이기
 
 <!-- ai-install -->
-**먼저 — 내 PC 판(문서를 이 컴퓨터 밖으로 보내지 않음, 인터넷 안 씀):** Claude Code 는 `claude mcp add -s user on-local -- npx -y on-munseo-local@0.3.2`, Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.3.2`(사람이 이 PC 의 여러 AI 도구에 한 번에: `npx -y on-munseo-local@0.3.2 setup --pair` — 법령 짝 주소까지) · 판 고정 — 자동으로 새 판을 받지 않음, 새 판으로 올리기: `npx -y on-munseo-local@latest setup --update`(등록된 줄의 판 번호만 새 판으로 · 바꾸기 전 백업 · 미리 보기 `--dry-run`). Node.js 20 이상(띄울 때 npx 가 npm 저장소에 새 판을 묻는 것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). 법령은 짝 주소 `https://onmunseo.kr/mcp/law`(도구에 넣은 낱말·글만 서버로). 아래 표는 ③ 서버 판(Node 없이 바로 — 공개 문서용) 붙이는 법입니다. 확인할 거리(꾸러미·지문·만든 이·이용 조건)는 [README 의 설치 안내](README.md#설치-안내사람ai-공통)에 있습니다.
+**먼저 — 내 PC 판(문서를 이 컴퓨터 밖으로 보내지 않음, 인터넷 안 씀):** Claude Code 는 `claude mcp add -s user on-local -- npx -y on-munseo-local@0.3.3`, Codex 는 `codex mcp add on-local -- npx -y on-munseo-local@0.3.3`(사람이 이 PC 의 여러 AI 도구에 한 번에: `npx -y on-munseo-local@0.3.3 setup --pair` — 법령 짝 주소까지) · 판 고정 — 자동으로 새 판을 받지 않음, 새 판으로 올리기: `npx -y on-munseo-local@latest setup --update`(등록된 줄의 판 번호만 새 판으로 · 바꾸기 전 백업 · 미리 보기 `--dry-run`). Node.js 20 이상(띄울 때 npx 가 npm 저장소에 새 판을 묻는 것까지 없애려면 `npm install -g on-munseo-local` 뒤 명령을 `on-munseo-local` 로). 법령은 짝 주소 `https://onmunseo.kr/mcp/law`(도구에 넣은 낱말·글만 서버로). 아래 표는 ③ 서버 판(Node 없이 바로 — 공개 문서용) 붙이는 법입니다. 확인할 거리(꾸러미·지문·만든 이·이용 조건)는 [README 의 설치 안내](README.md#설치-안내사람ai-공통)에 있습니다.
 <!-- ai-install -->
 
 주소: `https://onmunseo.kr/mcp`
